@@ -14,6 +14,7 @@ import net.larry1123.lib.logger.EELogger.EECLogger;
 public abstract class UtilPlugin extends Plugin {
 
     protected String pluginLogger;
+    protected EECLogger logger = EELogger.getLogger(getName());
 
     @Override
     public void disable() {
@@ -44,7 +45,7 @@ public abstract class UtilPlugin extends Plugin {
     }
 
     public EECLogger getLogger() {
-	return EELogger.getLogger(getName());
+	return logger;
     }
 
     @Override

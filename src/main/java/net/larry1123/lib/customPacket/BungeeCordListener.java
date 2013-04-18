@@ -21,8 +21,6 @@ PluginListener {
 
     @HookHandler
     public void addToChannle(ConnectionHook hook) {
-	Canary.channels().registerClient("BungeeCord",
-		hook.getPlayer().getNetServerHandler());
 	BungeeCord
 	.addPlayerIp(hook.getPlayer(), hook.getPlayer().getIP(), this);
 	Canary.channels().sendCustomPayloadToPlayer("BungeeCord",

@@ -64,13 +64,10 @@ public class EELogger {
 	    }
 	}
 
-	private final String name;
-
 	private static final HashMap<String, FileHandler> fileHandlers = new HashMap<String, FileHandler>();
 
 	public EECLogger(String name) {
 	    super(name);
-	    this.name = name;
 	}
 
 	public String addLoggerLevel(String errorName) {
@@ -87,7 +84,7 @@ public class EELogger {
 	    int place = pathName.lastIndexOf('/');
 	    if (place != -1) {
 		File logDir = new File(EELogger.logPath
-			+ pathName.substring(place, -1));
+			+ pathName.substring(place, pathName.length()));
 		if (!logDir.exists()) {
 		    logDir.mkdirs();
 		}
@@ -100,7 +97,7 @@ public class EELogger {
 		fhand.setLevel(getLoggerLevel(name));
 		fhand.setFormatter(lf);
 		fhand.setEncoding("UTF-8");
-
+		addHandler(fhand);
 		fileHandlers.put(name, fhand);
 	    } catch (SecurityException e) {
 		EELogger.log.logCustom(EELogger.LoggerError,
@@ -115,7 +112,8 @@ public class EELogger {
 	    String name = LoggerLevels.addLoggerLevel(errorName, prefix);
 
 	    File logDir = new File(EELogger.logPath
-		    + pathName.substring(pathName.lastIndexOf('/'), -1));
+		    + pathName.substring(pathName.lastIndexOf('/'),
+			    pathName.length()));
 	    if (!logDir.exists()) {
 		logDir.mkdirs();
 	    }
@@ -127,7 +125,7 @@ public class EELogger {
 		fhand.setLevel(getLoggerLevel(name));
 		fhand.setFormatter(lf);
 		fhand.setEncoding("UTF-8");
-
+		addHandler(fhand);
 		fileHandlers.put(name, fhand);
 	    } catch (SecurityException e) {
 		EELogger.log.logCustom(EELogger.LoggerError,
@@ -148,14 +146,16 @@ public class EELogger {
 	    String msg = logRecord.getMessage();
 	    if (level instanceof LoggerLevel) {
 		LoggerLevel handle = (LoggerLevel) level;
-		if (!handle.getPrefix().equals("")) {
+		if (!handle.getPrefix().isEmpty()) {
 		    logRecord.setMessage(" [" + handle.getName() + "] ["
 			    + handle.getPrefix() + "] " + msg);
 		} else {
 		    logRecord.setMessage(" [" + handle.getName() + "] " + msg);
 		}
 	    } else {
-		logRecord.setMessage(new StringBuilder("[").append(name).append("] ").append(logRecord.getMessage()).toString());
+		logRecord.setMessage(new StringBuilder("[")
+		.append(level.getName()).append("] ")
+		.append(logRecord.getMessage()).toString());
 	    }
 	    super.log(logRecord);
 	}
@@ -184,6 +184,9 @@ public class EELogger {
 
     public static final EECLogger log;
     public static final String logPath = "PluginsLogs/";
+    private final static String LoggerError = addLoggerLevel(
+	    "ElecEntertainmentLogger", "FileHandler");
+    private final static HashMap<String, EECLogger> loggers = new HashMap<String, EECLogger>();
 
     static {
 	log = new EECLogger("ElecEntertainmentLogger");
@@ -196,8 +199,6 @@ public class EELogger {
 	}
     }
 
-    private final static String LoggerError = log.addLoggerLevel("ElecEntertainmentLogger", "FileHandler");
-
     public static String addLoggerLevel(String errorName) {
 	return LoggerLevels.addLoggerLevel(errorName);
     }
@@ -207,7 +208,13 @@ public class EELogger {
     }
 
     public static EECLogger getLogger(String name) {
-	return (EECLogger) Logman.getLogman(name);
+	if (!loggers.containsKey(name)) {
+	    EECLogger logman = new EECLogger(name);
+	    logman.setParent(Logger.getLogger("Minecraft-Server"));
+
+	    loggers.put(name, logman);
+	}
+	return loggers.get(name);
     }
 
     public static LoggerLevel getLoggerLevel(String name) {

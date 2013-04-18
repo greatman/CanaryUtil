@@ -20,6 +20,8 @@ public class CanaryUtil extends UtilPlugin {
 
     }
 
+    static CoustomPacket coustompacket = new CoustomPacket();
+
     public static CoustomPacket coustomPacket() {
 	return coustompacket;
     }
@@ -28,19 +30,16 @@ public class CanaryUtil extends UtilPlugin {
 
     protected String author = "Larry1123";
 
-    static CoustomPacket coustompacket = new CoustomPacket();
-
     @Override
     public void disable() {
-	getLogger().logCustom(pluginLogger, "Plugin Disabled");
+	logger.logCustom(pluginLogger, "Plugin Disabled");
 	endLogger();
-
     }
 
     @Override
     public boolean enable() {
 	startLogger();
-	getLogger().logCustom(pluginLogger, "Plugin Enabled");
+	logger.logCustom(pluginLogger, "Plugin Enabled");
 	return true;
     }
 
