@@ -12,7 +12,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.logging.FileHandler;
+import java.util.logging.Filter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -24,7 +26,33 @@ public class EELogger {
 
     public static class EECLogger extends Logman {
 
-	private final static class UtilsLogFormat extends SimpleFormatter {
+	final class UtilFilter implements Filter {
+
+	    private final LinkedList<LoggerLevel> allowed = new LinkedList<LoggerLevel>();
+
+	    public void addLogLevel(String name) {
+		allowed.add(getLoggerLevel(name));
+	    }
+
+	    @Override
+	    public boolean isLoggable(LogRecord rec) {
+
+		Level level = rec.getLevel();
+
+		if (allowed.contains(level)) {
+		    return true;
+		} else {
+		    return false;
+		}
+	    }
+
+	    public void removeLogLevel(String name) {
+		allowed.remove(getLoggerLevel(name));
+	    }
+
+	}
+
+	private final class UtilsLogFormat extends SimpleFormatter {
 
 	    private final SimpleDateFormat dateform = new SimpleDateFormat(
 		    "dd-MM-yyyy HH:mm:ss");
@@ -83,22 +111,18 @@ public class EELogger {
 
 	    int place = pathName.lastIndexOf('/');
 	    if (place != -1) {
-		File logDir = new File(EELogger.logPath
-			+ pathName.substring(place, pathName.length()));
+		File logDir = new File(pathName.substring(place,
+			pathName.length()));
 		if (!logDir.exists()) {
 		    logDir.mkdirs();
 		}
 	    }
 
 	    try {
-		UtilsLogFormat lf = new UtilsLogFormat();
-		FileHandler fhand = new FileHandler(EELogger.logPath + pathName
-			+ ".log", true);
-		fhand.setLevel(getLoggerLevel(name));
-		fhand.setFormatter(lf);
-		fhand.setEncoding("UTF-8");
-		addHandler(fhand);
-		fileHandlers.put(name, fhand);
+		FileHandler handler = gethandler(pathName + ".log");
+		UtilFilter filter = (UtilFilter) handler.getFilter();
+		filter.addLogLevel(name);
+
 	    } catch (SecurityException e) {
 		EELogger.log.logCustom(EELogger.LoggerError,
 			"SecurityException");
@@ -111,22 +135,17 @@ public class EELogger {
 	public String addLoggerLevelWFile(String errorName, String prefix, String pathName) {
 	    String name = LoggerLevels.addLoggerLevel(errorName, prefix);
 
-	    File logDir = new File(EELogger.logPath
-		    + pathName.substring(pathName.lastIndexOf('/'),
-			    pathName.length()));
+	    File logDir = new File(pathName.substring(
+		    pathName.lastIndexOf('/'), pathName.length()));
 	    if (!logDir.exists()) {
 		logDir.mkdirs();
 	    }
 
 	    try {
-		UtilsLogFormat lf = new UtilsLogFormat();
-		FileHandler fhand = new FileHandler(EELogger.logPath + pathName
-			+ ".log", true);
-		fhand.setLevel(getLoggerLevel(name));
-		fhand.setFormatter(lf);
-		fhand.setEncoding("UTF-8");
-		addHandler(fhand);
-		fileHandlers.put(name, fhand);
+		FileHandler handler = gethandler(pathName
+			+ ".log");
+		UtilFilter filter = (UtilFilter) handler.getFilter();
+		filter.addLogLevel(name);
 	    } catch (SecurityException e) {
 		EELogger.log.logCustom(EELogger.LoggerError,
 			"SecurityException");
@@ -134,6 +153,24 @@ public class EELogger {
 		EELogger.log.logCustom(EELogger.LoggerError, "IOException");
 	    }
 	    return name;
+	}
+
+	private FileHandler gethandler(String pathName)
+		throws SecurityException, IOException {
+
+	    if (!fileHandlers.containsKey(pathName)) {
+		FileHandler handler = new FileHandler(pathName, true);
+
+		UtilsLogFormat lf = new UtilsLogFormat();
+		handler.setFilter(new UtilFilter());
+		handler.setLevel(Level.ALL);
+		handler.setFormatter(lf);
+		handler.setEncoding("UTF-8");
+
+		fileHandlers.put(pathName, handler);
+	    }
+	    return fileHandlers.get(pathName);
+
 	}
 
 	public LoggerLevel getLoggerLevel(String name) {
@@ -153,8 +190,8 @@ public class EELogger {
 		    logRecord.setMessage(" " + msg);
 		}
 	    } else {
-		logRecord.setMessage(new StringBuilder(" ")
-		.append(logRecord.getMessage()).toString());
+		logRecord.setMessage(new StringBuilder(" ").append(
+			logRecord.getMessage()).toString());
 	    }
 	    super.log(logRecord);
 	}

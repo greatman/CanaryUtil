@@ -13,6 +13,8 @@ import net.larry1123.lib.logger.EELogger.EECLogger;
 
 public abstract class UtilPlugin extends Plugin {
 
+    protected String defultLoggerPath = EELogger.logPath + getName() + "/"
+	    + getName();
     protected String pluginLogger;
     protected EECLogger logger = EELogger.getLogger(getName());
 
@@ -60,7 +62,7 @@ public abstract class UtilPlugin extends Plugin {
 
     public void startLogger() {
 	pluginLogger = getLogger().addLoggerLevelWFile(getName(),
-		getName() + "/" + getName());
+		defultLoggerPath);
     }
 
 }
