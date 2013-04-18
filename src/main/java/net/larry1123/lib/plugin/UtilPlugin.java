@@ -16,6 +16,11 @@ public abstract class UtilPlugin extends Plugin {
     protected String pluginLogger;
     protected EECLogger logger = EELogger.getLogger(getName());
 
+    public String addSubLoggerLevel(String prefix) {
+	return getLogger().addLoggerLevelWFile(pluginLogger, prefix,
+		getName() + "/" + prefix);
+    }
+
     @Override
     public void disable() {
 	// TODO Auto-generated method stub
@@ -50,7 +55,7 @@ public abstract class UtilPlugin extends Plugin {
 
     @Override
     public Logman getLogman() {
-	return EELogger.getLogger(getName());
+	return getLogger();
     }
 
     public void startLogger() {

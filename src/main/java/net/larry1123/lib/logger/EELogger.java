@@ -147,14 +147,13 @@ public class EELogger {
 	    if (level instanceof LoggerLevel) {
 		LoggerLevel handle = (LoggerLevel) level;
 		if (!handle.getPrefix().isEmpty()) {
-		    logRecord.setMessage(" [" + handle.getName() + "] ["
-			    + handle.getPrefix() + "] " + msg);
+		    logRecord
+		    .setMessage(" [" + handle.getPrefix() + "] " + msg);
 		} else {
-		    logRecord.setMessage(" [" + handle.getName() + "] " + msg);
+		    logRecord.setMessage(" " + msg);
 		}
 	    } else {
-		logRecord.setMessage(new StringBuilder("[")
-		.append(level.getName()).append("] ")
+		logRecord.setMessage(new StringBuilder(" ")
 		.append(logRecord.getMessage()).toString());
 	    }
 	    super.log(logRecord);
@@ -178,12 +177,15 @@ public class EELogger {
 
 	public void removeLoggerLevel(String name) {
 	    LoggerLevels.removeLoggerLevel(name);
+	    if (fileHandlers.containsKey(name)) {
+		removeHandler(fileHandlers.remove(name));
+	    }
 	}
 
     }
 
     public static final EECLogger log;
-    public static final String logPath = "PluginsLogs/";
+    public static final String logPath = "PluginLogs/";
     private final static String LoggerError = addLoggerLevel(
 	    "ElecEntertainmentLogger", "FileHandler");
     private final static HashMap<String, EECLogger> loggers = new HashMap<String, EECLogger>();

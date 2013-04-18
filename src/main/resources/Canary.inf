@@ -1,4 +1,4 @@
 main-class = net.larry1123.lib.CanaryUtil
-isLibrary = true
+isLibrary = false
 author = Larry1123
 version = 0.0.1
