@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
- * @team Larry1123, JoshtMathews, Sinzo, Xalbec
- * @lastedit Jan 21, 2013 3:46:40 PM
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Apr 18, 2013 2:14:06 AM
  */
 
 package net.larry1123.lib.logger;

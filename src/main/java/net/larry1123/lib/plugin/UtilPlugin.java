@@ -1,3 +1,9 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Apr 18, 2013 2:14:21 AM
+ */
+
 package net.larry1123.lib.plugin;
 
 import net.canarymod.logger.Logman;
