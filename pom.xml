@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>CanaryUtil</groupId>
+  <artifactId>CanaryUtil</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+    <dependency>
+      <groupId>net.canarymod</groupId>
+      <artifactId>CanaryLib</artifactId>
+    </dependency>
+  </dependencies>
+    
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>net.canarymod</groupId>
+  			<artifactId>CanaryLib</artifactId>
+  			<version>0.6-SNAPSHOT</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
+  
+  <scm>
+  	<url>https://github.com/Larry1123/CanaryUtil</url>
+  	<connection>scm:git:git://github.com/Larry1123/CanaryUtil.git</connection>
+  	<developerConnection>scm:git:git@github.com:Larry1123/CanaryUtil.git</developerConnection>
+  </scm>
+</project>
