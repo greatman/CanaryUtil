@@ -13,7 +13,6 @@ public abstract class UtilPlugin extends Plugin {
     public void disable() {
 	// TODO Auto-generated method stub
 	endLogger();
-
     }
 
     @Override
