@@ -47,7 +47,8 @@ public abstract class UtilPlugin extends Plugin {
     }
 
     public void startLogger() {
-	pluginLogger = getLogger().addLoggerLevel(getName());
+	pluginLogger = getLogger().addLoggerLevelWFile(getName(),
+		getName() + "/" + getName());
     }
 
 }

@@ -84,10 +84,13 @@ public class EELogger {
 	public String addLoggerLevelWFile(String errorName, String pathName) {
 	    String name = LoggerLevels.addLoggerLevel(errorName);
 
-	    File logDir = new File(EELogger.logPath
-		    + pathName.substring(pathName.lastIndexOf('/'), -1));
-	    if (!logDir.exists()) {
-		logDir.mkdirs();
+	    int place = pathName.lastIndexOf('/');
+	    if (place != -1) {
+		File logDir = new File(EELogger.logPath
+			+ pathName.substring(place, -1));
+		if (!logDir.exists()) {
+		    logDir.mkdirs();
+		}
 	    }
 
 	    try {
