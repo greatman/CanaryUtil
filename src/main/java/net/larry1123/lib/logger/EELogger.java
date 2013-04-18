@@ -100,9 +100,10 @@ public class EELogger {
 
 		fileHandlers.put(name, fhand);
 	    } catch (SecurityException e) {
-		// TODO Auto-generated catch block
+		EELogger.log.logCustom(EELogger.LoggerError,
+			"SecurityException");
 	    } catch (IOException e) {
-		// TODO Auto-generated catch block
+		EELogger.log.logCustom(EELogger.LoggerError, "IOException");
 	    }
 	    return name;
 	}
@@ -126,9 +127,10 @@ public class EELogger {
 
 		fileHandlers.put(name, fhand);
 	    } catch (SecurityException e) {
-		// TODO Auto-generated catch block
+		EELogger.log.logCustom(EELogger.LoggerError,
+			"SecurityException");
 	    } catch (IOException e) {
-		// TODO Auto-generated catch block
+		EELogger.log.logCustom(EELogger.LoggerError, "IOException");
 	    }
 	    return name;
 	}
@@ -184,11 +186,14 @@ public class EELogger {
 	log = new EECLogger("ElecEntertainmentLogger");
 	log.setParent(Logger.getLogger("Minecraft-Server"));
 	log.setLevel(Level.ALL);
+
 	File logDir = new File(logPath);
 	if (!logDir.exists()) {
 	    logDir.mkdirs();
 	}
     }
+
+    private final static String LoggerError = log.addLoggerLevel("ElecEntertainmentLogger", "FileHandler");
 
     public static String addLoggerLevel(String errorName) {
 	return LoggerLevels.addLoggerLevel(errorName);
