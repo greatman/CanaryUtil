@@ -19,10 +19,11 @@ public class LoggerLevel extends Level {
 	return baselvl;
     }
 
-    private String prefix = "";
+    private final String prefix;
 
     LoggerLevel(String name) {
 	super(name, genLevel());
+	prefix = "";
     }
 
     LoggerLevel(String name, String prefix) {

@@ -9,26 +9,34 @@ package net.larry1123.lib.plugin;
 import net.canarymod.logger.Logman;
 import net.canarymod.plugin.Plugin;
 import net.larry1123.lib.logger.EELogger;
-import net.larry1123.lib.logger.EELogger.EECLogger;
 
 public abstract class UtilPlugin extends Plugin {
 
-    protected String defultLoggerPath = EELogger.logPath + getName() + "/"
+    protected String defultLoggerPath = EELogger.logPath + getName() + '/'
 	    + getName();
-    protected String pluginLogger;
-    protected EECLogger logger = EELogger.getLogger(getName());
+    protected String pluginLoggerLevel;
+    protected EELogger logger = EELogger.getLogger(getName());
 
     public String addSubLoggerLevel(String prefix) {
-	return getLogger().addLoggerLevelWFile(pluginLogger, prefix,
+	return getLogger().addLoggerLevelWFile(pluginLoggerLevel, prefix,
 		getName() + "/" + prefix);
     }
 
+    /**
+     * CanaryMod will call this upon disabling this plugin
+     */
     @Override
     public void disable() {
 	// TODO Auto-generated method stub
 	endLogger();
     }
 
+    /**
+     * CanaryMod will call this upon enabling this plugin
+     * 
+     * @return {@code true} to signal successful enable; {@code false} if known
+     *         to be unable to run
+     */
     @Override
     public boolean enable() {
 	startLogger();
@@ -37,21 +45,21 @@ public abstract class UtilPlugin extends Plugin {
     }
 
     public void enableFailed() {
-	getLogger().logCustom(pluginLogger, "Plugin Could not be Enabled!");
-	getLogger().removeLoggerLevel(pluginLogger);
+	getLogger().logCustom(pluginLoggerLevel, "Plugin Could not be Enabled!");
+	getLogger().removeLoggerLevel(pluginLoggerLevel);
     }
 
     public void enableFailed(String reason) {
-	getLogger().logCustom(pluginLogger,
+	getLogger().logCustom(pluginLoggerLevel,
 		"Plugin Could not be Enabled, because" + reason);
-	getLogger().removeLoggerLevel(pluginLogger);
+	getLogger().removeLoggerLevel(pluginLoggerLevel);
     }
 
     public void endLogger() {
-	getLogger().removeLoggerLevel(pluginLogger);
+	getLogger().removeLoggerLevel(pluginLoggerLevel);
     }
 
-    public EECLogger getLogger() {
+    public EELogger getLogger() {
 	return logger;
     }
 
@@ -61,7 +69,7 @@ public abstract class UtilPlugin extends Plugin {
     }
 
     public void startLogger() {
-	pluginLogger = getLogger().addLoggerLevelWFile(getName(),
+	pluginLoggerLevel = getLogger().addLoggerLevelWFile(getName(),
 		defultLoggerPath);
     }
 

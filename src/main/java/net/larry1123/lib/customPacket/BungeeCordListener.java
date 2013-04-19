@@ -17,13 +17,12 @@ import net.canarymod.hook.player.DisconnectionHook;
 import net.canarymod.plugin.PluginListener;
 import net.larry1123.lib.CanaryUtil;
 import net.larry1123.lib.logger.EELogger;
-import net.larry1123.lib.logger.EELogger.EECLogger;
 
 public final class BungeeCordListener extends ChannelListener implements
 PluginListener {
 
-    private final EECLogger logger = EELogger.getLogger(CanaryUtil.class
-	    .getClass().getSimpleName());;
+    private final EELogger logger = EELogger.getLogger(CanaryUtil.class
+	    .getClass().getSimpleName());
 
     @HookHandler
     public void addToChannle(ConnectionHook hook) {

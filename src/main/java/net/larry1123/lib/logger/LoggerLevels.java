@@ -60,7 +60,7 @@ public class LoggerLevels {
      */
     public static String addLoggerLevel(String errorName, String prefix) {
 	String name = errorName.concat(prefix);
-	LoggerLevel lvl = new LoggerLevel(name, prefix);
+	LoggerLevel lvl = new LoggerLevel(errorName, prefix);
 	LoggerLevels.put(name, lvl);
 	return name;
     }
