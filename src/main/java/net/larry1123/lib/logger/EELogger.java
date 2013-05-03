@@ -37,11 +37,13 @@ public class EELogger extends Logman {
 
 	    Level level = rec.getLevel();
 
-	    if (allowed.contains(level)) {
-		return true;
-	    } else {
-		return false;
+	    if (level instanceof LoggerLevel) {
+		LoggerLevel handle = (LoggerLevel) level;
+		if (allowed.contains(handle)) {
+		    return true;
+		}
 	    }
+	    return false;
 	}
 
 	public void removeLogLevel(String name) {
@@ -73,16 +75,14 @@ public class EELogger extends Logman {
 		    message.append(msg);
 		}
 	    } else {
-		message.append(new StringBuilder("[")
-		.append(level.getName()).append("] ")
-		.append(rec.getMessage()).toString());
+		message.append(new StringBuilder("[").append(level.getName())
+			.append("] ").append(rec.getMessage()).toString());
 	    }
 
 	    message.append(linesep);
 	    if (rec.getThrown() != null) {
 		StringWriter stringwriter = new StringWriter();
-		rec.getThrown().printStackTrace(
-			new PrintWriter(stringwriter));
+		rec.getThrown().printStackTrace(new PrintWriter(stringwriter));
 		message.append(stringwriter.toString());
 	    }
 	    return message.toString();
@@ -120,6 +120,8 @@ public class EELogger extends Logman {
 	return loggers.get(name);
     }
 
+    private final HashMap<FileHandler, UtilFilter> a = new HashMap<FileHandler, UtilFilter>();
+
     public EELogger(String name) {
 	super(name);
     }
@@ -135,8 +137,29 @@ public class EELogger extends Logman {
     public String addLoggerLevelWFile(String errorName, String pathName) {
 	String name = LoggerLevels.addLoggerLevel(errorName);
 
-	File logDir = new File(pathName.substring(0,
-		pathName.lastIndexOf('/')));
+	File logDir = new File(pathName.substring(0, pathName.lastIndexOf('/')));
+	if (!logDir.exists()) {
+	    logDir.mkdirs();
+	}
+
+	try {
+	    FileHandler handler = gethandler(pathName + ".log");
+	    UtilFilter filter = a.get(handler);
+	    filter.addLogLevel(name);
+
+	} catch (SecurityException e) {
+	    EELogger.log.logCustom(EELogger.LoggerError, "SecurityException", e);
+	} catch (IOException e) {
+	    EELogger.log.logCustom(EELogger.LoggerError, "IOException", e);
+	}
+	return name;
+    }
+
+    public String addLoggerLevelWFile(String errorName, String prefix,
+	    String pathName) {
+	String name = LoggerLevels.addLoggerLevel(errorName, prefix);
+
+	File logDir = new File(pathName.substring(0, pathName.lastIndexOf('/')));
 	if (!logDir.exists()) {
 	    logDir.mkdirs();
 	}
@@ -145,47 +168,24 @@ public class EELogger extends Logman {
 	    FileHandler handler = gethandler(pathName + ".log");
 	    UtilFilter filter = (UtilFilter) handler.getFilter();
 	    filter.addLogLevel(name);
-
 	} catch (SecurityException e) {
-	    EELogger.log.logCustom(EELogger.LoggerError,
-		    "SecurityException", e);
+	    EELogger.log.logCustom(EELogger.LoggerError, "SecurityException", e);
 	} catch (IOException e) {
 	    EELogger.log.logCustom(EELogger.LoggerError, "IOException", e);
 	}
 	return name;
     }
 
-    public String addLoggerLevelWFile(String errorName, String prefix, String pathName) {
-	String name = LoggerLevels.addLoggerLevel(errorName, prefix);
-
-	File logDir = new File(pathName.substring(0,
-		pathName.lastIndexOf('/')));
-	if (!logDir.exists()) {
-	    logDir.mkdirs();
-	}
-
-	try {
-	    FileHandler handler = gethandler(pathName
-		    + ".log");
-	    UtilFilter filter = (UtilFilter) handler.getFilter();
-	    filter.addLogLevel(name);
-	} catch (SecurityException e) {
-	    EELogger.log.logCustom(EELogger.LoggerError,
-		    "SecurityException", e);
-	} catch (IOException e) {
-	    EELogger.log.logCustom(EELogger.LoggerError, "IOException", e);
-	}
-	return name;
-    }
-
-    private FileHandler gethandler(String pathName)
-	    throws SecurityException, IOException {
+    private FileHandler gethandler(String pathName) throws SecurityException,
+	    IOException {
 
 	if (!fileHandlers.containsKey(pathName)) {
-	    FileHandler handler = new FileHandler(pathName, true);
 
+	    FileHandler handler = new FileHandler(pathName, true);
 	    UtilsLogFormat lf = new UtilsLogFormat();
-	    handler.setFilter(new UtilFilter());
+	    UtilFilter uf = new UtilFilter();
+	    a.put(handler, uf);
+	    handler.setFilter(uf);
 	    handler.setLevel(Level.ALL);
 	    handler.setFormatter(lf);
 	    handler.setEncoding("UTF-8");

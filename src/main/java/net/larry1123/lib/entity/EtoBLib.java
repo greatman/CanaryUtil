@@ -26,9 +26,7 @@ public class EtoBLib {
      */
     public Block blokeB(Location eLocation) {
 
-	Location location = new Location(eLocation.getWorld(),
-		eLocation.getX(), eLocation.getY(), eLocation.getZ(),
-		eLocation.getPitch(), eLocation.getRotation());
+	Location location = new Location(eLocation.getWorld(), eLocation.getX(), eLocation.getY(), eLocation.getZ(), eLocation.getPitch(), eLocation.getRotation());
 
 	Block block = null;
 	Boolean f_b = false;
@@ -47,9 +45,7 @@ public class EtoBLib {
      */
     public Block blokey(Location eLocation) {
 
-	Location location = new Location(eLocation.getWorld(),
-		eLocation.getX(), eLocation.getY(), eLocation.getZ(),
-		eLocation.getPitch(), eLocation.getRotation());
+	Location location = new Location(eLocation.getWorld(), eLocation.getX(), eLocation.getY(), eLocation.getZ(), eLocation.getPitch(), eLocation.getRotation());
 
 	Block block = null;
 	Boolean f_b = true;
@@ -73,8 +69,7 @@ public class EtoBLib {
 
 	BlockFace direction = getDirection(location.getRotation());
 
-	block = location.getWorld().getBlockAt((int) location.getX(),
-		(int) location.getY(), (int) location.getZ());
+	block = location.getWorld().getBlockAt((int) location.getX(), (int) location.getY(), (int) location.getZ());
 
 	if (f_b) {
 	    block = block.getFacingBlock(direction);

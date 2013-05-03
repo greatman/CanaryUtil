@@ -76,8 +76,7 @@ public class LoggerLevels {
 	if (LoggerLevels.containsKey(name)) {
 	    return LoggerLevels.get(name);
 	}
-	return LoggerLevels
-		.get("ElecEntertainment-LoggerLevelFunctions-FailedToFindLoggerLevel-");
+	return LoggerLevels.get("ElecEntertainment-LoggerLevelFunctions-FailedToFindLoggerLevel-");
     }
 
     public static void removeLoggerLevel(String name) {

@@ -35,7 +35,7 @@
   		<dependency>
   			<groupId>net.canarymod</groupId>
   			<artifactId>CanaryLib</artifactId>
-  			<version>0.6-SNAPSHOT</version>
+  			<version>0.7-SNAPSHOT</version>
   		</dependency>
   	</dependencies>
   </dependencyManagement>

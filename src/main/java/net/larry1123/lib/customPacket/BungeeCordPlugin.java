@@ -13,7 +13,6 @@ public class BungeeCordPlugin extends Plugin {
     @Override
     public void disable() {
 	// TODO Auto-generated method stub
-
     }
 
     @Override
