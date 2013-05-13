@@ -14,8 +14,8 @@ public class LoggerLevels {
     public static String BaseString = "ElecEntertainmentLogger-";
 
     static {
-	addInternalLoggerLevel("LoggerLevelFunctions-FailedToCreateLoggerLevel");
-	addInternalLoggerLevel("LoggerLevelFunctions-FailedToFindLoggerLevel");
+        addInternalLoggerLevel("LoggerLevelFunctions-FailedToCreateLoggerLevel");
+        addInternalLoggerLevel("LoggerLevelFunctions-FailedToFindLoggerLevel");
     }
 
     /**
@@ -29,10 +29,10 @@ public class LoggerLevels {
      * @return String name of the Logger
      */
     public static String addInternalLoggerLevel(String errorName) {
-	String name = BaseString.concat(errorName);
-	LoggerLevel lvl = new LoggerLevel(name);
-	LoggerLevels.put(name, lvl);
-	return name;
+        String name = BaseString.concat(errorName);
+        LoggerLevel lvl = new LoggerLevel(name);
+        LoggerLevels.put(name, lvl);
+        return name;
     }
 
     /**
@@ -44,9 +44,9 @@ public class LoggerLevels {
      * @return String name of the Logger
      */
     public static String addLoggerLevel(String errorName) {
-	String name = errorName;
-	LoggerLevels.put(name, new LoggerLevel(name));
-	return name;
+        String name = errorName;
+        LoggerLevels.put(name, new LoggerLevel(name));
+        return name;
     }
 
     /**
@@ -59,10 +59,10 @@ public class LoggerLevels {
      * @return String name of the Logger
      */
     public static String addLoggerLevel(String errorName, String prefix) {
-	String name = errorName.concat(prefix);
-	LoggerLevel lvl = new LoggerLevel(errorName, prefix);
-	LoggerLevels.put(name, lvl);
-	return name;
+        String name = errorName.concat(prefix);
+        LoggerLevel lvl = new LoggerLevel(errorName, prefix);
+        LoggerLevels.put(name, lvl);
+        return name;
     }
 
     /**
@@ -73,14 +73,14 @@ public class LoggerLevels {
      * @return EE_LoggerLevel
      */
     public static LoggerLevel getLoggerLevel(String name) {
-	if (LoggerLevels.containsKey(name)) {
-	    return LoggerLevels.get(name);
-	}
-	return LoggerLevels.get("ElecEntertainment-LoggerLevelFunctions-FailedToFindLoggerLevel-");
+        if (LoggerLevels.containsKey(name)) {
+            return LoggerLevels.get(name);
+        }
+        return LoggerLevels.get("ElecEntertainment-LoggerLevelFunctions-FailedToFindLoggerLevel-");
     }
 
     public static void removeLoggerLevel(String name) {
-	LoggerLevels.remove(name);
+        LoggerLevels.remove(name);
     }
 
 }

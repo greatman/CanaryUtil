@@ -14,16 +14,16 @@ public class CanaryUtil extends UtilPlugin {
 
     public static class CoustomPacket {
 
-	public String getRealPlayerIp(Player player) {
-	    return BungeeCord.getRealPlayerIp(player);
-	}
+        public String getRealPlayerIp(Player player) {
+            return BungeeCord.getRealPlayerIp(player);
+        }
 
     }
 
     static CoustomPacket coustompacket = new CoustomPacket();
 
     public static CoustomPacket coustomPacket() {
-	return coustompacket;
+        return coustompacket;
     }
 
     protected String version = "0.0.1";
@@ -32,14 +32,14 @@ public class CanaryUtil extends UtilPlugin {
 
     @Override
     public void disable() {
-	logger.logCustom(pluginLoggerLevel, "Plugin Disabled");
-	endLogger();
+        logger.logCustom(pluginLoggerLevel, "Plugin Disabled");
+        endLogger();
     }
 
     @Override
     public boolean enable() {
-	logger.logCustom(pluginLoggerLevel, "Plugin Enabled");
-	return true;
+        logger.logCustom(pluginLoggerLevel, "Plugin Enabled");
+        return true;
     }
 
 }

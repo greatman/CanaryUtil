@@ -19,30 +19,30 @@ import net.larry1123.lib.CanaryUtil;
 import net.larry1123.lib.logger.EELogger;
 
 public final class BungeeCordListener extends ChannelListener implements
-	PluginListener {
+PluginListener {
 
     private final EELogger logger = EELogger.getLogger(CanaryUtil.class.getClass().getSimpleName());
 
     @HookHandler
     public void addToChannle(ConnectionHook hook) {
-	BungeeCord.addPlayerIp(hook.getPlayer(), hook.getPlayer().getIP(), this);
-	Canary.channels().sendCustomPayloadToPlayer("BungeeCord", "IP".getBytes(), hook.getPlayer());
+        BungeeCord.addPlayerIp(hook.getPlayer(), hook.getPlayer().getIP(), this);
+        Canary.channels().sendCustomPayloadToPlayer("BungeeCord", "IP".getBytes(), hook.getPlayer());
     }
 
     @Override
     public void onChannelInput(String channel, Player player, byte[] byteStream) {
-	String data = Arrays.toString(byteStream);
-	player.sendMessage(data);
-	if (data.startsWith("IP")) {
-	    logger.logCustom(CanaryUtil.class.getClass().getSimpleName(), "Message gotten on BungeeCord: " + data.substring(2));
-	    BungeeCord.addPlayerIp(player, data.substring(2), this);
-	}
+        String data = Arrays.toString(byteStream);
+        player.sendMessage(data);
+        if (data.startsWith("IP")) {
+            logger.logCustom(CanaryUtil.class.getClass().getSimpleName(), "Message gotten on BungeeCord: " + data.substring(2));
+            BungeeCord.addPlayerIp(player, data.substring(2), this);
+        }
     }
 
     @HookHandler
     public void removeToChannle(DisconnectionHook hook) {
-	Canary.channels().unregisterClient("BungeeCord", hook.getPlayer().getNetServerHandler());
-	BungeeCord.removePlayerIp(hook.getPlayer(), this);
+        Canary.channels().unregisterClient("BungeeCord", hook.getPlayer().getNetServerHandler());
+        BungeeCord.removePlayerIp(hook.getPlayer(), this);
     }
 
 }

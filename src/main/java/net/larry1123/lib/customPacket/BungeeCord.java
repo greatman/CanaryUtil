@@ -20,28 +20,28 @@ public final class BungeeCord {
     private static ChannelListener lis = new BungeeCordListener();
 
     static {
-	Canary.hooks().registerListener(new BungeeCordListener(), plugin);
-	Canary.channels().registerListener(plugin, "BungeeCord", lis);
+        Canary.hooks().registerListener(new BungeeCordListener(), plugin);
+        Canary.channels().registerListener(plugin, "BungeeCord", lis);
     }
 
     static void addPlayerIp(Player player, String Ip, BungeeCordListener liss) {
-	if (lis == liss) {
-	    IPs.put(player, Ip);
-	}
+        if (lis == liss) {
+            IPs.put(player, Ip);
+        }
     }
 
     public static String getRealPlayerIp(Player player) {
-	if (IPs.containsKey(player)) {
-	    return IPs.get(player);
-	} else {
-	    return player.getIP();
-	}
+        if (IPs.containsKey(player)) {
+            return IPs.get(player);
+        } else {
+            return player.getIP();
+        }
     }
 
     static void removePlayerIp(Player player, BungeeCordListener liss) {
-	if (lis == liss) {
-	    IPs.remove(player);
-	}
+        if (lis == liss) {
+            IPs.remove(player);
+        }
     }
 
 }

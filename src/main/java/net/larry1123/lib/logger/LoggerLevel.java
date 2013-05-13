@@ -15,24 +15,24 @@ public class LoggerLevel extends Level {
     private static final long serialVersionUID = 912743220309496892L;
 
     private final static int genLevel() {
-	baselvl++;
-	return baselvl;
+        baselvl++;
+        return baselvl;
     }
 
     private final String prefix;
 
     LoggerLevel(String name) {
-	super(name, genLevel());
-	prefix = "";
+        super(name, genLevel());
+        prefix = "";
     }
 
     LoggerLevel(String name, String prefix) {
-	super(name, genLevel());
-	this.prefix = prefix;
+        super(name, genLevel());
+        this.prefix = prefix;
     }
 
     public String getPrefix() {
-	return prefix;
+        return prefix;
     }
 
 }

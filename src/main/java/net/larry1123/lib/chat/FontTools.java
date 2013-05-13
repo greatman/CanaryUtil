@@ -46,29 +46,29 @@ public class FontTools extends TextFormat {
     private static final String Marker = MARKER;
 
     static {
-	colorList.add(Black);
-	colorList.add(Blue);
-	colorList.add(DarkPurple);
-	colorList.add(Gold);
-	colorList.add(Gray);
-	colorList.add(Green);
-	colorList.add(LightBlue);
-	colorList.add(LightGray);
-	colorList.add(LightGreen);
-	colorList.add(LightPurple);
-	colorList.add(Navy);
-	colorList.add(Purple);
-	colorList.add(Red);
-	colorList.add(Rose);
-	colorList.add(White);
-	colorList.add(Yellow);
-	fontList.add(Bold);
-	fontList.add(Strike);
-	fontList.add(Underline);
-	fontList.add(Italic);
-	fontList.add(Marker);
-	fontList.add(Random);
-	fontList.add(Reset);
+        colorList.add(Black);
+        colorList.add(Blue);
+        colorList.add(DarkPurple);
+        colorList.add(Gold);
+        colorList.add(Gray);
+        colorList.add(Green);
+        colorList.add(LightBlue);
+        colorList.add(LightGray);
+        colorList.add(LightGreen);
+        colorList.add(LightPurple);
+        colorList.add(Navy);
+        colorList.add(Purple);
+        colorList.add(Red);
+        colorList.add(Rose);
+        colorList.add(White);
+        colorList.add(Yellow);
+        fontList.add(Bold);
+        fontList.add(Strike);
+        fontList.add(Underline);
+        fontList.add(Italic);
+        fontList.add(Marker);
+        fontList.add(Random);
+        fontList.add(Reset);
     }
 
     /**
@@ -78,17 +78,17 @@ public class FontTools extends TextFormat {
      * @return Randomly Colored String
      */
     public static String CharRandomColor(String string) {
-	char[] str = string.toCharArray();
-	String retrn = "";
-	for (char car : str) {
-	    retrn = retrn + RandomColor() + car;
-	}
-	return retrn;
+        char[] str = string.toCharArray();
+        String retrn = "";
+        for (char car : str) {
+            retrn = retrn + RandomColor() + car;
+        }
+        return retrn;
     }
 
     public static String RandomColor() {
-	Random random = new Random();
-	return colorList.get(random.nextInt(colorList.size() - 1));
+        Random random = new Random();
+        return colorList.get(random.nextInt(colorList.size() - 1));
     }
 
 }

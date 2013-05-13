@@ -19,7 +19,7 @@ public abstract class UtilPlugin extends Plugin {
     protected String pluginLoggerLevel = getLogger().addLoggerLevelWFile(getName(), defultLoggerPath);
 
     public String addSubLoggerLevel(String prefix) {
-	return getLogger().addLoggerLevelWFile(pluginLoggerLevel, prefix, getName() + "/" + prefix);
+        return getLogger().addLoggerLevelWFile(pluginLoggerLevel, prefix, getName() + "/" + prefix);
     }
 
     /**
@@ -27,31 +27,31 @@ public abstract class UtilPlugin extends Plugin {
      */
     @Override
     public void disable() {
-	// TODO Auto-generated method stub
-	endLogger();
+        // TODO Auto-generated method stub
+        endLogger();
     }
 
     public void enableFailed() {
-	getLogger().logCustom(pluginLoggerLevel, "Plugin Could not be Enabled!");
-	getLogger().removeLoggerLevel(pluginLoggerLevel);
+        getLogger().logCustom(pluginLoggerLevel, "Plugin Could not be Enabled!");
+        getLogger().removeLoggerLevel(pluginLoggerLevel);
     }
 
     public void enableFailed(String reason) {
-	getLogger().logCustom(pluginLoggerLevel, "Plugin Could not be Enabled, because" + reason);
-	getLogger().removeLoggerLevel(pluginLoggerLevel);
+        getLogger().logCustom(pluginLoggerLevel, "Plugin Could not be Enabled, because" + reason);
+        getLogger().removeLoggerLevel(pluginLoggerLevel);
     }
 
     public void endLogger() {
-	getLogger().removeLoggerLevel(pluginLoggerLevel);
+        getLogger().removeLoggerLevel(pluginLoggerLevel);
     }
 
     public EELogger getLogger() {
-	return logger;
+        return logger;
     }
 
     @Override
     public Logman getLogman() {
-	return getLogger();
+        return getLogger();
     }
 
 }
