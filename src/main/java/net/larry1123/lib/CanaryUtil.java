@@ -9,6 +9,7 @@ package net.larry1123.lib;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.larry1123.lib.customPacket.BungeeCord;
 import net.larry1123.lib.plugin.UtilPlugin;
+import net.larry1123.lib.plugin.commands.Commands;
 
 public class CanaryUtil extends UtilPlugin {
 
@@ -21,9 +22,14 @@ public class CanaryUtil extends UtilPlugin {
     }
 
     static CoustomPacket coustompacket = new CoustomPacket();
+    static Commands commands = new Commands();
 
     public static CoustomPacket coustomPacket() {
         return coustompacket;
+    }
+
+    public static Commands commands() {
+        return commands;
     }
 
     protected String version = "0.0.1";
