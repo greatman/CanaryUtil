@@ -30,8 +30,7 @@ public class CommandCommand implements Command {
 
     @Override
     public Class<? extends Annotation> annotationType() {
-        // TODO Auto-generated method stub
-        return null;
+        return Command.class;
     }
 
     @Override
