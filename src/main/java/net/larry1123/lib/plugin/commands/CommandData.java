@@ -12,7 +12,7 @@ public class CommandData {
     public int min = 1;
     public int max = -1;
 
-    CommandData(String[] aliases, String[] permissions, String description, String toolTip) {
+    public CommandData(String[] aliases, String[] permissions, String description, String toolTip) {
         this.aliases = aliases;
         this.permissions = permissions;
         this.description = description;
