@@ -22,27 +22,12 @@ public abstract class UtilPlugin extends Plugin {
         return getLogger().addLoggerLevelWFile(pluginLoggerLevel, prefix, getName() + "/" + prefix);
     }
 
-    /**
-     * CanaryMod will call this upon disabling this plugin
-     */
-    @Override
-    public void disable() {
-        // TODO Auto-generated method stub
-        endLogger();
-    }
-
     public void enableFailed() {
-        getLogger().logCustom(pluginLoggerLevel, "Plugin Could not be Enabled!");
-        getLogger().removeLoggerLevel(pluginLoggerLevel);
+        getLogger().logSevere("Plugin Could not be Enabled!");
     }
 
     public void enableFailed(String reason) {
-        getLogger().logCustom(pluginLoggerLevel, "Plugin Could not be Enabled, because" + reason);
-        getLogger().removeLoggerLevel(pluginLoggerLevel);
-    }
-
-    public void endLogger() {
-        getLogger().removeLoggerLevel(pluginLoggerLevel);
+        getLogger().logSevere("Plugin Could not be Enabled, because" + reason);
     }
 
     public EELogger getLogger() {

@@ -20,8 +20,7 @@ public class LoggerLevels {
 
     /**
      * 
-     * This will add a Logger Level and return the name of the Level with in
-     * LoggerLevels
+     * This will add a Logger Level and return the name of the Level with in LoggerLevels
      * 
      * To be used by the Logging System only
      * 
@@ -36,7 +35,6 @@ public class LoggerLevels {
     }
 
     /**
-     * 
      * This will add a Logger Level and return the name of the Level with in
      * LoggerLevels
      * 
@@ -50,7 +48,6 @@ public class LoggerLevels {
     }
 
     /**
-     * 
      * This will add a Logger Level and return the name of the Level with in
      * LoggerLevels
      * 
@@ -66,7 +63,6 @@ public class LoggerLevels {
     }
 
     /**
-     * 
      * Returns the Logger Level if there is one by this name
      * 
      * @param name

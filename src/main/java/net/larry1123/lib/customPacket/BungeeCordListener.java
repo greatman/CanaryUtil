@@ -26,7 +26,7 @@ PluginListener {
     @HookHandler
     public void addToChannle(ConnectionHook hook) {
         BungeeCord.addPlayerIp(hook.getPlayer(), hook.getPlayer().getIP(), this);
-        Canary.channels().sendCustomPayloadToPlayer("BungeeCord", "IP".getBytes(), hook.getPlayer());
+        Canary.channels().sendCustomPayloadToPlayer("BungeeCord","IP".getBytes(), hook.getPlayer());
     }
 
     @Override

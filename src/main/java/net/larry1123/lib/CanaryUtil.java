@@ -38,13 +38,12 @@ public class CanaryUtil extends UtilPlugin {
 
     @Override
     public void disable() {
-        logger.logCustom(pluginLoggerLevel, "Plugin Disabled");
-        endLogger();
+        logger.info("Plugin Disabled");
     }
 
     @Override
     public boolean enable() {
-        logger.logCustom(pluginLoggerLevel, "Plugin Enabled");
+        logger.info("Plugin Enabled");
         return true;
     }
 

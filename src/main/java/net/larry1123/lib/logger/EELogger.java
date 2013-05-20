@@ -27,6 +27,7 @@ public class EELogger extends Logman {
     final class UtilFilter implements Filter {
 
         private final LinkedList<LoggerLevel> allowed = new LinkedList<LoggerLevel>();
+        private boolean all = false;
 
         public void addLogLevel(String name) {
             allowed.add(getLoggerLevel(name));
@@ -34,6 +35,10 @@ public class EELogger extends Logman {
 
         @Override
         public boolean isLoggable(LogRecord rec) {
+
+            if (all) {
+                return true;
+            }
 
             Level level = rec.getLevel();
 
@@ -44,6 +49,10 @@ public class EELogger extends Logman {
                 }
             }
             return false;
+        }
+
+        public void setLogAll(boolean state) {
+            all = state;
         }
 
         public void removeLogLevel(String name) {
@@ -100,6 +109,7 @@ public class EELogger extends Logman {
     static {
         log = new EELogger("ElecEntertainmentLogger");
         log.setParent(Logger.getLogger("Minecraft-Server"));
+        // log.setParent(Logger.getLogger(Logger.GLOBAL_LOGGER_NAME));
         log.setLevel(Level.ALL);
 
         File logDir = new File(logPath);
@@ -114,7 +124,7 @@ public class EELogger extends Logman {
     public static EELogger getLogger(String name) {
         if (!loggers.containsKey(name)) {
             EELogger logman = new EELogger(name);
-            logman.setParent(Logger.getLogger("Minecraft-Server"));
+            logman.setParent(log);
             loggers.put(name, logman);
         }
         return loggers.get(name);
@@ -124,6 +134,25 @@ public class EELogger extends Logman {
 
     public EELogger(String name) {
         super(name);
+
+        String pathName = logPath + name + "/" + name;
+
+        File logDir = new File(pathName.substring(0, pathName.lastIndexOf('/')));
+        if (!logDir.exists()) {
+            logDir.mkdirs();
+        }
+
+        try {
+            FileHandler handler = gethandler(pathName + ".log");
+            UtilFilter filter = a.get(handler);
+            filter.setLogAll(true);
+            handler.setFilter(filter);
+            this.addHandler(handler);
+        } catch (SecurityException e) {
+            EELogger.log.logCustom(EELogger.LoggerError, "SecurityException", e);
+        } catch (IOException e) {
+            EELogger.log.logCustom(EELogger.LoggerError, "IOException", e);
+        }
     }
 
     public String addLoggerLevel(String errorName) {
@@ -146,7 +175,8 @@ public class EELogger extends Logman {
             FileHandler handler = gethandler(pathName + ".log");
             UtilFilter filter = a.get(handler);
             filter.addLogLevel(name);
-
+            handler.setFilter(filter);
+            this.addHandler(handler);
         } catch (SecurityException e) {
             EELogger.log.logCustom(EELogger.LoggerError, "SecurityException", e);
         } catch (IOException e) {
@@ -168,6 +198,8 @@ public class EELogger extends Logman {
             FileHandler handler = gethandler(pathName + ".log");
             UtilFilter filter = (UtilFilter) handler.getFilter();
             filter.addLogLevel(name);
+            handler.setFilter(filter);
+            this.addHandler(handler);
         } catch (SecurityException e) {
             EELogger.log.logCustom(EELogger.LoggerError, "SecurityException", e);
         } catch (IOException e) {

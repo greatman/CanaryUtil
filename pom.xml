@@ -8,7 +8,7 @@
     <dependency>
       <groupId>net.canarymod</groupId>
       <artifactId>CanaryLib</artifactId>
-    </dependency>
+      </dependency>
   </dependencies>
     
   <build>
