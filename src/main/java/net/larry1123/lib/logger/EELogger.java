@@ -8,108 +8,27 @@ package net.larry1123.lib.logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.logging.FileHandler;
-import java.util.logging.Filter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import net.canarymod.logger.Logman;
 
 public class EELogger extends Logman {
 
-    final class UtilFilter implements Filter {
-
-        private final LinkedList<LoggerLevel> allowed = new LinkedList<LoggerLevel>();
-        private boolean all = false;
-
-        public void addLogLevel(String name) {
-            allowed.add(getLoggerLevel(name));
-        }
-
-        @Override
-        public boolean isLoggable(LogRecord rec) {
-
-            if (all) {
-                return true;
-            }
-
-            Level level = rec.getLevel();
-
-            if (level instanceof LoggerLevel) {
-                LoggerLevel handle = (LoggerLevel) level;
-                if (allowed.contains(handle)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public void setLogAll(boolean state) {
-            all = state;
-        }
-
-        public void removeLogLevel(String name) {
-            allowed.remove(getLoggerLevel(name));
-        }
-
-    }
-
-    private final class UtilsLogFormat extends SimpleFormatter {
-
-        private final SimpleDateFormat dateform = new SimpleDateFormat(
-                "dd-MM-yyyy HH:mm:ss");
-        private final String linesep = System.getProperty("line.separator");
-
-        @Override
-        public final String format(LogRecord rec) {
-
-            Level level = rec.getLevel();
-            String msg = rec.getMessage();
-
-            StringBuilder message = new StringBuilder();
-            message.append(dateform.format(rec.getMillis()));
-
-            if (level instanceof LoggerLevel) {
-                LoggerLevel handle = (LoggerLevel) level;
-                if (!handle.getPrefix().equals("")) {
-                    message.append("[" + handle.getPrefix() + "] " + msg);
-                } else {
-                    message.append(msg);
-                }
-            } else {
-                message.append(new StringBuilder("[").append(level.getName())
-                        .append("] ").append(rec.getMessage()).toString());
-            }
-
-            message.append(linesep);
-            if (rec.getThrown() != null) {
-                StringWriter stringwriter = new StringWriter();
-                rec.getThrown().printStackTrace(new PrintWriter(stringwriter));
-                message.append(stringwriter.toString());
-            }
-            return message.toString();
-        }
-    }
-
     private static final HashMap<String, FileHandler> fileHandlers = new HashMap<String, FileHandler>();
 
     public static final EELogger log;
 
-    public static final String logPath = "PluginLogs/";
+    public static final String logPath = "pluginlogs/";
 
     private final static HashMap<String, EELogger> loggers = new HashMap<String, EELogger>();
 
     static {
         log = new EELogger("ElecEntertainmentLogger");
         log.setParent(Logger.getLogger("Minecraft-Server"));
-        // log.setParent(Logger.getLogger(Logger.GLOBAL_LOGGER_NAME));
         log.setLevel(Level.ALL);
 
         File logDir = new File(logPath);
@@ -130,24 +49,30 @@ public class EELogger extends Logman {
         return loggers.get(name);
     }
 
-    private final HashMap<FileHandler, UtilFilter> a = new HashMap<FileHandler, UtilFilter>();
+    private final HashMap<FileHandler, UtilFilter> fileFilters = new HashMap<FileHandler, UtilFilter>();
+
+    /**
+     * This is the path for the log files of this logger
+     */
+    public final String path;
 
     public EELogger(String name) {
         super(name);
 
-        String pathName = logPath + name + "/" + name;
+        path = logPath + name + "/";
 
-        File logDir = new File(pathName.substring(0, pathName.lastIndexOf('/')));
+        String logpath = path + name;
+
+        File logDir = new File(logpath.substring(0, logpath.lastIndexOf('/')));
         if (!logDir.exists()) {
             logDir.mkdirs();
         }
 
         try {
-            FileHandler handler = gethandler(pathName + ".log");
-            UtilFilter filter = a.get(handler);
+            FileHandler handler = gethandler(logpath + ".log");
+            UtilFilter filter = fileFilters.get(handler);
             filter.setLogAll(true);
             handler.setFilter(filter);
-            this.addHandler(handler);
         } catch (SecurityException e) {
             EELogger.log.logCustom(EELogger.LoggerError, "SecurityException", e);
         } catch (IOException e) {
@@ -173,10 +98,9 @@ public class EELogger extends Logman {
 
         try {
             FileHandler handler = gethandler(pathName + ".log");
-            UtilFilter filter = a.get(handler);
+            UtilFilter filter = fileFilters.get(handler);
             filter.addLogLevel(name);
             handler.setFilter(filter);
-            this.addHandler(handler);
         } catch (SecurityException e) {
             EELogger.log.logCustom(EELogger.LoggerError, "SecurityException", e);
         } catch (IOException e) {
@@ -199,7 +123,6 @@ public class EELogger extends Logman {
             UtilFilter filter = (UtilFilter) handler.getFilter();
             filter.addLogLevel(name);
             handler.setFilter(filter);
-            this.addHandler(handler);
         } catch (SecurityException e) {
             EELogger.log.logCustom(EELogger.LoggerError, "SecurityException", e);
         } catch (IOException e) {
@@ -216,11 +139,13 @@ public class EELogger extends Logman {
             FileHandler handler = new FileHandler(pathName, true);
             UtilsLogFormat lf = new UtilsLogFormat();
             UtilFilter uf = new UtilFilter();
-            a.put(handler, uf);
+            fileFilters.put(handler, uf);
             handler.setFilter(uf);
             handler.setLevel(Level.ALL);
             handler.setFormatter(lf);
             handler.setEncoding("UTF-8");
+
+            this.addHandler(handler);
 
             fileHandlers.put(pathName, handler);
         }
@@ -228,23 +153,22 @@ public class EELogger extends Logman {
 
     }
 
-    public LoggerLevel getLoggerLevel(String name) {
+    public static LoggerLevel getLoggerLevel(String name) {
         return LoggerLevels.getLoggerLevel(name);
     }
+
+    private int test = 0;
 
     @Override
     public void log(LogRecord logRecord) {
         Level level = logRecord.getLevel();
         String msg = logRecord.getMessage();
+
         if (level instanceof LoggerLevel) {
             LoggerLevel handle = (LoggerLevel) level;
             if (!handle.getPrefix().isEmpty()) {
                 logRecord.setMessage("[" + handle.getPrefix() + "] " + msg);
-            } else {
-                logRecord.setMessage(msg);
             }
-        } else {
-            logRecord.setMessage(msg);
         }
         super.log(logRecord);
     }

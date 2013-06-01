@@ -6,25 +6,21 @@
 
 package net.larry1123.lib;
 
-import net.canarymod.api.entity.living.humanoid.Player;
+import net.canarymod.tasks.ServerTaskManager;
+import net.canarymod.tasks.TaskOwner;
 import net.larry1123.lib.customPacket.BungeeCord;
+import net.larry1123.lib.customPacket.UpdateBungeeInfo;
 import net.larry1123.lib.plugin.UtilPlugin;
 import net.larry1123.lib.plugin.commands.Commands;
 
-public class CanaryUtil extends UtilPlugin {
+public class CanaryUtil extends UtilPlugin implements TaskOwner {
 
-    public static class CoustomPacket {
-
-        public String getRealPlayerIp(Player player) {
-            return BungeeCord.getRealPlayerIp(player);
-        }
-
-    }
-
-    static CoustomPacket coustompacket = new CoustomPacket();
+    static BungeeCord coustompacket;
     static Commands commands = new Commands();
 
-    public static CoustomPacket coustomPacket() {
+    public UpdateBungeeInfo ticksystem = new UpdateBungeeInfo(this, 100);
+
+    public static BungeeCord coustomPacket() {
         return coustompacket;
     }
 
@@ -38,11 +34,14 @@ public class CanaryUtil extends UtilPlugin {
 
     @Override
     public void disable() {
+        ServerTaskManager.removeTasksForPlugin(this);
         logger.info("Plugin Disabled");
     }
 
     @Override
     public boolean enable() {
+        coustompacket = new BungeeCord(this);
+        ServerTaskManager.addTask(ticksystem);
         logger.info("Plugin Enabled");
         return true;
     }

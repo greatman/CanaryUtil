@@ -12,14 +12,14 @@ import net.larry1123.lib.logger.EELogger;
 
 public abstract class UtilPlugin extends Plugin {
 
-    protected String defultLoggerPath = EELogger.logPath + getName() + '/' + getName();
-
     protected EELogger logger = EELogger.getLogger(getName());
 
-    protected String pluginLoggerLevel = getLogger().addLoggerLevelWFile(getName(), defultLoggerPath);
+    protected String defultLoggerPath = logger.path;
+
+    protected String pluginLoggerLevel = getLogger().addLoggerLevelWFile(getName(), defultLoggerPath + getName());
 
     public String addSubLoggerLevel(String prefix) {
-        return getLogger().addLoggerLevelWFile(pluginLoggerLevel, prefix, getName() + "/" + prefix);
+        return getLogger().addLoggerLevelWFile(pluginLoggerLevel, prefix, defultLoggerPath + prefix);
     }
 
     public void enableFailed() {

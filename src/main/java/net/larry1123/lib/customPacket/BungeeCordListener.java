@@ -6,7 +6,10 @@
 
 package net.larry1123.lib.customPacket;
 
-import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.LinkedList;
 
 import net.canarymod.Canary;
 import net.canarymod.api.entity.living.humanoid.Player;
@@ -15,34 +18,80 @@ import net.canarymod.hook.HookHandler;
 import net.canarymod.hook.player.ConnectionHook;
 import net.canarymod.hook.player.DisconnectionHook;
 import net.canarymod.plugin.PluginListener;
-import net.larry1123.lib.CanaryUtil;
-import net.larry1123.lib.logger.EELogger;
 
-public final class BungeeCordListener extends ChannelListener implements
-PluginListener {
-
-    private final EELogger logger = EELogger.getLogger(CanaryUtil.class.getClass().getSimpleName());
+public final class BungeeCordListener extends ChannelListener implements PluginListener {
 
     @HookHandler
-    public void addToChannle(ConnectionHook hook) {
-        BungeeCord.addPlayerIp(hook.getPlayer(), hook.getPlayer().getIP(), this);
-        Canary.channels().sendCustomPayloadToPlayer("BungeeCord","IP".getBytes(), hook.getPlayer());
+    public void addToChannel(ConnectionHook hook) {
+        BungeeCord.addPlayerIp(hook.getPlayer().getName(), hook.getPlayer().getIP(), this);
+
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(b);
+
+        try {
+            out.writeUTF("IP");
+        } catch (IOException e) {
+            // Can't happen man
+        }
+
+        Canary.channels().sendCustomPayloadToPlayer("BungeeCord", b.toByteArray(), hook.getPlayer());
     }
 
     @Override
     public void onChannelInput(String channel, Player player, byte[] byteStream) {
-        String data = Arrays.toString(byteStream);
-        player.sendMessage(data);
-        if (data.startsWith("IP")) {
-            logger.logCustom(CanaryUtil.class.getClass().getSimpleName(), "Message gotten on BungeeCord: " + data.substring(2));
-            BungeeCord.addPlayerIp(player, data.substring(2), this);
+        String[] data = new String(byteStream).split("\u0000");
+        String subChannel = data[1].substring(1);
+
+        if (subChannel.startsWith("IP")) {
+            String ip = data[2].substring(1);
+            BungeeCord.addPlayerIp(player.getName(), ip, this);
+        }
+        if (subChannel.startsWith("PlayerCount")) {
+            String tempcount = "";
+            String server = data[2].substring(1);
+            int playercount;
+            try {
+                for (char car : data[5].toCharArray()) {
+                    tempcount = tempcount + (int) car;
+                }
+                playercount = Integer.parseInt(tempcount);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // There is no one on the server so it is 0
+                playercount = 0;
+            }
+            BungeeCord.setPlayerCountForServer(server, playercount, this);
+        }
+        if (subChannel.startsWith("PlayerList")) {
+            String server = data[2].substring(1);
+            LinkedList<String> players = new LinkedList<String>();
+            try {
+                String rawplayers = data[3];
+                for (String playerr : rawplayers.split(",")) {
+                    players.add(playerr.substring(1));
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // No one on this server
+            }
+            BungeeCord.setPlayerList(server, players, this);
+        }
+        if (subChannel.startsWith("GetServer")) {
+            if (subChannel.startsWith("GetServers")) {
+                String rawservers = data[2];
+                LinkedList<String> servers = new LinkedList<String>();
+                for (String server : rawservers.split(",")) {
+                    servers.add(server.substring(1));
+                }
+                BungeeCord.setServerList(servers, this);
+            } else {
+                String server = data[2].substring(1);
+                BungeeCord.setCurrentServerName(server, this);
+            }
         }
     }
 
     @HookHandler
-    public void removeToChannle(DisconnectionHook hook) {
-        Canary.channels().unregisterClient("BungeeCord", hook.getPlayer().getNetServerHandler());
-        BungeeCord.removePlayerIp(hook.getPlayer(), this);
+    public void removeFromChannel(DisconnectionHook hook) {
+        BungeeCord.removePlayerIp(hook.getPlayer().getName(), this);
     }
 
 }
