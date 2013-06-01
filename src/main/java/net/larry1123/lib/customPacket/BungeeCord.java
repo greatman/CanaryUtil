@@ -16,9 +16,10 @@ import net.canarymod.Canary;
 import net.canarymod.api.OfflinePlayer;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.canarymod.channels.ChannelListener;
+import net.larry1123.lib.CanaryUtil;
 import net.larry1123.lib.plugin.UtilPlugin;
 
-public final class BungeeCord {
+public class BungeeCord {
 
     private static ChannelListener lis = new BungeeCordListener();
 
@@ -26,7 +27,7 @@ public final class BungeeCord {
     private static HashMap<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
     private static LinkedList<String> serverList = new LinkedList<String>();
     private static HashMap<String, LinkedList<OfflinePlayer>> playerList = new HashMap<String, LinkedList<OfflinePlayer>>();
-    private static String currentServer = "";
+    private static String currentServer = CanaryUtil.getBungeeCordServerName();
 
     private final UtilPlugin plugin;
 

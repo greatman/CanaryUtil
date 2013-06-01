@@ -15,6 +15,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 import net.canarymod.logger.Logman;
+import net.larry1123.lib.config.UtilConfig;
 
 public class EELogger extends Logman {
 
@@ -22,7 +23,7 @@ public class EELogger extends Logman {
 
     public static final EELogger log;
 
-    public static final String logPath = "pluginlogs/";
+    public static final String logPath = UtilConfig.getConfig().getLoggerConfig().getLoggerPath();
 
     private final static HashMap<String, EELogger> loggers = new HashMap<String, EELogger>();
 
@@ -156,8 +157,6 @@ public class EELogger extends Logman {
     public static LoggerLevel getLoggerLevel(String name) {
         return LoggerLevels.getLoggerLevel(name);
     }
-
-    private int test = 0;
 
     @Override
     public void log(LogRecord logRecord) {
