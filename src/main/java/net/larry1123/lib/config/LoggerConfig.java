@@ -15,6 +15,7 @@ public class LoggerConfig {
          */
         {
             loggerPath = loggerConfig.getString("Logger-Path", "pluginlogs/");
+            loggerConfig.addComment("Logger-Path", "Be sure to have the line end with /");
 
             loggerConfig.save();
         }

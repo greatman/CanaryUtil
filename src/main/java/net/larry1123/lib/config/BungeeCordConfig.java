@@ -17,8 +17,11 @@ public class BungeeCordConfig {
          */
         {
             isEnabled = bungeecordConfig.getBoolean("BungeeCord-enabled", false);
+            bungeecordConfig.addComment("BungeeCord-enabled", "This sets if the Util will try to talk to a BungeeCord server or not");
             pollTime = bungeecordConfig.getLong("BungeeCord-pollTime", 100);
+            bungeecordConfig.addComment("BungeeCord-pollTime", "This sets how many ms between when the Util will send packets to BungeeCord");
             serverName = bungeecordConfig.getString("BungeeCord-ServerName", "Server");
+            bungeecordConfig.addComment("BungeeCord-ServerName", "This is only used if BungeeCord is disabled, and as a defult if no players have yet connected");
 
             bungeecordConfig.save(); // Time to Save
         }
