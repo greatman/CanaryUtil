@@ -3,6 +3,7 @@ package net.larry1123.lib.plugin.commands;
 import java.lang.annotation.Annotation;
 
 import net.canarymod.commandsys.Command;
+import net.larry1123.lib.logger.EELogger;
 
 public class CommandCommand implements Command {
 
@@ -17,15 +18,25 @@ public class CommandCommand implements Command {
     public final int max;
 
     CommandCommand(CommandData data) {
-        this.aliases = data.aliases;
-        this.permissions = data.permissions;
-        this.description = data.description;
-        this.toolTip = data.toolTip;
-        this.parent = data.parent;
-        this.helpLookup = data.helpLookup;
-        this.searchTerms = data.searchTerms;
-        this.min = data.min;
-        this.max = data.max;
+        String[] aliases = new String[data.getAliases().length + 1];
+        int index = 0;
+        for (String alias: data.getAliases()) {
+            aliases[index++] = alias;
+        }
+        aliases[index] = "" + data.getCommandUID();
+        index = 0;
+        for (String alias : aliases) {
+            EELogger.getLogger("UtilLogger").info(index++ + " \"" + alias + "\"");
+        }
+        this.aliases = aliases;
+        this.permissions = data.getPermissions();
+        this.description = data.getDescription();
+        this.toolTip = data.getToolTip();
+        this.parent = data.getParent();
+        this.helpLookup = data.getHelpLookup();
+        this.searchTerms = data.getSearchTerms();
+        this.min = data.getMin();
+        this.max = data.getMax();
     }
 
     @Override

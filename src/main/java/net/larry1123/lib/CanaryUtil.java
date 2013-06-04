@@ -6,8 +6,10 @@
 
 package net.larry1123.lib;
 
+import net.canarymod.commandsys.CommandOwner;
 import net.canarymod.tasks.ServerTaskManager;
 import net.canarymod.tasks.TaskOwner;
+import net.larry1123.lib.commands.UtilCommands;
 import net.larry1123.lib.config.UtilConfig;
 import net.larry1123.lib.customPacket.BungeeCord;
 import net.larry1123.lib.customPacket.BungeeCordless;
@@ -15,7 +17,7 @@ import net.larry1123.lib.customPacket.UpdateBungeeInfo;
 import net.larry1123.lib.plugin.UtilPlugin;
 import net.larry1123.lib.plugin.commands.Commands;
 
-public class CanaryUtil extends UtilPlugin implements TaskOwner {
+public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
 
     private static BungeeCord coustompacket;
     private static Commands commands = new Commands();
@@ -70,6 +72,9 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner {
         } else {
             coustompacket = new BungeeCordless(this);
         }
+
+        new UtilCommands().registerCommands(this);
+
         logger.info("Plugin Enabled");
         return true;
     }
