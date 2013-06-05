@@ -9,11 +9,12 @@ public class BaseCommand implements Command {
 
     private final CommandData command = new CommandData(new String[] {"canaryutil"}, new String[] {"canary.super.canaryutil", "canary.command.super.canaryutil"}, "TODO", "TODO");
     private final LocaleHelper translator = Translator.getInstance();
-
+    private final UtilCommands utilcommands;
     private boolean loaded = false;
 
     public BaseCommand(UtilCommands utilCommands) {
-        command.setMax(1);
+        utilcommands = utilCommands;
+        // Nothing needed to be done
     }
 
     @Override
@@ -33,7 +34,7 @@ public class BaseCommand implements Command {
 
     @Override
     public void execute(MessageReceiver caller, String[] parameters) {
-        caller.message("CanaryUtil Called");
+        caller.message(utilcommands.getOwner().getName() + " By: " + utilcommands.getOwner().getAuthor());
     }
 
     @Override

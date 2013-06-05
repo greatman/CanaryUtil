@@ -27,7 +27,7 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
 
     private UtilConfig config = UtilConfig.getConfig();
 
-    public UpdateBungeeInfo ticksystem;
+    private UpdateBungeeInfo ticksystem;
 
     public static BungeeCord coustomPacket() {
         return coustompacket;
@@ -49,10 +49,6 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
         return bungeecord_ServerName;
     }
 
-    protected String version = "0.0.1";
-
-    protected String author = "Larry1123";
-
     @Override
     public void disable() {
         ServerTaskManager.removeTasksForPlugin(this);
@@ -61,6 +57,7 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
 
     @Override
     public boolean enable() {
+        this.getVersion();
         bungeecord_enabled = config.getBungeeCordConfig().isEnabled();
         bungeecord_pollTime = config.getBungeeCordConfig().getPollTime();
         bungeecord_ServerName = config.getBungeeCordConfig().getServerName();
@@ -73,7 +70,7 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
             coustompacket = new BungeeCordless(this);
         }
 
-        new UtilCommands().registerCommands(this);
+        new UtilCommands(this);
 
         logger.info("Plugin Enabled");
         return true;

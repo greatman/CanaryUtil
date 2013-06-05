@@ -1,27 +1,29 @@
 package net.larry1123.lib.commands;
 
-import net.canarymod.Canary;
 import net.canarymod.commandsys.CommandDependencyException;
-import net.canarymod.commandsys.CommandOwner;
 import net.larry1123.lib.CanaryUtil;
 import net.larry1123.lib.logger.EELogger;
+import net.larry1123.lib.plugin.UtilPlugin;
 
 public class UtilCommands {
 
     public final Command baseCommand = new BaseCommand(this);
     // SubCommands
-    public final Command helpCommand = new HelpCommand(this);
+    public final Command versionCommand = new VersionCommand(this);
 
-    private CommandOwner owner;
+    private final UtilPlugin owner;
 
-    public void registerCommands(CommandOwner owner) {
+    public UtilCommands(UtilPlugin owner) {
         this.owner = owner;
         regCommand(baseCommand);
-        EELogger.getLogger("CanaryUtil").info("" + Canary.commands().hasCommand("" + baseCommand.getCommandData().getCommandUID()));
-        regCommand(helpCommand);
+        regCommand(versionCommand);
     }
 
-    public void regCommand(Command command) {
+    public UtilPlugin getOwner() {
+        return owner;
+    }
+
+    private void regCommand(Command command) {
         try {
             CanaryUtil.commands().registerCommand(command.getCommandData(), owner, command.getTranslator(), command, command.isForced());
         } catch (CommandDependencyException e) {

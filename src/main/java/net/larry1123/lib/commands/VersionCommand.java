@@ -5,15 +5,21 @@ import net.canarymod.chat.MessageReceiver;
 import net.larry1123.lib.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
 
-public class HelpCommand implements Command {
+public class VersionCommand implements Command {
 
     private final CommandData command = new CommandData(new String[] {"help"}, new String[] {"canary.super.canaryutil.help", "canary.command.super.canaryutil.help"}, "TODO", "TODO");
     private final LocaleHelper translator = Translator.getInstance();
-
+    private final UtilCommands utilcommands;
     private boolean loaded = false;
 
-    public HelpCommand(UtilCommands utilCommands) {
-        command.setParent(utilCommands.baseCommand.getCommandData().getAliases()[0]);
+    public VersionCommand(UtilCommands utilCommands) {
+        utilcommands = utilCommands;
+        command.setParent(utilCommands.baseCommand.getCommandData());
+    }
+
+    @Override
+    public void execute(MessageReceiver caller, String[] parameters) {
+        caller.message(utilcommands.getOwner().getName() + " Version: " + utilcommands.getOwner().getVersion());
     }
 
     @Override
@@ -32,11 +38,6 @@ public class HelpCommand implements Command {
     }
 
     @Override
-    public void execute(MessageReceiver caller, String[] parameters) {
-        caller.message("CanaryUtil Help called");
-    }
-
-    @Override
     public boolean isloaded() {
         return loaded;
     }
@@ -44,6 +45,7 @@ public class HelpCommand implements Command {
     @Override
     public void setloadded(boolean loadedness) {
         loaded = loadedness;
+
     }
 
 }
