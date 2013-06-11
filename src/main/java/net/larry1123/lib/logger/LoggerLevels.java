@@ -63,7 +63,7 @@ public class LoggerLevels {
     }
 
     /**
-     * Returns the Logger Level if there is one by this name
+     * Returns the Logger Level if there is one by this name or makes one
      * 
      * @param name
      * @return EE_LoggerLevel
@@ -71,8 +71,9 @@ public class LoggerLevels {
     public static LoggerLevel getLoggerLevel(String name) {
         if (LoggerLevels.containsKey(name)) {
             return LoggerLevels.get(name);
+        } else {
+            return LoggerLevels.get(addLoggerLevel(name));
         }
-        return LoggerLevels.get("ElecEntertainment-LoggerLevelFunctions-FailedToFindLoggerLevel-");
     }
 
     public static void removeLoggerLevel(String name) {

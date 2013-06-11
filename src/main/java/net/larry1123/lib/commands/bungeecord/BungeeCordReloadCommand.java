@@ -1,21 +1,30 @@
-package net.larry1123.lib.commands;
+package net.larry1123.lib.commands.bungeecord;
 
 import net.canarymod.Translator;
 import net.canarymod.chat.MessageReceiver;
+import net.larry1123.lib.chat.FontTools;
+import net.larry1123.lib.commands.UtilCommands;
+import net.larry1123.lib.config.UtilConfig;
 import net.larry1123.lib.plugin.commands.Command;
 import net.larry1123.lib.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
 
-public class BaseCommand implements Command {
+public class BungeeCordReloadCommand implements Command {
 
-    private final CommandData command = new CommandData(new String[] {"canaryutil"}, new String[] {"canary.super.canaryutil", "canary.command.super.canaryutil"}, "TODO", "TODO");
+    private final CommandData command = new CommandData(new String[] {"reload"}, new String[] {"canary.super.canaryutil.bungeecord.reload", "canary.command.super.canaryutil.bungeecord.reload"}, "TODO reload", "TODO reload");
     private final LocaleHelper translator = Translator.getInstance();
     private final UtilCommands utilcommands;
     private boolean loaded = false;
 
-    public BaseCommand(UtilCommands utilCommands) {
+    public BungeeCordReloadCommand(UtilCommands utilCommands) {
         utilcommands = utilCommands;
-        command.setMax(1);
+        command.setParent(utilcommands.bungeecordCommand.getCommandData());
+    }
+
+    @Override
+    public void execute(MessageReceiver caller, String[] parameters) {
+        UtilConfig.getConfig().reloadBungeeCordConfig();
+        caller.message(FontTools.ORANGE  + FontTools.UNDERLINED + "BungeeCord Settings Updated!");
     }
 
     @Override
@@ -31,11 +40,6 @@ public class BaseCommand implements Command {
     @Override
     public boolean isForced() {
         return false;
-    }
-
-    @Override
-    public void execute(MessageReceiver caller, String[] parameters) {
-        caller.message(utilcommands.getOwner().getName() + " By: " + utilcommands.getOwner().getAuthor());
     }
 
     @Override

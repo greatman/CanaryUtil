@@ -1,21 +1,28 @@
-package net.larry1123.lib.commands;
+package net.larry1123.lib.commands.bungeecord;
 
 import net.canarymod.Translator;
 import net.canarymod.chat.MessageReceiver;
+import net.larry1123.lib.commands.UtilCommands;
 import net.larry1123.lib.plugin.commands.Command;
 import net.larry1123.lib.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
 
-public class BaseCommand implements Command {
+public class BungeeCordCommand implements Command {
 
-    private final CommandData command = new CommandData(new String[] {"canaryutil"}, new String[] {"canary.super.canaryutil", "canary.command.super.canaryutil"}, "TODO", "TODO");
+    private final CommandData command = new CommandData(new String[] {"bungeecord" , "cord"}, new String[] {"canary.super.canaryutil.bungeecord", "canary.command.super.canaryutil.bungeecord"}, "TODO", "TODO");
     private final LocaleHelper translator = Translator.getInstance();
     private final UtilCommands utilcommands;
     private boolean loaded = false;
 
-    public BaseCommand(UtilCommands utilCommands) {
+    public BungeeCordCommand(UtilCommands utilCommands) {
         utilcommands = utilCommands;
+        command.setParent(utilcommands.baseCommand.getCommandData());
         command.setMax(1);
+    }
+
+    @Override
+    public void execute(MessageReceiver caller, String[] parameters) {
+        caller.message("TODO");
     }
 
     @Override
@@ -31,11 +38,6 @@ public class BaseCommand implements Command {
     @Override
     public boolean isForced() {
         return false;
-    }
-
-    @Override
-    public void execute(MessageReceiver caller, String[] parameters) {
-        caller.message(utilcommands.getOwner().getName() + " By: " + utilcommands.getOwner().getAuthor());
     }
 
     @Override

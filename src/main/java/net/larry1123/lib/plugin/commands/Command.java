@@ -1,7 +1,5 @@
-package net.larry1123.lib.commands;
+package net.larry1123.lib.plugin.commands;
 
-import net.larry1123.lib.plugin.commands.CommandData;
-import net.larry1123.lib.plugin.commands.CommandExecute;
 import net.visualillusionsent.utils.LocaleHelper;
 
 public interface Command extends CommandExecute {

@@ -6,36 +6,13 @@
 
 package net.larry1123.lib.customPacket;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.util.LinkedList;
 
-import net.canarymod.Canary;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.canarymod.channels.ChannelListener;
-import net.canarymod.hook.HookHandler;
-import net.canarymod.hook.player.ConnectionHook;
-import net.canarymod.hook.player.DisconnectionHook;
 import net.canarymod.plugin.PluginListener;
 
 public final class BungeeCordListener extends ChannelListener implements PluginListener {
-
-    @HookHandler
-    public void addToChannel(ConnectionHook hook) {
-        BungeeCord.addPlayerIp(hook.getPlayer().getName(), hook.getPlayer().getIP(), this);
-
-        ByteArrayOutputStream b = new ByteArrayOutputStream();
-        DataOutputStream out = new DataOutputStream(b);
-
-        try {
-            out.writeUTF("IP");
-        } catch (IOException e) {
-            // Can't happen man
-        }
-
-        Canary.channels().sendCustomPayloadToPlayer("BungeeCord", b.toByteArray(), hook.getPlayer());
-    }
 
     @Override
     public void onChannelInput(String channel, Player player, byte[] byteStream) {
@@ -87,11 +64,6 @@ public final class BungeeCordListener extends ChannelListener implements PluginL
                 BungeeCord.setCurrentServerName(server, this);
             }
         }
-    }
-
-    @HookHandler
-    public void removeFromChannel(DisconnectionHook hook) {
-        BungeeCord.removePlayerIp(hook.getPlayer().getName(), this);
     }
 
 }

@@ -35,12 +35,12 @@ public class CommandData {
         this.parent = parent;
     }
 
-    public void setParent(UUID parent) {
-        this.parent = "" + parent;
-    }
-
     public void setParent(CommandData parent) {
-        this.parent = "" + parent.getCommandUID();
+        if (parent.getParent() == "") {
+            this.parent = "" + parent.getCommandUID();
+        } else {
+            this.parent = parent.getParent() + "." + parent.getCommandUID();
+        }
     }
 
     public void setHelpLookup(String helpLookup) {

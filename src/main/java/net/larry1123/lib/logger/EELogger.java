@@ -23,7 +23,9 @@ public class EELogger extends Logman {
 
     public static final EELogger log;
 
-    public static final String logPath = UtilConfig.getConfig().getLoggerConfig().getLoggerPath();
+    public static String getLogpath() {
+        return UtilConfig.getConfig().getLoggerConfig().getLoggerPath();
+    }
 
     private final static HashMap<String, EELogger> loggers = new HashMap<String, EELogger>();
 
@@ -32,7 +34,7 @@ public class EELogger extends Logman {
         log.setParent(Logger.getLogger("Minecraft-Server"));
         log.setLevel(Level.ALL);
 
-        File logDir = new File(logPath);
+        File logDir = new File(getLogpath());
         if (!logDir.exists()) {
             logDir.mkdirs();
         }
@@ -60,7 +62,7 @@ public class EELogger extends Logman {
     public EELogger(String name) {
         super(name);
 
-        path = logPath + name + "/";
+        path = getLogpath() + name + "/";
 
         String logpath = path + name;
 

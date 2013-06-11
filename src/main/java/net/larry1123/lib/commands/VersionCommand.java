@@ -2,6 +2,7 @@ package net.larry1123.lib.commands;
 
 import net.canarymod.Translator;
 import net.canarymod.chat.MessageReceiver;
+import net.larry1123.lib.plugin.commands.Command;
 import net.larry1123.lib.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
 

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import net.canarymod.Canary;
 import net.canarymod.api.OfflinePlayer;
 import net.canarymod.api.entity.living.humanoid.Player;
-import net.larry1123.lib.CanaryUtil;
+import net.larry1123.lib.config.UtilConfig;
 import net.larry1123.lib.plugin.UtilPlugin;
 
 public class BungeeCordless extends BungeeCord {
@@ -37,7 +37,7 @@ public class BungeeCordless extends BungeeCord {
 
     @Override
     public String getCurrentServerName() {
-        return CanaryUtil.getBungeeCordServerName();
+        return UtilConfig.getConfig().getBungeeCordConfig().getServerName();
     }
 
     @Override

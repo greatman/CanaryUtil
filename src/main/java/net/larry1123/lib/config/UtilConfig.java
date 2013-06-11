@@ -1,30 +1,48 @@
 package net.larry1123.lib.config;
 
+import net.larry1123.lib.CanaryUtil;
+
 
 public class UtilConfig {
 
-    private String plugin;
     private static UtilConfig config = new UtilConfig("CanaryUtil");
 
+    private String pluginName;
     private BungeeCordConfig bungeecordConfig;
     private LoggerConfig loggerConfig;
+
+    private CanaryUtil plugin;
 
     public static UtilConfig getConfig() {
         return config;
     }
 
-    public UtilConfig(String plugin) {
-        this.plugin = plugin;
-        bungeecordConfig = new BungeeCordConfig(this.plugin);
-        loggerConfig = new LoggerConfig(this.plugin);
+    /**
+     * Internal Util use only!
+     * @param util
+     */
+    public void startReload(CanaryUtil util) {
+        if (plugin == null) {
+            plugin = util;
+        }
     }
 
+    private UtilConfig(String plugin) {
+        pluginName = plugin;
+        bungeecordConfig = new BungeeCordConfig(pluginName);
+        loggerConfig = new LoggerConfig(pluginName);
+    }
+
+    /**
+     * Gets the Config for
+     * @return
+     */
     public BungeeCordConfig getBungeeCordConfig() {
         return bungeecordConfig;
     }
 
     public void reloadBungeeCordConfig() {
-        bungeecordConfig = new BungeeCordConfig(this.plugin);
+        bungeecordConfig.reload();
     }
 
     public LoggerConfig getLoggerConfig() {
@@ -32,7 +50,7 @@ public class UtilConfig {
     }
 
     public void reloadLoggerConfig() {
-        loggerConfig = new LoggerConfig(this.plugin);
+        loggerConfig.reload();
     }
 
 }

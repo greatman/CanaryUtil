@@ -5,24 +5,53 @@ import net.visualillusionsent.utils.PropertiesFile;
 
 public class LoggerConfig {
 
+    private final String pathString = "Logger-Path";
+
+    private final String pathDefult = "pluginlogs/";
+
     private PropertiesFile loggerConfig;
-    private String loggerPath;
+    private String loggerPath = pathDefult;
 
-    public LoggerConfig(String plugin) {
+    LoggerConfig(String plugin) {
         loggerConfig = Configuration.getPluginConfig(plugin, "Logger");
-        /**
-         * Time to setup the file and read the settings
-         */
-        {
-            loggerPath = loggerConfig.getString("Logger-Path", "pluginlogs/");
-            loggerConfig.addComment("Logger-Path", "Be sure to have the line end with /");
+        loadData();
+    }
 
-            loggerConfig.save();
-        }
+    void reload() {
+        loggerConfig.reload();
+        loadData();
     }
 
     public String getLoggerPath() {
         return loggerPath;
+    }
+
+    /**
+     * Sets the Path for loggers
+     * @param path
+     * @return
+     */
+    public void setLoggerPath(String path) {
+        if (!path.endsWith("/")) {
+            path = path + "/";
+        }
+        loggerConfig.setString(pathString, loggerPath = path);
+        loggerConfig.save(); // Time to Save
+        // Will not change the location of Loggers that are running as it is but will move new ones!
+    }
+
+    private void loadData() {
+        /**
+         * Time to setup the file and read the settings
+         */
+        loggerPath = loggerConfig.getString(pathString, pathDefult);
+        if (!loggerPath.endsWith("/")) {
+            loggerPath = loggerPath + "/";
+            loggerConfig.setString(pathString, loggerPath);
+        }
+        loggerConfig.addComment(pathString, "This defines where the log files will be placed");
+
+        loggerConfig.save(); // Time to Save
     }
 
 }

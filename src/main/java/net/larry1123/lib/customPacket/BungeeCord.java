@@ -16,7 +16,7 @@ import net.canarymod.Canary;
 import net.canarymod.api.OfflinePlayer;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.canarymod.channels.ChannelListener;
-import net.larry1123.lib.CanaryUtil;
+import net.larry1123.lib.config.UtilConfig;
 import net.larry1123.lib.plugin.UtilPlugin;
 
 public class BungeeCord {
@@ -27,14 +27,17 @@ public class BungeeCord {
     private static HashMap<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
     private static LinkedList<String> serverList = new LinkedList<String>();
     private static HashMap<String, LinkedList<OfflinePlayer>> playerList = new HashMap<String, LinkedList<OfflinePlayer>>();
-    private static String currentServer = CanaryUtil.getBungeeCordServerName();
+    private static String currentServer = UtilConfig.getConfig().getBungeeCordConfig().getServerName();
 
     private final UtilPlugin plugin;
 
     public BungeeCord(UtilPlugin utilplugin) {
         this.plugin = utilplugin;
-        Canary.hooks().registerListener(new BungeeCordListener(), plugin);
         Canary.channels().registerListener(plugin, "BungeeCord", lis);
+    }
+
+    public void unregChannelListener() {
+        Canary.channels().unregisterListeners(plugin);
     }
 
     static void addPlayerIp(String player, String Ip, BungeeCordListener liss) {
@@ -137,7 +140,7 @@ public class BungeeCord {
 
     static void setCurrentServerName(String server, BungeeCordListener liss) {
         if (lis == liss) {
-            currentServer = server;
+            UtilConfig.getConfig().getBungeeCordConfig().setServerName(currentServer = server);
         }
     }
 

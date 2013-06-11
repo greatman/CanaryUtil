@@ -10,7 +10,6 @@ import net.visualillusionsent.utils.LocaleHelper;
 public class Commands {
 
     public void registerCommand(CommandData data, CommandOwner owner, LocaleHelper translator, final CommandExecute execute, boolean force) throws CommandDependencyException {
-        // UtilCommand command = new UtilCommand(data, owner, translator, execute);
         CanaryCommand ccommand = new CanaryCommand(new CommandCommand(data), owner, translator) {
 
             @Override
@@ -20,6 +19,18 @@ public class Commands {
 
         };
         Canary.commands().registerCommand(ccommand, owner, force);
+    }
+
+    public void registerCommand(Command command, CommandOwner owner) throws CommandDependencyException {
+        registerCommand(command.getCommandData(), owner, command.getTranslator(), command, command.isForced());
+    }
+
+    public boolean unregisterCommand(CommandData data) {
+        if (!data.getParent().equals("")) {
+            return Canary.commands().unregisterCommand(data.getParent() + "." + data.getCommandUID());
+        } else {
+            return Canary.commands().unregisterCommand("" + data.getCommandUID());
+        }
     }
 
 }

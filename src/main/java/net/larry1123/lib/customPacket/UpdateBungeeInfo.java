@@ -8,16 +8,48 @@ import java.util.LinkedList;
 import net.canarymod.Canary;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.canarymod.tasks.ServerTask;
+import net.canarymod.tasks.ServerTaskManager;
 import net.canarymod.tasks.TaskOwner;
 import net.larry1123.lib.CanaryUtil;
+import net.larry1123.lib.config.UtilConfig;
 
 public class UpdateBungeeInfo extends ServerTask {
 
-    public UpdateBungeeInfo(TaskOwner owner, long delay) {
+    private static UtilConfig config = UtilConfig.getConfig();
+
+    private static UpdateBungeeInfo ticksystem;
+    private static TaskOwner plugin;
+
+    public static void setPlugin(CanaryUtil plugin) {
+        UpdateBungeeInfo.plugin = plugin;
+    }
+
+    public static void startUpdater() {
+        if (config.getBungeeCordConfig().isEnabled()) {
+            ticksystem = new UpdateBungeeInfo(plugin, config.getBungeeCordConfig().getPollTime());
+        }
+    }
+
+    public static void endUpdater() {
+        if (ticksystem != null) {
+            ServerTaskManager.removeTask(ticksystem);
+        }
+    }
+
+    public static void reloadUpdater() {
+        if (config.getBungeeCordConfig().isEnabled()) {
+            if (ticksystem != null) {
+                ServerTaskManager.removeTask(ticksystem);
+            }
+            ticksystem = new UpdateBungeeInfo(plugin, config.getBungeeCordConfig().getPollTime());
+        }
+    }
+
+    private UpdateBungeeInfo(TaskOwner owner, long delay) {
         this(owner, delay, true);
     }
 
-    public UpdateBungeeInfo(TaskOwner owner, long delay, boolean continuous) {
+    private UpdateBungeeInfo(TaskOwner owner, long delay, boolean continuous) {
         super(owner, delay, continuous);
     }
 
@@ -57,7 +89,7 @@ public class UpdateBungeeInfo extends ServerTask {
                 Canary.channels().sendCustomPayloadToPlayer("BungeeCord", b.toByteArray(), player);
             }
 
-            LinkedList<String> servers = (LinkedList<String>) CanaryUtil.coustomPacket().getServerList().clone();
+            LinkedList<String> servers = (LinkedList<String>) CanaryUtil.coustomPacket().getBungeeCord().getServerList().clone();
             servers.add("ALL");
             for (String server : servers) {
                 // Update playerList for each server
