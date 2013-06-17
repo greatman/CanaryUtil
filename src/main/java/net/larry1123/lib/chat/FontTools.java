@@ -1,20 +1,18 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Apr 18, 2013 11:38:48 PM
+ * @lastedit Jun 17, 2013 3:19:57 AM
  */
 package net.larry1123.lib.chat;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import net.canarymod.chat.TextFormat;
 
 /**
  * Adds a few things I felt missing. Hope to add more soon.
  * 
  * @author Larry1123
- * 
  */
 public class FontTools extends TextFormat {
 

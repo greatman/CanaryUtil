@@ -1,3 +1,9 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Jun 17, 2013 3:25:16 AM
+ */
+
 package net.larry1123.lib.logger;
 
 import java.io.PrintWriter;

@@ -1,7 +1,12 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Jun 17, 2013 3:26:18 AM
+ */
+
 package net.larry1123.lib.plugin.commands;
 
 import java.util.UUID;
-
 
 public class CommandData {
 
@@ -11,14 +16,13 @@ public class CommandData {
     private final String toolTip;
     private String parent = "";
     private String helpLookup = "";
-    private String[] searchTerms = {" "};
+    private String[] searchTerms = { " " };
     private int min = 1;
     private int max = -1;
 
     private final UUID commandID = UUID.randomUUID();
 
     /**
-     * 
      * @param aliases
      * @param permissions
      * @param description

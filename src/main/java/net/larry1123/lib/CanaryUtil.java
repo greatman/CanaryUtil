@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Apr 18, 2013 2:12:20 AM
+ * @lastedit Jun 17, 2013 3:19:37 AM
  */
 
 package net.larry1123.lib;
@@ -28,6 +28,7 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
 
     /**
      * Warning may return Null if the Util is not enabled yet!!!!
+     * 
      * @return
      */
     public static CoustomPacket coustomPacket() {

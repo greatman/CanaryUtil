@@ -1,3 +1,9 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Jun 17, 2013 3:25:49 AM
+ */
+
 package net.larry1123.lib.plugin.commands;
 
 import net.visualillusionsent.utils.LocaleHelper;

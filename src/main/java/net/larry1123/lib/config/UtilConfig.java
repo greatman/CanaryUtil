@@ -1,7 +1,12 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Jun 17, 2013 3:22:30 AM
+ */
+
 package net.larry1123.lib.config;
 
 import net.larry1123.lib.CanaryUtil;
-
 
 public class UtilConfig {
 
@@ -19,6 +24,7 @@ public class UtilConfig {
 
     /**
      * Internal Util use only!
+     * 
      * @param util
      */
     public void startReload(CanaryUtil util) {
@@ -35,6 +41,7 @@ public class UtilConfig {
 
     /**
      * Gets the Config for
+     * 
      * @return
      */
     public BungeeCordConfig getBungeeCordConfig() {

@@ -1,3 +1,9 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Jun 17, 2013 3:20:32 AM
+ */
+
 package net.larry1123.lib.commands;
 
 import net.canarymod.commandsys.CommandDependencyException;
@@ -46,8 +52,10 @@ public class UtilCommands {
     private void regCommand(Command command) {
         try {
             CanaryUtil.commands().registerCommand(command, getOwner());
+            command.setloadded(true);
         } catch (CommandDependencyException e) {
             EELogger.getLogger("CanaryUtil").logCustom("Commands", "Failed to add command: " + command.getCommandData().getAliases()[0], e);
+            command.setloadded(false);
         }
     }
 

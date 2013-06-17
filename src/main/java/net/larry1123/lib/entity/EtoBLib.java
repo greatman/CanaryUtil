@@ -1,11 +1,9 @@
 /**
- * 
  * Testing By Spenk
  * 
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Apr 13, 2013 9:00:32 PM
- * 
+ * @lastedit Jun 17, 2013 3:24:05 AM
  */
 
 package net.larry1123.lib.entity;

@@ -1,13 +1,12 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Apr 18, 2013 2:12:56 AM
+ * @lastedit Jun 17, 2013 3:23:19 AM
  */
 
 package net.larry1123.lib.customPacket;
 
 import java.util.LinkedList;
-
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.canarymod.channels.ChannelListener;
 import net.canarymod.plugin.PluginListener;

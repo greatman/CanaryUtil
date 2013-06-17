@@ -1,3 +1,9 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Jun 17, 2013 3:22:14 AM
+ */
+
 package net.larry1123.lib.config;
 
 import net.canarymod.config.Configuration;
@@ -28,6 +34,7 @@ public class LoggerConfig {
 
     /**
      * Sets the Path for loggers
+     * 
      * @param path
      * @return
      */

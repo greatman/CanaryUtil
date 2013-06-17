@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Apr 18, 2013 2:14:06 AM
+ * @lastedit Jun 17, 2013 3:24:50 AM
  */
 
 package net.larry1123.lib.logger;
@@ -19,9 +19,7 @@ public class LoggerLevels {
     }
 
     /**
-     * 
      * This will add a Logger Level and return the name of the Level with in LoggerLevels
-     * 
      * To be used by the Logging System only
      * 
      * @param errorName

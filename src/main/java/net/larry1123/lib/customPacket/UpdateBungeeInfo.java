@@ -1,10 +1,15 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Jun 17, 2013 3:23:48 AM
+ */
+
 package net.larry1123.lib.customPacket;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
-
 import net.canarymod.Canary;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.canarymod.tasks.ServerTask;
@@ -133,4 +138,3 @@ public class UpdateBungeeInfo extends ServerTask {
         }
     }
 }
-

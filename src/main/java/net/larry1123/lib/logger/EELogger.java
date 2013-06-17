@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Apr 18, 2013 2:13:43 AM
+ * @lastedit Jun 17, 2013 3:24:21 AM
  */
 
 package net.larry1123.lib.logger;
@@ -13,7 +13,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-
 import net.canarymod.logger.Logman;
 import net.larry1123.lib.config.UtilConfig;
 

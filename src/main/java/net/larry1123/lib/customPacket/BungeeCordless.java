@@ -1,7 +1,12 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Jun 17, 2013 3:23:03 AM
+ */
+
 package net.larry1123.lib.customPacket;
 
 import java.util.LinkedList;
-
 import net.canarymod.Canary;
 import net.canarymod.api.OfflinePlayer;
 import net.canarymod.api.entity.living.humanoid.Player;

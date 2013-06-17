@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Apr 18, 2013 2:13:09 AM
+ * @lastedit Jun 17, 2013 3:22:50 AM
  */
 
 package net.larry1123.lib.customPacket;
@@ -11,7 +11,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
-
 import net.canarymod.Canary;
 import net.canarymod.api.OfflinePlayer;
 import net.canarymod.api.entity.living.humanoid.Player;
@@ -174,7 +173,7 @@ public class BungeeCord {
             // Can't happen man
         }
         boolean once = false;
-        for (Player player: Canary.getServer().getPlayerList()){
+        for (Player player : Canary.getServer().getPlayerList()) {
             if (!once) {
                 once = true;
                 Canary.channels().sendCustomPayloadToPlayer("BungeeCord", b.toByteArray(), player);
@@ -194,7 +193,7 @@ public class BungeeCord {
         } catch (IOException e) {
             // Can't happen man
         }
-        for (Player player: Canary.getServer().getPlayerList()){
+        for (Player player : Canary.getServer().getPlayerList()) {
             Canary.channels().sendCustomPayloadToPlayer("BungeeCord", b.toByteArray(), player);
         }
     }

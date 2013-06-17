@@ -1,3 +1,9 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Jun 17, 2013 3:23:35 AM
+ */
+
 package net.larry1123.lib.customPacket;
 
 import net.larry1123.lib.CanaryUtil;
@@ -12,6 +18,7 @@ public class CoustomPacket {
 
     /**
      * Warning may return Null if the Util is not enabled yet!!!!
+     * 
      * @return
      */
     public BungeeCord getBungeeCord() {

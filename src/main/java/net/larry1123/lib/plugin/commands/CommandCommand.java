@@ -1,7 +1,12 @@
+/**
+ * @author ElecEntertainment
+ * @team Larry1123, Joshtmathews, Sinzo, Xalbec
+ * @lastedit Jun 17, 2013 3:26:04 AM
+ */
+
 package net.larry1123.lib.plugin.commands;
 
 import java.lang.annotation.Annotation;
-
 import net.canarymod.commandsys.Command;
 import net.larry1123.lib.logger.EELogger;
 
@@ -20,7 +25,7 @@ public class CommandCommand implements Command {
     CommandCommand(CommandData data) {
         String[] aliases = new String[data.getAliases().length + 1];
         int index = 0;
-        for (String alias: data.getAliases()) {
+        for (String alias : data.getAliases()) {
             aliases[index++] = alias;
         }
         aliases[index] = "" + data.getCommandUID();
