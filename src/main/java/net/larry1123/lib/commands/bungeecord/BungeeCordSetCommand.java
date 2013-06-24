@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:21:39 AM
+ * @lastedit Jun 24, 2013 7:55:53 AM
  */
 
 package net.larry1123.lib.commands.bungeecord;
@@ -9,14 +9,14 @@ package net.larry1123.lib.commands.bungeecord;
 import net.canarymod.Translator;
 import net.canarymod.chat.MessageReceiver;
 import net.larry1123.lib.commands.UtilCommands;
-import net.larry1123.lib.config.UtilConfig;
+import net.larry1123.lib.config.UtilConfigManager;
 import net.larry1123.lib.plugin.commands.Command;
 import net.larry1123.lib.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
 
 public class BungeeCordSetCommand implements Command {
 
-    private static UtilConfig config = UtilConfig.getConfig();
+    private static UtilConfigManager config = UtilConfigManager.getConfig();
 
     private final CommandData command = new CommandData(new String[]{ "bungeecord", "cord" }, new String[]{ "canary.super.canaryutil.bungeecord.set", "canary.command.super.canaryutil.bungeecord.set" }, "TODO set", "TODO set");
     private final LocaleHelper translator = Translator.getInstance();
@@ -29,6 +29,9 @@ public class BungeeCordSetCommand implements Command {
         command.setMin(2);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(MessageReceiver caller, String[] parameters) {
         if (parameters[2].toLowerCase().equals("enabled")) {
@@ -54,26 +57,41 @@ public class BungeeCordSetCommand implements Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandData getCommandData() {
         return command;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LocaleHelper getTranslator() {
         return translator;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isForced() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isloaded() {
         return loaded;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setloadded(boolean loadedness) {
         loaded = loadedness;

@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:21:56 AM
+ * @lastedit Jun 24, 2013 7:56:09 AM
  */
 
 package net.larry1123.lib.config;
@@ -30,38 +30,73 @@ public class BungeeCordConfig {
         loadData();
     }
 
+    /**
+     * Will update everything with any changes in Config file
+     */
     void reload() {
         bungeecordConfig.reload();
-
         loadData();
-
         CanaryUtil.coustomPacket().reloadBungeeCord();
     }
 
+    /**
+     * Gets the state of BungeeCord use.
+     * 
+     * @return If BungeeCord functions are enabled
+     */
     public boolean isEnabled() {
         return isEnabled;
     }
 
+    /**
+     * Gets how long to wait between Polling a BungeeCord Server
+     * 
+     * @return wait time for polling
+     */
     public long getPollTime() {
         return pollTime;
     }
 
+    /**
+     * Gets what the Name of this Server is.
+     * 
+     * @return Gets the Server's Name
+     */
     public String getServerName() {
         return serverName;
     }
 
+    /**
+     * Will Enable or disable BungeeCord Functions
+     * 
+     * @param state
+     *            true to start, false to stop
+     */
     public void setIsEnabled(boolean state) {
         bungeecordConfig.setBoolean(enabledString, isEnabled = state);
         bungeecordConfig.save(); // Time to Save
         CanaryUtil.coustomPacket().reloadBungeeCord();
     }
 
+    /**
+     * Sets the wait between Polling a BungeeCord Server
+     * 
+     * @param time
+     *            the number of ms to wait
+     */
     public void setPollTime(long time) {
         bungeecordConfig.setLong(pollTimeString, pollTime = time);
         bungeecordConfig.save(); // Time to Save
         CanaryUtil.coustomPacket().reloadBungeeCord();
     }
 
+    /**
+     * Sets this Server's name
+     * Mainly for use with out BungeeCord Running
+     * 
+     * @param name
+     *            Name of this server
+     */
     public void setServerName(String name) {
         bungeecordConfig.setString(serverName, serverName = name);
         bungeecordConfig.save(); // Time to Save

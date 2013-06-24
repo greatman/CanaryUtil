@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:24:36 AM
+ * @lastedit Jun 24, 2013 7:59:37 AM
  */
 
 package net.larry1123.lib.logger;
@@ -22,8 +22,7 @@ public class LoggerLevel extends Level {
     private final String prefix;
 
     LoggerLevel(String name) {
-        super(name, genLevel());
-        prefix = "";
+        this(name, "");
     }
 
     LoggerLevel(String name, String prefix) {
@@ -31,6 +30,11 @@ public class LoggerLevel extends Level {
         this.prefix = prefix;
     }
 
+    /**
+     * Get the Prefix of the Level
+     * 
+     * @return
+     */
     public String getPrefix() {
         return prefix;
     }

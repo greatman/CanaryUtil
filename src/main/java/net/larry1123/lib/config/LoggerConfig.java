@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:22:14 AM
+ * @lastedit Jun 24, 2013 7:56:19 AM
  */
 
 package net.larry1123.lib.config;
@@ -12,39 +12,54 @@ import net.visualillusionsent.utils.PropertiesFile;
 public class LoggerConfig {
 
     private final String pathString = "Logger-Path";
+    private final String apiString = "Paste-API-Key";
 
     private final String pathDefult = "pluginlogs/";
+    private final String apiDefult = "";
 
     private PropertiesFile loggerConfig;
     private String loggerPath = pathDefult;
+    private String apiKey = apiDefult;
 
     LoggerConfig(String plugin) {
         loggerConfig = Configuration.getPluginConfig(plugin, "Logger");
         loadData();
     }
 
+    /**
+     * Will update everything with any changes in Config file
+     */
     void reload() {
         loggerConfig.reload();
         loadData();
     }
 
+    /**
+     * Gets the current Log Path
+     * @return Current Log Path
+     */
     public String getLoggerPath() {
         return loggerPath;
     }
 
     /**
+     * COMMING SOON!
+     * @return API KEY
+     */
+    public String getAPIKey() {
+        return apiKey;
+    }
+
+    /**
      * Sets the Path for loggers
      * 
-     * @param path
-     * @return
+     * Will not change the location of Loggers that are running as it is but will move new ones
+     * 
+     * @param path Local Path to place Log files
      */
     public void setLoggerPath(String path) {
-        if (!path.endsWith("/")) {
-            path = path + "/";
-        }
         loggerConfig.setString(pathString, loggerPath = path);
         loggerConfig.save(); // Time to Save
-        // Will not change the location of Loggers that are running as it is but will move new ones!
     }
 
     private void loadData() {
@@ -52,13 +67,13 @@ public class LoggerConfig {
          * Time to setup the file and read the settings
          */
         loggerPath = loggerConfig.getString(pathString, pathDefult);
-        if (!loggerPath.endsWith("/")) {
-            loggerPath = loggerPath + "/";
-            loggerConfig.setString(pathString, loggerPath);
-        }
         loggerConfig.addComment(pathString, "This defines where the log files will be placed");
 
+        apiKey = loggerConfig.getString(apiString, apiDefult);
+        loggerConfig.addComment(apiString, "CommingSoon");
+
         loggerConfig.save(); // Time to Save
+
     }
 
 }

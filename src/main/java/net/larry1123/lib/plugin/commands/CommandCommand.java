@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:26:04 AM
+ * @lastedit Jun 24, 2013 8:00:44 AM
  */
 
 package net.larry1123.lib.plugin.commands;
@@ -44,51 +44,81 @@ public class CommandCommand implements Command {
         this.max = data.getMax();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Class<? extends Annotation> annotationType() {
         return Command.class;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] aliases() {
         return this.aliases;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] permissions() {
         return this.permissions;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String description() {
         return this.description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toolTip() {
         return this.toolTip;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String parent() {
         return this.parent;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String helpLookup() {
         return this.helpLookup;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] searchTerms() {
         return this.searchTerms;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int min() {
         return this.min;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int max() {
         return this.max;

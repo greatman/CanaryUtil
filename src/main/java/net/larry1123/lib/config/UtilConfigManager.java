@@ -1,61 +1,60 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:22:30 AM
+ * @lastedit Jun 24, 2013 7:56:30 AM
  */
 
 package net.larry1123.lib.config;
 
-import net.larry1123.lib.CanaryUtil;
+public class UtilConfigManager {
 
-public class UtilConfig {
+    private static UtilConfigManager config = new UtilConfigManager();
 
-    private static UtilConfig config = new UtilConfig("CanaryUtil");
-
-    private String pluginName;
+    private String pluginName = "CanaryUtil";
     private BungeeCordConfig bungeecordConfig;
     private LoggerConfig loggerConfig;
 
-    private CanaryUtil plugin;
-
-    public static UtilConfig getConfig() {
+    /**
+     * Gets the Config Manager
+     * @return Config Manager
+     */
+    public static UtilConfigManager getConfig() {
         return config;
     }
 
-    /**
-     * Internal Util use only!
-     * 
-     * @param util
-     */
-    public void startReload(CanaryUtil util) {
-        if (plugin == null) {
-            plugin = util;
-        }
-    }
-
-    private UtilConfig(String plugin) {
-        pluginName = plugin;
+    private UtilConfigManager() {
         bungeecordConfig = new BungeeCordConfig(pluginName);
         loggerConfig = new LoggerConfig(pluginName);
     }
 
     /**
-     * Gets the Config for
+     * Gets the Config for BungeeCord
      * 
-     * @return
+     * @return Config Manager for BungeeCord
      */
     public BungeeCordConfig getBungeeCordConfig() {
         return bungeecordConfig;
     }
 
+    /**
+     * Reloads the Config of the BungeeCord Config Manager
+     */
     public void reloadBungeeCordConfig() {
         bungeecordConfig.reload();
     }
 
+    /**
+     * Gets the Config for the Logger
+     * 
+     * @return Config Manager for Logger
+     */
     public LoggerConfig getLoggerConfig() {
         return loggerConfig;
     }
 
+    /**
+     * Reloads the Config of the Logger Config Manager
+     */
     public void reloadLoggerConfig() {
         loggerConfig.reload();
     }

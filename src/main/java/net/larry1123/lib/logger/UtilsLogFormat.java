@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:25:16 AM
+ * @lastedit Jun 24, 2013 8:00:06 AM
  */
 
 package net.larry1123.lib.logger;
@@ -19,6 +19,9 @@ final class UtilsLogFormat extends SimpleFormatter {
             "dd-MM-yyyy HH:mm:ss");
     private final String linesep = System.getProperty("line.separator");
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String format(LogRecord rec) {
 

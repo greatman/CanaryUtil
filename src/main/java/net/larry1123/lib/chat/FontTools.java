@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:19:57 AM
+ * @lastedit Jun 24, 2013 7:54:26 AM
  */
 package net.larry1123.lib.chat;
 
@@ -84,6 +84,11 @@ public class FontTools extends TextFormat {
         return retrn;
     }
 
+    /**
+     * Gets a RandomColor Code
+     * 
+     * @return
+     */
     public static String RandomColor() {
         Random random = new Random();
         return colorList.get(random.nextInt(colorList.size() - 1));

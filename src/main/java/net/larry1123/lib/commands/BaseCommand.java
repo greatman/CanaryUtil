@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:20:14 AM
+ * @lastedit Jun 24, 2013 7:54:52 AM
  */
 
 package net.larry1123.lib.commands;
@@ -24,31 +24,49 @@ public class BaseCommand implements Command {
         command.setMax(1);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CommandData getCommandData() {
         return command;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LocaleHelper getTranslator() {
         return translator;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isForced() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(MessageReceiver caller, String[] parameters) {
         caller.message(utilcommands.getOwner().getName() + " By: " + utilcommands.getOwner().getAuthor());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isloaded() {
         return loaded;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setloadded(boolean loadedness) {
         loaded = loadedness;
