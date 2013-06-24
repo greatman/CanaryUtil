@@ -104,7 +104,9 @@ public class EELogger extends Logman {
         } catch (IOException e) {
             EELogger.log.logCustom(EELogger.fileHandlerError, "IOException", e);
         }
-        setParent(log);
+        if (log != null) {
+            setParent(log);
+        }
     }
 
     private EELogger(String name, EELogger parent) {
