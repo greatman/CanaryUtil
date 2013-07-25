@@ -6,8 +6,14 @@
 
 package net.larry1123.lib.logger;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -129,7 +135,6 @@ public class EELogger extends Logman {
 
     /**
      * Creates a LoggerLevel for this Logger
-     * 
      * Makes the Log look like this: [{LoggerName}] [{LevelName}] {Message}
      * 
      * @param levelName
@@ -141,7 +146,6 @@ public class EELogger extends Logman {
 
     /**
      * Creates a LoggerLevel for this Logger with a prefix
-     * 
      * Makes the Log look like this: [{LoggerName}] [{LevelName}] [{Prefix}] {Message}
      * 
      * @param levelName
@@ -154,7 +158,6 @@ public class EELogger extends Logman {
 
     /**
      * Creates a LoggerLevel for this Logger and saves it to a Log file
-     * 
      * Makes the Log look like this: [{LoggerName}] [{LevelName}] {Message}
      * 
      * @param levelName
@@ -179,7 +182,6 @@ public class EELogger extends Logman {
 
     /**
      * Creates a LoggerLevel for this Logger with a prefix and saves it to a Log file
-     * 
      * Makes the Log look like this: [{LoggerName}] [{LevelName}] [{Prefix}] {Message}
      * 
      * @param levelName
@@ -320,6 +322,78 @@ public class EELogger extends Logman {
         File logDir = new File(path.substring(0, path.lastIndexOf('/')));
         if (!logDir.exists()) {
             logDir.mkdirs();
+        }
+    }
+
+    /**
+     * Will Log a StackTrace and Post it on to http://paste.larry1123.net/
+     * Will return true if it was able to post and false if it was not able to post
+     * 
+     * @param message Message to be Logged
+     * @param thrown Throwable Error To be logged
+     * @return True if paste was made of stacktrace false if it failed for any reason
+     */
+    public boolean logStacktraceToPasteBin(String message, Throwable thrown) {
+        log(Level.SEVERE, message, thrown);
+
+        if (UtilConfigManager.getConfig().getLoggerConfig().isPasteingAllowed()) {
+            try {
+                URL url = new URL("http://paste.larry1123.net/");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("POST");
+                con.setRequestProperty("User-Agent", "Mozilla/5.0");
+                con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+                // sn=C02G8416DRJM&cn=&locale=&caller=&num=12345
+                String urlParameters = "paste_data=" + org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(thrown);
+                urlParameters += "&";
+                urlParameters += "paste_lang=Java";
+                urlParameters += "&";
+                urlParameters += "api_submit=true";
+                urlParameters += "&";
+                urlParameters += "mode=xml";
+                urlParameters += "&";
+                urlParameters += "paste_expire=0";
+                urlParameters += "&";
+                urlParameters += "paste_project=" + this.getName();
+                if (!UtilConfigManager.getConfig().getLoggerConfig().getUserName().equals("")) {
+                    urlParameters += "&";
+                    urlParameters += "paste_user=" + UtilConfigManager.getConfig().getLoggerConfig().getUserName();
+                }
+
+                // Send post request
+                con.setDoOutput(true);
+                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                wr.writeBytes(urlParameters);
+                wr.flush();
+                wr.close();
+
+                int responseCode = con.getResponseCode();
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                if (responseCode == 200) {
+                    return response.toString().contains("<id>");
+                } else {
+                    return false;
+                }
+
+            } catch (MalformedURLException e) {
+                log.log(Level.SEVERE, "Failed to send: Malformed", e);
+                return false;
+            } catch (IOException e) {
+                log.log(Level.SEVERE, "Failed to send: IOException", e);
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 

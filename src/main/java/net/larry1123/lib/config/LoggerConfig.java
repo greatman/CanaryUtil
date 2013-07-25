@@ -6,19 +6,18 @@
 
 package net.larry1123.lib.config;
 
-
 public class LoggerConfig implements ConfigBase {
-
-    private final String pathDefult = "pluginlogs/";
-    private final String apiDefult = "";
 
     private ConfigFile configManager;
 
-    @ConfigFeild( comments = "This defines where the log files will be placed." )
-    private String Logger_Path = pathDefult;
+    @ConfigFeild(comments = "This defines where the log files will be placed.")
+    private String logger_Path = "pluginlogs/";
 
-    @ConfigFeild
-    private String Paste_API_Key = apiDefult;
+    @ConfigFeild(name = "Paste-Enabled", comments = "TODO")
+    private boolean pasteSend = true;
+
+    @ConfigFeild(name = "Paste-UserName", comments = "Set the Name to post Paste as if enabled.")
+    private String pasteUserName = "";
 
     LoggerConfig(String plugin) {
         configManager = new ConfigFile(this, plugin, "Logger");
@@ -33,30 +32,36 @@ public class LoggerConfig implements ConfigBase {
 
     /**
      * Gets the current Log Path
+     * 
      * @return Current Log Path
      */
     public String getLoggerPath() {
-        return Logger_Path;
+        return logger_Path;
     }
 
     /**
-     * COMMING SOON!
-     * @return API KEY
+     * Returns the User Name to post paste as.
+     * 
+     * @return Returns the User Name to post paste as.
      */
-    public String getAPIKey() {
-        return Paste_API_Key;
+    public String getUserName() {
+        return pasteUserName;
     }
 
     /**
      * Sets the Path for loggers
-     * 
      * Will not change the location of Loggers that are running as it is but will move new ones
      * 
-     * @param path Local Path to place Log files
+     * @param path
+     *            Local Path to place Log files
      */
     public void setLoggerPath(String path) {
-        Logger_Path = path;
+        logger_Path = path;
         configManager.save(); // Time to Save
+    }
+
+    public boolean isPasteingAllowed() {
+        return pasteSend;
     }
 
 }
