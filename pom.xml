@@ -4,12 +4,6 @@
   <artifactId>CanaryUtil</artifactId>
   <version>0.0.2-SNAPSHOT</version>
   
-  <dependencies>
-    <dependency>
-      <groupId>net.canarymod</groupId>
-      <artifactId>CanaryLib</artifactId>
-      </dependency>
-  </dependencies>
     
   <build>
     <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
@@ -30,19 +24,34 @@
     </plugins>
   </build>
   
-  <dependencyManagement>
-  	<dependencies>
-  		<dependency>
-  			<groupId>net.canarymod</groupId>
-  			<artifactId>CanaryLib</artifactId>
-  			<version>0.8-SNAPSHOT</version>
-  		</dependency>
-  	</dependencies>
-  </dependencyManagement>
   
   <scm>
   	<url>https://github.com/Larry1123/CanaryUtil</url>
   	<connection>scm:git:git://github.com/Larry1123/CanaryUtil.git</connection>
   	<developerConnection>scm:git:git@github.com:Larry1123/CanaryUtil.git</developerConnection>
   </scm>
+  <dependencies>
+  	<dependency>
+  		<groupId>net.canarymod</groupId>
+  		<artifactId>CanaryLib</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.commons</groupId>
+  		<artifactId>commons-lang3</artifactId>
+  	</dependency>
+  </dependencies>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>net.canarymod</groupId>
+  			<artifactId>CanaryLib</artifactId>
+  			<version>0.9-SNAPSHOT</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.apache.commons</groupId>
+  			<artifactId>commons-lang3</artifactId>
+  			<version>3.1</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
 </project>

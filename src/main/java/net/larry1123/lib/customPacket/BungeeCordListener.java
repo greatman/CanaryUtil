@@ -9,9 +9,16 @@ package net.larry1123.lib.customPacket;
 import java.util.LinkedList;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.canarymod.channels.ChannelListener;
+import net.canarymod.hook.HookHandler;
+import net.canarymod.hook.player.DisconnectionHook;
 import net.canarymod.plugin.PluginListener;
 
 public final class BungeeCordListener extends ChannelListener implements PluginListener {
+
+    @HookHandler
+    public void onPlayerDisconnect(DisconnectionHook hook) {
+        BungeeCord.removePlayerIp(hook.getPlayer(), this);
+    }
 
     @Override
     public void onChannelInput(String channel, Player player, byte[] byteStream) {
@@ -19,8 +26,7 @@ public final class BungeeCordListener extends ChannelListener implements PluginL
         String subChannel = data[1].substring(1);
 
         if (subChannel.startsWith("IP")) {
-            String ip = data[2].substring(1);
-            BungeeCord.addPlayerIp(player.getName(), ip, this);
+            BungeeCord.setPlayerIp(player, data[2].substring(1), this);
         }
         if (subChannel.startsWith("PlayerCount")) {
             String tempcount = "";

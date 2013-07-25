@@ -14,15 +14,14 @@ import java.util.LinkedList;
 import net.canarymod.Canary;
 import net.canarymod.api.OfflinePlayer;
 import net.canarymod.api.entity.living.humanoid.Player;
-import net.canarymod.channels.ChannelListener;
 import net.larry1123.lib.config.UtilConfigManager;
 import net.larry1123.lib.plugin.UtilPlugin;
 
 public class BungeeCord {
 
-    private static ChannelListener lis = new BungeeCordListener();
+    private static BungeeCordListener lis = new BungeeCordListener();
 
-    private static HashMap<OfflinePlayer, String> IPs = new HashMap<OfflinePlayer, String>();
+    private static HashMap<String, String> IPs = new HashMap<String, String>();
     private static HashMap<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
     private static LinkedList<String> serverList = new LinkedList<String>();
     private static HashMap<String, LinkedList<OfflinePlayer>> playerList = new HashMap<String, LinkedList<OfflinePlayer>>();
@@ -33,6 +32,7 @@ public class BungeeCord {
     public BungeeCord(UtilPlugin utilplugin) {
         this.plugin = utilplugin;
         Canary.channels().registerListener(plugin, "BungeeCord", lis);
+        Canary.hooks().registerListener(lis, plugin);
     }
 
     public void unregChannelListener() {
@@ -40,7 +40,7 @@ public class BungeeCord {
     }
 
     /**
-     * For use from the Channel Listener only
+     * For use from the Listener only
      * 
      * @param player
      *            String of the Player's Name
@@ -49,10 +49,11 @@ public class BungeeCord {
      * @param liss
      *            The Object of the Listener
      */
-    static void addPlayerIp(String player, String Ip, BungeeCordListener liss) {
+    static void setPlayerIp(Player player, String Ip, BungeeCordListener liss) {
         if (lis == liss) {
             if (Ip != null) {
-                IPs.put(Canary.getServer().getOfflinePlayer(player), Ip);
+                IPs.put(player.getName(), Ip);
+                player.message(Ip);
             }
         }
     }
@@ -67,30 +68,29 @@ public class BungeeCord {
      * @return The IP of the Player
      */
     public String getRealPlayerIp(Player player) {
-        OfflinePlayer offlineplyer = Canary.getServer().getOfflinePlayer(player.getName());
-        if (IPs.containsKey(offlineplyer)) {
-            return IPs.get(offlineplyer);
+        if (IPs.get(player.getName()) != null) {
+            return IPs.get(player.getName());
         } else {
             return player.getIP();
         }
     }
 
     /**
-     * For use from the Channel Listener only
+     * For use from the Listener only
      * 
      * @param player
      *            String of the Player's Name
      * @param liss
      *            The Object of the Listener
      */
-    static void removePlayerIp(String player, BungeeCordListener liss) {
+    static void removePlayerIp(Player player, BungeeCordListener liss) {
         if (lis == liss) {
-            IPs.remove(Canary.getServer().getOfflinePlayer(player));
+            IPs.remove(player.getName());
         }
     }
 
     /**
-     * For use from the Channel Listener only
+     * For use from the Listener only
      * 
      * @param server
      *            Server to update
@@ -123,7 +123,7 @@ public class BungeeCord {
     }
 
     /**
-     * For use from the Channel Listener only
+     * For use from the Listener only
      * This Method handles the server name ALL, when ALL is handled it will remove from all other Server list missing players
      * 
      * @param server
@@ -143,8 +143,8 @@ public class BungeeCord {
 
             if (server.equals("ALL")) {
                 // Removes players that for some reason are still there when they should not be
-                for (OfflinePlayer player : IPs.keySet()) {
-                    if (!playerList.get("ALL").contains(player)) {
+                for (String player : IPs.keySet()) {
+                    if (!playerList.get("ALL").contains(Canary.getServer().getOfflinePlayer(player))) {
                         IPs.remove(player);
                     }
                 }
@@ -190,7 +190,7 @@ public class BungeeCord {
     }
 
     /**
-     * For use from the Channel Listener only
+     * For use from the Listener only
      * 
      * @param servers
      *            String LinkedList of Server Names
@@ -218,7 +218,7 @@ public class BungeeCord {
     }
 
     /**
-     * For use from the Channel Listener only
+     * For use from the Listener only
      * 
      * @param server
      *            Server to update
@@ -245,15 +245,14 @@ public class BungeeCord {
 
     /**
      * This will disconnect the Player from this server and send them to a different server if it is online
-     * 
      * Will return true if the packet was sent false if we know that the server is not online at this time.
-     * 
      * Will also return false if you are trying to send to the current server;
-     * 
      * Will return false if no players are online or if no players that are online are connected to the BungeeCord Server
      * 
-     * @param player Player Object of who to send to a new server
-     * @param server What server to send to
+     * @param player
+     *            Player Object of who to send to a new server
+     * @param server
+     *            What server to send to
      * @return true if the packet was sent, false if the packet was not sent
      */
     public boolean sendPlayertoServer(Player player, String server) {
@@ -277,16 +276,16 @@ public class BungeeCord {
 
     /**
      * Will send a CustomPayload Packet to the given server as any connected player
-     * 
      * Will return true if the packet was sent false if we know that the server is not online at this time.
-     * 
      * Will also return false if you are trying to send to the current server;
-     * 
      * Will return false if no players are online or if no players that are online are connected to the BungeeCord Server
      * 
-     * @param server What server to send to.
-     * @param subCnannel What channel to send over
-     * @param data What data to pass
+     * @param server
+     *            What server to send to.
+     * @param subCnannel
+     *            What channel to send over
+     * @param data
+     *            What data to pass
      * @return true if the packet was sent, false if the packet was not sent
      */
     public boolean sendMessageToServer(String server, String subCnannel, String data) {
@@ -316,11 +315,8 @@ public class BungeeCord {
 
     /**
      * Will send a CustomPayload Packet to the given server as All Connected Players
-     * 
      * Will return true if any packet was sent, false if we know that the server is not online at this time.
-     * 
      * Will also return false if you are trying to send to the current server;
-     * 
      * Will return false if no players are online or if no players that are online are connected to the BungeeCord Server
      * 
      * @param server
@@ -355,11 +351,8 @@ public class BungeeCord {
     }
 
     /**
-     * 
      * Will return true if the packet was sent, false if we know that the server is not online at this time.
-     * 
      * Will also return false if you are trying to send to the current server;
-     * 
      * Will return false if the player is not connected to the BungeeCord Server
      * 
      * @param server

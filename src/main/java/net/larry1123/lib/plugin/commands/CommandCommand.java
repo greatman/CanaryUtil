@@ -8,7 +8,6 @@ package net.larry1123.lib.plugin.commands;
 
 import java.lang.annotation.Annotation;
 import net.canarymod.commandsys.Command;
-import net.larry1123.lib.logger.EELogger;
 
 public class CommandCommand implements Command {
 
@@ -30,9 +29,6 @@ public class CommandCommand implements Command {
         }
         aliases[index] = "" + data.getCommandUID();
         index = 0;
-        for (String alias : aliases) {
-            EELogger.getLogger("UtilLogger").info(index++ + " \"" + alias + "\"");
-        }
         this.aliases = aliases;
         this.permissions = data.getPermissions();
         this.description = data.getDescription();

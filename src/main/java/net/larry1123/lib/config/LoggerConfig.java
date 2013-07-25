@@ -6,32 +6,29 @@
 
 package net.larry1123.lib.config;
 
-import net.canarymod.config.Configuration;
-import net.visualillusionsent.utils.PropertiesFile;
 
-public class LoggerConfig {
-
-    private final String pathString = "Logger-Path";
-    private final String apiString = "Paste-API-Key";
+public class LoggerConfig implements ConfigBase {
 
     private final String pathDefult = "pluginlogs/";
     private final String apiDefult = "";
 
-    private PropertiesFile loggerConfig;
-    private String loggerPath = pathDefult;
-    private String apiKey = apiDefult;
+    private ConfigFile configManager;
+
+    @ConfigFeild( comments = "This defines where the log files will be placed." )
+    private String Logger_Path = pathDefult;
+
+    @ConfigFeild
+    private String Paste_API_Key = apiDefult;
 
     LoggerConfig(String plugin) {
-        loggerConfig = Configuration.getPluginConfig(plugin, "Logger");
-        loadData();
+        configManager = new ConfigFile(this, plugin, "Logger");
     }
 
     /**
      * Will update everything with any changes in Config file
      */
     void reload() {
-        loggerConfig.reload();
-        loadData();
+        configManager.reload();
     }
 
     /**
@@ -39,7 +36,7 @@ public class LoggerConfig {
      * @return Current Log Path
      */
     public String getLoggerPath() {
-        return loggerPath;
+        return Logger_Path;
     }
 
     /**
@@ -47,7 +44,7 @@ public class LoggerConfig {
      * @return API KEY
      */
     public String getAPIKey() {
-        return apiKey;
+        return Paste_API_Key;
     }
 
     /**
@@ -58,22 +55,8 @@ public class LoggerConfig {
      * @param path Local Path to place Log files
      */
     public void setLoggerPath(String path) {
-        loggerConfig.setString(pathString, loggerPath = path);
-        loggerConfig.save(); // Time to Save
-    }
-
-    private void loadData() {
-        /**
-         * Time to setup the file and read the settings
-         */
-        loggerPath = loggerConfig.getString(pathString, pathDefult);
-        loggerConfig.addComment(pathString, "This defines where the log files will be placed");
-
-        apiKey = loggerConfig.getString(apiString, apiDefult);
-        loggerConfig.addComment(apiString, "CommingSoon");
-
-        loggerConfig.save(); // Time to Save
-
+        Logger_Path = path;
+        configManager.save(); // Time to Save
     }
 
 }

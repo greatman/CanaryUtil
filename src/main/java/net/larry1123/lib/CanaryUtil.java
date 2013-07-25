@@ -10,15 +10,12 @@ import net.canarymod.commandsys.CommandOwner;
 import net.canarymod.tasks.ServerTaskManager;
 import net.canarymod.tasks.TaskOwner;
 import net.larry1123.lib.commands.UtilCommands;
-import net.larry1123.lib.config.UtilConfigManager;
 import net.larry1123.lib.customPacket.CoustomPacket;
 import net.larry1123.lib.customPacket.UpdateBungeeInfo;
 import net.larry1123.lib.plugin.UtilPlugin;
 import net.larry1123.lib.plugin.commands.Commands;
 
 public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
-
-    private static UtilConfigManager config = UtilConfigManager.getConfig();
 
     private static CoustomPacket coustompacket;
     private static Commands commands = new Commands();
