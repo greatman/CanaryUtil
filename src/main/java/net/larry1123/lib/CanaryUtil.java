@@ -50,7 +50,6 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
      */
     @Override
     public boolean enable() {
-
         UpdateBungeeInfo.setPlugin(this);
         coustompacket = new CoustomPacket(this);
         new UtilCommands(this);

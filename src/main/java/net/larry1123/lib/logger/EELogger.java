@@ -328,13 +328,59 @@ public class EELogger extends Logman {
     /**
      * Will Log a StackTrace and Post it on to http://paste.larry1123.net/
      * Will return true if it was able to post and false if it was not able to post
+     * Throws with the Level Warning
      * 
      * @param message Message to be Logged
      * @param thrown Throwable Error To be logged
      * @return True if paste was made of stacktrace false if it failed for any reason
      */
     public boolean logStacktraceToPasteBin(String message, Throwable thrown) {
-        log(Level.SEVERE, message, thrown);
+        return logStacktraceToPasteBin(Level.WARNING, message, thrown);
+    }
+
+    /**
+     * Will Log a StackTrace and Post it on to http://paste.larry1123.net/
+     * Will return true if it was able to post and false if it was not able to post
+     * Throws with the LoggerLevel Given
+     * 
+     * @param lvl String of the LoggerLevel's name to throw with
+     * @param message Message to be Logged
+     * @param thrown Throwable Error To be logged
+     * @return True if paste was made of stacktrace false if it failed for any reason
+     */
+    public void logStacktraceToPasteBin(String lvl, String message, Throwable thrown) {
+        logStacktraceToPasteBin(LoggerLevels.getLoggerLevel(lvl), message, thrown);
+    }
+
+    /**
+     * Will Log a StackTrace and Post it on to http://paste.larry1123.net/
+     * Will return true if it was able to post and false if it was not able to post
+     * Throws with the LoggerLevel Given
+     * 
+     * @param lvl Object of the LoggerLevel to throw with
+     * @param message Message to be Logged
+     * @param thrown Throwable Error To be logged
+     * @return True if paste was made of stacktrace false if it failed for any reason
+     */
+    public boolean logStacktraceToPasteBin(LoggerLevel lvl, String message, Throwable thrown) {
+        if (!lvl.getPrefix().isEmpty()) {
+            message = "[" + lvl.getPrefix() + "] " + message;
+        }
+        return logStacktraceToPasteBin(lvl, message, thrown);
+    }
+
+    /**
+     * Will Log a StackTrace and Post it on to http://paste.larry1123.net/
+     * Will return true if it was able to post and false if it was not able to post
+     * Throws with the Level given
+     * 
+     * @param lvl The Level to be thrown with
+     * @param message Message to be Logged
+     * @param thrown Throwable Error To be logged
+     * @return True if paste was made of stacktrace false if it failed for any reason
+     */
+    public boolean logStacktraceToPasteBin(Level lvl, String message, Throwable thrown) {
+        log(lvl, message, thrown);
 
         if (UtilConfigManager.getConfig().getLoggerConfig().isPasteingAllowed()) {
             try {
@@ -344,8 +390,7 @@ public class EELogger extends Logman {
                 con.setRequestProperty("User-Agent", "Mozilla/5.0");
                 con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-                // sn=C02G8416DRJM&cn=&locale=&caller=&num=12345
-                String urlParameters = "paste_data=" + org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(thrown);
+                String urlParameters = "paste_data=" + "[" + lvl.getName() + "] " + message + "\n" + org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(thrown);
                 urlParameters += "&";
                 urlParameters += "paste_lang=Java";
                 urlParameters += "&";
