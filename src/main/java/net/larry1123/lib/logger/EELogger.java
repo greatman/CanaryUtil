@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:59:26 AM
+ * @lastedit Jul 27, 2013 11:45:19 PM
  */
 
 package net.larry1123.lib.logger;
@@ -15,18 +15,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import net.canarymod.logger.Logman;
+import net.larry1123.lib.config.LoggerConfig;
 import net.larry1123.lib.config.UtilConfigManager;
 
 public class EELogger extends Logman {
 
-    private static final HashMap<String, FileHandler> fileHandlers = new HashMap<String, FileHandler>();
-
-    private static final HashMap<FileHandler, UtilFilter> fileFilters = new HashMap<FileHandler, UtilFilter>();
+    private static final LoggerConfig config = UtilConfigManager.getConfig().getLoggerConfig();
 
     /**
      * Logger to log about Logging ... yea I know
@@ -39,7 +37,7 @@ public class EELogger extends Logman {
      * @return
      */
     public static String getLogpath() {
-        return UtilConfigManager.getConfig().getLoggerConfig().getLoggerPath();
+        return config.getLoggerPath();
     }
 
     /**
@@ -57,7 +55,7 @@ public class EELogger extends Logman {
         }
     }
 
-    private final static String fileHandlerError = log.addLoggerLevel("ElecEntertainmentLogger", "FileHandler");
+    public final static String fileHandlerError = log.addLoggerLevel("ElecEntertainmentLogger", "FileHandler");
 
     /**
      * Gets the EELogger for the given name
@@ -99,17 +97,7 @@ public class EELogger extends Logman {
         super(name);
         path = getLogpath() + name + "/";
         logpath = path + name;
-        createDirectoryFromPath(logpath);
-        try {
-            FileHandler handler = gethandler(logpath + ".log");
-            UtilFilter filter = fileFilters.get(handler);
-            filter.setLogAll(true);
-            handler.setFilter(filter);
-        } catch (SecurityException e) {
-            EELogger.log.logCustom(EELogger.fileHandlerError, "SecurityException", e);
-        } catch (IOException e) {
-            EELogger.log.logCustom(EELogger.fileHandlerError, "IOException", e);
-        }
+        FileManager.setUpFile(this, logpath);
         if (log != null) {
             setParent(log);
         }
@@ -119,17 +107,7 @@ public class EELogger extends Logman {
         super(parent.getName() + ":" + name);
         path = parent.path;
         logpath = path + parent.getName() + ":" + name;
-        createDirectoryFromPath(logpath);
-        try {
-            FileHandler handler = gethandler(logpath + ".log");
-            UtilFilter filter = fileFilters.get(handler);
-            filter.setLogAll(true);
-            handler.setFilter(filter);
-        } catch (SecurityException e) {
-            EELogger.log.logCustom(EELogger.fileHandlerError, "SecurityException", e);
-        } catch (IOException e) {
-            EELogger.log.logCustom(EELogger.fileHandlerError, "IOException", e);
-        }
+        FileManager.setUpFile(this, logpath);
         setParent(parent);
     }
 
@@ -141,7 +119,7 @@ public class EELogger extends Logman {
      * @return
      */
     public String addLoggerLevel(String levelName) {
-        return LoggerLevels.addLoggerLevel(levelName, this);
+        return LoggerLevels.getLoggerLevel(levelName, this).getID();
     }
 
     /**
@@ -153,7 +131,7 @@ public class EELogger extends Logman {
      * @return
      */
     public String addLoggerLevel(String levelName, String prefix) {
-        return LoggerLevels.addLoggerLevel(levelName, prefix, this);
+        return LoggerLevels.getLoggerLevel(levelName, prefix, this).getID();
     }
 
     /**
@@ -164,20 +142,10 @@ public class EELogger extends Logman {
      * @return
      */
     public String addLoggerLevelWFile(String levelName) {
-        String name = LoggerLevels.addLoggerLevel(levelName, this);
-        createDirectoryFromPath(path);
-        String levelPath = logpath + "." + levelName;
-        try {
-            FileHandler handler = gethandler(levelPath + ".log");
-            UtilFilter filter = fileFilters.get(handler);
-            filter.addLogLevel(name);
-            handler.setFilter(filter);
-        } catch (SecurityException e) {
-            EELogger.log.logCustom(EELogger.fileHandlerError, "SecurityException", e);
-        } catch (IOException e) {
-            EELogger.log.logCustom(EELogger.fileHandlerError, "IOException", e);
-        }
-        return name;
+        LoggerLevel lvl = LoggerLevels.getLoggerLevel(levelName, this);
+        String levelPath = logpath + "-" + levelName;
+        FileManager.setUpFile(this, lvl, levelPath);
+        return lvl.getID();
     }
 
     /**
@@ -189,42 +157,10 @@ public class EELogger extends Logman {
      * @return
      */
     public String addLoggerLevelWFile(String levelName, String prefix) {
-        String name = LoggerLevels.addLoggerLevel(levelName, prefix, this);
-        createDirectoryFromPath(path);
-        String levelPath = logpath + "." + levelName + "-" + prefix;
-        try {
-            FileHandler handler = gethandler(levelPath + ".log");
-            UtilFilter filter = fileFilters.get(handler);
-            filter.addLogLevel(name);
-            handler.setFilter(filter);
-        } catch (SecurityException e) {
-            EELogger.log.logCustom(EELogger.fileHandlerError, "SecurityException", e);
-        } catch (IOException e) {
-            EELogger.log.logCustom(EELogger.fileHandlerError, "IOException", e);
-        }
-        return name;
-    }
-
-    private FileHandler gethandler(String pathName) throws SecurityException,
-    IOException {
-
-        if (!fileHandlers.containsKey(pathName)) {
-
-            FileHandler handler = new FileHandler(pathName, true);
-            UtilsLogFormat lf = new UtilsLogFormat();
-            UtilFilter uf = new UtilFilter();
-            fileFilters.put(handler, uf);
-            handler.setFilter(uf);
-            handler.setLevel(Level.ALL);
-            handler.setFormatter(lf);
-            handler.setEncoding("UTF-8");
-
-            this.addHandler(handler);
-
-            fileHandlers.put(pathName, handler);
-        }
-        return fileHandlers.get(pathName);
-
+        LoggerLevel lvl = LoggerLevels.getLoggerLevel(levelName, prefix, this);
+        String levelPath = logpath + "-" + levelName;
+        FileManager.setUpFile(this, lvl, levelPath);
+        return lvl.getID();
     }
 
     /**
@@ -233,7 +169,7 @@ public class EELogger extends Logman {
      * @param name
      * @return
      */
-    public static LoggerLevel getLoggerLevel(String name) {
+    public LoggerLevel getLoggerLevel(String name) {
         return LoggerLevels.getLoggerLevel(name);
     }
 
@@ -307,22 +243,24 @@ public class EELogger extends Logman {
     }
 
     /**
-     * TODO Change this to be per Logger
+     * Remove a LoggerLevel
      * 
      * @param name
+     *            LoggerLevel's name
      */
     public void removeLoggerLevel(String name) {
-        LoggerLevels.removeLoggerLevel(name);
-        if (fileHandlers.containsKey(name)) {
-            removeHandler(fileHandlers.remove(name));
-        }
+        removeLoggerLevel(getLoggerLevel(name));
     }
 
-    private void createDirectoryFromPath(String path) {
-        File logDir = new File(path.substring(0, path.lastIndexOf('/')));
-        if (!logDir.exists()) {
-            logDir.mkdirs();
-        }
+    /**
+     * Remove a LoggerLevel
+     * 
+     * @param name
+     *            LoggerLevel's name
+     */
+    public void removeLoggerLevel(LoggerLevel lvl) {
+        FileManager.removeLoggerLevel(lvl);
+        LoggerLevels.removeLoggerLevel(lvl);
     }
 
     /**
@@ -330,8 +268,10 @@ public class EELogger extends Logman {
      * Will return true if it was able to post and false if it was not able to post
      * Throws with the Level Warning
      * 
-     * @param message Message to be Logged
-     * @param thrown Throwable Error To be logged
+     * @param message
+     *            Message to be Logged
+     * @param thrown
+     *            Throwable Error To be logged
      * @return True if paste was made of stacktrace false if it failed for any reason
      */
     public boolean logStacktraceToPasteBin(String message, Throwable thrown) {
@@ -343,9 +283,12 @@ public class EELogger extends Logman {
      * Will return true if it was able to post and false if it was not able to post
      * Throws with the LoggerLevel Given
      * 
-     * @param lvl String of the LoggerLevel's name to throw with
-     * @param message Message to be Logged
-     * @param thrown Throwable Error To be logged
+     * @param lvl
+     *            String of the LoggerLevel's name to throw with
+     * @param message
+     *            Message to be Logged
+     * @param thrown
+     *            Throwable Error To be logged
      * @return True if paste was made of stacktrace false if it failed for any reason
      */
     public void logStacktraceToPasteBin(String lvl, String message, Throwable thrown) {
@@ -357,9 +300,12 @@ public class EELogger extends Logman {
      * Will return true if it was able to post and false if it was not able to post
      * Throws with the LoggerLevel Given
      * 
-     * @param lvl Object of the LoggerLevel to throw with
-     * @param message Message to be Logged
-     * @param thrown Throwable Error To be logged
+     * @param lvl
+     *            Object of the LoggerLevel to throw with
+     * @param message
+     *            Message to be Logged
+     * @param thrown
+     *            Throwable Error To be logged
      * @return True if paste was made of stacktrace false if it failed for any reason
      */
     public boolean logStacktraceToPasteBin(LoggerLevel lvl, String message, Throwable thrown) {
@@ -374,15 +320,18 @@ public class EELogger extends Logman {
      * Will return true if it was able to post and false if it was not able to post
      * Throws with the Level given
      * 
-     * @param lvl The Level to be thrown with
-     * @param message Message to be Logged
-     * @param thrown Throwable Error To be logged
+     * @param lvl
+     *            The Level to be thrown with
+     * @param message
+     *            Message to be Logged
+     * @param thrown
+     *            Throwable Error To be logged
      * @return True if paste was made of stacktrace false if it failed for any reason
      */
     public boolean logStacktraceToPasteBin(Level lvl, String message, Throwable thrown) {
         log(lvl, message, thrown);
 
-        if (UtilConfigManager.getConfig().getLoggerConfig().isPasteingAllowed()) {
+        if (config.isPasteingAllowed()) {
             try {
                 URL url = new URL("http://paste.larry1123.net/");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -401,9 +350,9 @@ public class EELogger extends Logman {
                 urlParameters += "paste_expire=0";
                 urlParameters += "&";
                 urlParameters += "paste_project=" + this.getName();
-                if (!UtilConfigManager.getConfig().getLoggerConfig().getUserName().equals("")) {
+                if (!config.getUserName().equals("")) {
                     urlParameters += "&";
-                    urlParameters += "paste_user=" + UtilConfigManager.getConfig().getLoggerConfig().getUserName();
+                    urlParameters += "paste_user=" + config.getUserName();
                 }
 
                 // Send post request

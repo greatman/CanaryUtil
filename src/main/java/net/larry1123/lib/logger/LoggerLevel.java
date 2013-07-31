@@ -11,8 +11,9 @@ import java.util.logging.Level;
 public class LoggerLevel extends Level {
 
     private static int baselvl = 10000;
-
     private static final long serialVersionUID = 912743220309496892L;
+    private final String id;
+    private String linkedpath;
 
     private final static int genLevel() {
         baselvl++;
@@ -21,13 +22,14 @@ public class LoggerLevel extends Level {
 
     private final String prefix;
 
-    LoggerLevel(String name) {
-        this(name, "");
+    LoggerLevel(String name, String id) {
+        this(name, "", id);
     }
 
-    LoggerLevel(String name, String prefix) {
+    LoggerLevel(String name, String prefix, String id) {
         super(name, genLevel());
         this.prefix = prefix;
+        this.id = id;
     }
 
     /**
@@ -37,6 +39,15 @@ public class LoggerLevel extends Level {
      */
     public String getPrefix() {
         return prefix;
+    }
+
+    /**
+     * Gets the ID that is given to this LoggerLevel so the Manager can retrieve the right Level later
+     * 
+     * @return This Level's ID
+     */
+    public String getID() {
+        return id;
     }
 
 }

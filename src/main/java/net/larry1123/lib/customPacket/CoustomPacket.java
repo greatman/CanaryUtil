@@ -8,6 +8,7 @@ package net.larry1123.lib.customPacket;
 
 import net.larry1123.lib.CanaryUtil;
 import net.larry1123.lib.config.UtilConfigManager;
+import net.larry1123.lib.task.UpdateBungeeInfo;
 
 public class CoustomPacket {
 

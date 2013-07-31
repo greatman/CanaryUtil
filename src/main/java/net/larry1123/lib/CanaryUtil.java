@@ -11,9 +11,10 @@ import net.canarymod.tasks.ServerTaskManager;
 import net.canarymod.tasks.TaskOwner;
 import net.larry1123.lib.commands.UtilCommands;
 import net.larry1123.lib.customPacket.CoustomPacket;
-import net.larry1123.lib.customPacket.UpdateBungeeInfo;
 import net.larry1123.lib.plugin.UtilPlugin;
 import net.larry1123.lib.plugin.commands.Commands;
+import net.larry1123.lib.task.FileSpliterUpdater;
+import net.larry1123.lib.task.UpdateBungeeInfo;
 
 public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
 
@@ -51,6 +52,8 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
     @Override
     public boolean enable() {
         UpdateBungeeInfo.setPlugin(this);
+        FileSpliterUpdater.setPlugin(this);
+        FileSpliterUpdater.startUpdater();
         coustompacket = new CoustomPacket(this);
         new UtilCommands(this);
         getLogger().info("Plugin Enabled");

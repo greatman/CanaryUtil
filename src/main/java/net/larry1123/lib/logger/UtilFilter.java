@@ -1,7 +1,7 @@
 /**
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:25:04 AM
+ * @lastedit Jul 27, 2013 11:44:43 PM
  */
 
 package net.larry1123.lib.logger;
@@ -16,8 +16,14 @@ final class UtilFilter implements Filter {
     private final LinkedList<LoggerLevel> allowed = new LinkedList<LoggerLevel>();
     private boolean all = false;
 
-    public void addLogLevel(String name) {
-        allowed.add(EELogger.getLoggerLevel(name));
+    /**
+     * Adds a LoggerLevel to be reported to this Log File!
+     * 
+     * @param lvl
+     *            What Level to add
+     */
+    public void addLogLevel(LoggerLevel lvl) {
+        allowed.add(lvl);
     }
 
     @Override
@@ -38,12 +44,24 @@ final class UtilFilter implements Filter {
         return false;
     }
 
+    /**
+     * Will allow all Levels to be Logged to the log file
+     * 
+     * @param state
+     *            true to enable logging everything false to disable logging everything
+     */
     public void setLogAll(boolean state) {
         all = state;
     }
 
-    public void removeLogLevel(String name) {
-        allowed.remove(EELogger.getLoggerLevel(name));
+    /**
+     * Disallows a Level from being able to log into the Log File
+     * 
+     * @param lvl
+     *            Level to stop logging
+     */
+    public void removeLogLevel(LoggerLevel lvl) {
+        allowed.remove(lvl);
     }
 
 }
