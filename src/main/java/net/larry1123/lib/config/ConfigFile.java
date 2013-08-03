@@ -1,10 +1,10 @@
 package net.larry1123.lib.config;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import net.canarymod.api.world.World;
-import net.canarymod.config.Configuration;
 import net.larry1123.lib.logger.EELogger;
 import net.visualillusionsent.utils.PropertiesFile;
 import org.apache.commons.lang3.ArrayUtils;
@@ -92,25 +92,29 @@ public class ConfigFile {
 
     public ConfigFile(ConfigBase config, String plugin) {
         this.config = config;
-        propertiesfile = Configuration.getPluginConfig(plugin);
+        String filepath = "config" + File.separatorChar + plugin + File.separatorChar + plugin + ".cfg";
+        propertiesfile = new PropertiesFile(filepath);
         setupfile();
     }
 
     public ConfigFile(ConfigBase config, String plugin, String module) {
         this.config = config;
-        propertiesfile = Configuration.getPluginConfig(plugin, module);
+        String filepath = "config" + File.separatorChar + plugin + File.separatorChar + plugin + "." + module +  ".cfg";
+        propertiesfile = new PropertiesFile(filepath);
         setupfile();
     }
 
-    public ConfigFile(ConfigBase config, String plguin, World world) {
+    public ConfigFile(ConfigBase config, String plugin, World world) {
         this.config = config;
-        propertiesfile = Configuration.getPluginConfig(plguin, world);
+        String filepath = "config" + File.separatorChar + plugin + File.separatorChar + "worlds" + File.separatorChar + world.getFqName() + File.separatorChar + plugin + ".cfg";
+        propertiesfile = new PropertiesFile(filepath);
         setupfile();
     }
 
-    public ConfigFile(ConfigBase config, String plguin, String module, World world) {
+    public ConfigFile(ConfigBase config, String plugin, String module, World world) {
         this.config = config;
-        propertiesfile = Configuration.getPluginConfig(plguin, module, world);
+        String filepath = "config" + File.separatorChar + plugin + File.separatorChar + "worlds" + File.separatorChar + world.getFqName() + File.separatorChar + plugin +  "." + module +  ".cfg";
+        propertiesfile = new PropertiesFile(filepath);
         setupfile();
     }
 
