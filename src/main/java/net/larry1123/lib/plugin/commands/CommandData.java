@@ -16,7 +16,7 @@ public class CommandData {
     private final String toolTip;
     private String parent = "";
     private String helpLookup = "";
-    private String[] searchTerms = { " " };
+    private String[] searchTerms = {" "};
     private int min = 1;
     private int max = -1;
 
@@ -31,9 +31,8 @@ public class CommandData {
 
     /**
      * Sets the Parent to a string
-     * 
-     * @param parent
-     *            Parent chain as String
+     *
+     * @param parent Parent chain as String
      */
     public void setParent(String parent) {
         this.parent = parent;
@@ -41,9 +40,8 @@ public class CommandData {
 
     /**
      * Sets the Parent to another command by CommandData UID + Parent Chain
-     * 
-     * @param parent
-     *            CommandData to set as parent
+     *
+     * @param parent CommandData to set as parent
      */
     public void setParent(CommandData parent) {
         if (parent.getParent().equals("")) {
@@ -58,7 +56,7 @@ public class CommandData {
      * at the help system. If this is empty (default), all aliases will be registered.
      * Otherwise only this name will be registered. <br>
      * Use it for registering sub-command helps to avoid name conflicts
-     * 
+     *
      * @param helpLookup
      */
     public void setHelpLookup(String helpLookup) {
@@ -67,9 +65,8 @@ public class CommandData {
 
     /**
      * Set specific terms for looking up this command in help search
-     * 
-     * @param searchTerms
-     *            String[] holding the Terms
+     *
+     * @param searchTerms String[] holding the Terms
      */
     public void setSearchTerms(String[] searchTerms) {
         this.searchTerms = searchTerms;
@@ -77,9 +74,8 @@ public class CommandData {
 
     /**
      * Set the min amount of parameters
-     * 
-     * @param min
-     *            Min amount of parameters
+     *
+     * @param min Min amount of parameters
      */
     public void setMin(int min) {
         this.min = min;
@@ -87,9 +83,8 @@ public class CommandData {
 
     /**
      * Set the max amounts of parameters.
-     * 
-     * @param max
-     *            The max amounts of parameters. -1 for infinite amount
+     *
+     * @param max The max amounts of parameters. -1 for infinite amount
      */
     public void setMax(int max) {
         this.max = max;
@@ -97,7 +92,7 @@ public class CommandData {
 
     /**
      * The parent command, for creating sub-command structures
-     * 
+     *
      * @return String of the Parent chain
      */
     public String getParent() {
@@ -109,7 +104,7 @@ public class CommandData {
      * at the help system. If this is empty (default), all aliases will be registered.
      * Otherwise only this name will be registered. <br>
      * Use it for registering sub-command helps to avoid name conflicts
-     * 
+     *
      * @return
      */
     public String getHelpLookup() {
@@ -118,7 +113,7 @@ public class CommandData {
 
     /**
      * Specifies specific terms for looking up this command in help search
-     * 
+     *
      * @return
      */
     public String[] getSearchTerms() {
@@ -127,7 +122,7 @@ public class CommandData {
 
     /**
      * Min amount of parameters
-     * 
+     *
      * @return
      */
     public int getMin() {
@@ -136,7 +131,7 @@ public class CommandData {
 
     /**
      * The max amounts of parameters.
-     * 
+     *
      * @return
      */
     public int getMax() {
@@ -148,7 +143,7 @@ public class CommandData {
      * This will be displayed in a help context.
      * Note: This string will be pushed through the translator that is attached to this command.
      * If it finds a respective translation, it will output that instead
-     * 
+     *
      * @return
      */
     public String getDescription() {
@@ -158,7 +153,7 @@ public class CommandData {
     /**
      * A list of permissions to use this command.
      * If you specify more than one, only one of them is needed to execute the command
-     * 
+     *
      * @return
      */
     public String[] getPermissions() {
@@ -167,7 +162,7 @@ public class CommandData {
 
     /**
      * The command's names
-     * 
+     *
      * @return
      */
     public String[] getAliases() {
@@ -178,7 +173,7 @@ public class CommandData {
      * The tip to display when command parsing failed.
      * This may also be displayed when help for this command
      * was specifically requested
-     * 
+     *
      * @return
      */
     public String getToolTip() {
@@ -187,7 +182,7 @@ public class CommandData {
 
     /**
      * Get the UUID of the Command
-     * 
+     *
      * @return The UUID for this Command
      */
     public UUID getCommandUID() {

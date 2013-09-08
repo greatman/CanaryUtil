@@ -31,7 +31,7 @@ public class ConfigFile {
         FLOATARRAY(float[].class), //
         FLOATWRAPARRAY(Float[].class), //
         INTEGER(Integer.TYPE), //
-        INTEGERWRAP (Integer.class), //
+        INTEGERWRAP(Integer.class), //
         INTEGERARRAY(int[].class), //
         INTEGERWRAPARRAY(Integer[].class), //
         LONG(Long.TYPE), //
@@ -65,7 +65,7 @@ public class ConfigFile {
             return thisType;
         }
 
-        @SuppressWarnings("unused")
+        @SuppressWarnings ("unused")
         private static Type getFieldType(String name) {
             try {
                 Field field = TypeValues.class.getField(name);
@@ -100,7 +100,7 @@ public class ConfigFile {
 
     public ConfigFile(ConfigBase config, String plugin, String module) {
         this.config = config;
-        String filepath = "config" + File.separatorChar + plugin + File.separatorChar + plugin + "." + module +  ".cfg";
+        String filepath = "config" + File.separatorChar + plugin + File.separatorChar + plugin + "." + module + ".cfg";
         propertiesfile = new PropertiesFile(filepath);
         setupfile();
     }
@@ -114,7 +114,7 @@ public class ConfigFile {
 
     public ConfigFile(ConfigBase config, String plugin, String module, World world) {
         this.config = config;
-        String filepath = "config" + File.separatorChar + plugin + File.separatorChar + "worlds" + File.separatorChar + world.getFqName() + File.separatorChar + plugin +  "." + module +  ".cfg";
+        String filepath = "config" + File.separatorChar + plugin + File.separatorChar + "worlds" + File.separatorChar + world.getFqName() + File.separatorChar + plugin + "." + module + ".cfg";
         propertiesfile = new PropertiesFile(filepath);
         setupfile();
     }
@@ -148,8 +148,7 @@ public class ConfigFile {
                     hasvalue = false;
                 } catch (IllegalAccessException e1) {
                     hasvalue = false;
-                }
-                finally {
+                } finally {
                     if (value == null) {
                         continue;
                     } else {
@@ -184,7 +183,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Byte
+                    // Byte
                     case BYTEWRAP:
                     case BYTE:
                         result = propertiesfile.getByte(fieldName);
@@ -211,7 +210,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Character
+                    // Character
                     case CHARACTERWRAP:
                     case CHARACTER:
                         result = propertiesfile.getCharacter(fieldName);
@@ -220,7 +219,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Double
+                    // Double
                     case DOUBLEWRAP:
                     case DOUBLE:
                         result = propertiesfile.getDouble(fieldName);
@@ -247,7 +246,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Float
+                    // Float
                     case FLOATWRAP:
                     case FLOAT:
                         result = propertiesfile.getFloat(fieldName);
@@ -274,7 +273,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Integer
+                    // Integer
                     case INTEGERWRAP:
                     case INTEGER:
                         result = propertiesfile.getInt(fieldName);
@@ -301,7 +300,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Long
+                    // Long
                     case LONGWRAP:
                     case LONG:
                         result = propertiesfile.getLong(fieldName);
@@ -328,7 +327,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Short
+                    // Short
                     case SHORTWRAP:
                     case SHORT:
                         result = propertiesfile.getShort(fieldName);
@@ -355,7 +354,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // String
+                    // String
                     case STRING:
                         result = propertiesfile.getString(fieldName);
                         if (!result.equals(value)) {
@@ -415,8 +414,7 @@ public class ConfigFile {
                     hasvalue = false;
                 } catch (IllegalAccessException e1) {
                     hasvalue = false;
-                }
-                finally {
+                } finally {
                     hasvalue = defaultValue != null;
                 }
 
@@ -448,7 +446,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Byte
+                    // Byte
                     case BYTEWRAP:
                     case BYTE:
                         if (hasvalue) {
@@ -477,7 +475,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Character
+                    // Character
                     case CHARACTERWRAP:
                     case CHARACTER:
                         if (hasvalue) {
@@ -487,7 +485,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Double
+                    // Double
                     case DOUBLEWRAP:
                     case DOUBLE:
                         if (hasvalue) {
@@ -516,7 +514,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Float
+                    // Float
                     case FLOATWRAP:
                     case FLOAT:
                         if (hasvalue) {
@@ -545,7 +543,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Integer
+                    // Integer
                     case INTEGERWRAP:
                     case INTEGER:
                         if (hasvalue) {
@@ -574,7 +572,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Long
+                    // Long
                     case LONGWRAP:
                     case LONG:
                         if (hasvalue) {
@@ -603,7 +601,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // Short
+                    // Short
                     case SHORTWRAP:
                     case SHORT:
                         if (hasvalue) {
@@ -632,7 +630,7 @@ public class ConfigFile {
                         }
                         break;
 
-                        // String
+                    // String
                     case STRING:
                         if (hasvalue) {
                             result = propertiesfile.getString(fieldName, (String) defaultValue);

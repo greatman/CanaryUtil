@@ -16,13 +16,13 @@ public class BungeeCordConfig implements ConfigBase {
 
     private final ConfigFile configManager;
 
-    @ConfigFeild( comments = { "This sets if the Util will try to talk to a BungeeCord server or not", "Test" } )
+    @ConfigFeild (comments = {"This sets if the Util will try to talk to a BungeeCord server or not", "Test"})
     private boolean BungeeCord_enabled = enableDefult;
 
-    @ConfigFeild( comments = "This sets how many ticks between when the Util will send packets to BungeeCord" )
+    @ConfigFeild (comments = "This sets how many ticks between when the Util will send packets to BungeeCord")
     private long BungeeCord_pollTime = pollTimeDefult;
 
-    @ConfigFeild( comments = "This is only used if BungeeCord is disabled, and as a defult if no players have yet connected" )
+    @ConfigFeild (comments = "This is only used if BungeeCord is disabled, and as a defult if no players have yet connected")
     private String BungeeCord_ServerName = serverNameDefult;
 
     BungeeCordConfig(String plugin) {
@@ -39,7 +39,7 @@ public class BungeeCordConfig implements ConfigBase {
 
     /**
      * Gets the state of BungeeCord use.
-     * 
+     *
      * @return If BungeeCord functions are enabled
      */
     public boolean isEnabled() {
@@ -48,7 +48,7 @@ public class BungeeCordConfig implements ConfigBase {
 
     /**
      * Gets how long to wait between Polling a BungeeCord Server
-     * 
+     *
      * @return wait time for polling
      */
     public long getPollTime() {
@@ -57,7 +57,7 @@ public class BungeeCordConfig implements ConfigBase {
 
     /**
      * Gets what the Name of this Server is.
-     * 
+     *
      * @return Gets the Server's Name
      */
     public String getServerName() {
@@ -66,9 +66,8 @@ public class BungeeCordConfig implements ConfigBase {
 
     /**
      * Will Enable or disable BungeeCord Functions
-     * 
-     * @param state
-     *            true to start, false to stop
+     *
+     * @param state true to start, false to stop
      */
     public void setIsEnabled(boolean state) {
         BungeeCord_enabled = state;
@@ -78,9 +77,8 @@ public class BungeeCordConfig implements ConfigBase {
 
     /**
      * Sets the wait between Polling a BungeeCord Server
-     * 
-     * @param time
-     *            the number of ms to wait
+     *
+     * @param time the number of ms to wait
      */
     public void setPollTime(long time) {
         BungeeCord_pollTime = time;
@@ -91,9 +89,8 @@ public class BungeeCordConfig implements ConfigBase {
     /**
      * Sets this Server's name
      * Mainly for use with out BungeeCord Running
-     * 
-     * @param name
-     *            Name of this server
+     *
+     * @param name Name of this server
      */
     public void setServerName(String name) {
         BungeeCord_ServerName = name;

@@ -41,22 +41,22 @@ public class LoggerConfig implements ConfigBase {
 
     private final ConfigFile configManager;
 
-    @ConfigFeild(name = "Logger-Path", comments = "This defines where the log files will be placed.")
+    @ConfigFeild (name = "Logger-Path", comments = "This defines where the log files will be placed.")
     private String logger_Path = "pluginlogs/";
 
-    @ConfigFeild(name = "Logger-Split", comments = { "If left blank it will default no spliting", "None|Hour|Day|Week|Month" })
+    @ConfigFeild (name = "Logger-Split", comments = {"If left blank it will default no spliting", "None|Hour|Day|Week|Month"})
     private String logsplit = "None";
 
-    @ConfigFeild(name = "Logger-FileType", comments = "The FileType with out the leading '.'")
+    @ConfigFeild (name = "Logger-FileType", comments = "The FileType with out the leading '.'")
     private String logFileType = "log";
 
-    @ConfigFeild(name = "Logger-CurrentSplit", comments = "Do not change this, used to keep track of splits over reloads and restarts")
+    @ConfigFeild (name = "Logger-CurrentSplit", comments = "Do not change this, used to keep track of splits over reloads and restarts")
     private String currentsplit = "";
 
-    @ConfigFeild(name = "Paste-Enabled", comments = "Allows plugins to post errors to https://paste.larry1123.net/")
+    @ConfigFeild (name = "Paste-Enabled", comments = "Allows plugins to post errors to https://paste.larry1123.net/")
     private boolean pasteSend = true;
 
-    @ConfigFeild(name = "Paste-UserName", comments = "Set the Name to post Paste as if enabled.")
+    @ConfigFeild (name = "Paste-UserName", comments = "Set the Name to post Paste as if enabled.")
     private String pasteUserName = "";
 
     LoggerConfig(String plugin) {
@@ -73,7 +73,7 @@ public class LoggerConfig implements ConfigBase {
 
     /**
      * Gets the current Log Path
-     * 
+     *
      * @return Current Log Path
      */
     public String getLoggerPath() {
@@ -82,7 +82,7 @@ public class LoggerConfig implements ConfigBase {
 
     /**
      * Returns the User Name to post paste as.
-     * 
+     *
      * @return Returns the User Name to post paste as.
      */
     public String getUserName() {
@@ -92,9 +92,8 @@ public class LoggerConfig implements ConfigBase {
     /**
      * Sets the Path for loggers
      * Will not change the location of Loggers that are running as it is but will move new ones
-     * 
-     * @param path
-     *            Local Path to place Log files
+     *
+     * @param path Local Path to place Log files
      */
     public void setLoggerPath(String path) {
         logger_Path = path;
@@ -103,7 +102,7 @@ public class LoggerConfig implements ConfigBase {
 
     /**
      * Returns is the Server is allowed to send info to https://paste.larry1123.net/
-     * 
+     *
      * @return true is allowed false not allowed
      */
     public boolean isPasteingAllowed() {
@@ -112,7 +111,7 @@ public class LoggerConfig implements ConfigBase {
 
     /**
      * Get the Settings for how to Split Log Files
-     * 
+     *
      * @return Current setting
      */
     public Splits getSplit() {
@@ -122,7 +121,7 @@ public class LoggerConfig implements ConfigBase {
     /**
      * Gets the Currently set time stamp for Log files if Splitting is enabled
      * May be null if it has not been used
-     * 
+     *
      * @return Currently used timestamp
      */
     public String getCurrentSplit() {
@@ -131,7 +130,7 @@ public class LoggerConfig implements ConfigBase {
 
     /**
      * To be used by Logger Only Do not Change
-     * 
+     *
      * @param current
      */
     public void setCurrentSplit(String current) {
@@ -145,7 +144,7 @@ public class LoggerConfig implements ConfigBase {
 
     /**
      * Get what to set the File Type as
-     * 
+     *
      * @return String of the file type to use
      */
     public String getFileType() {

@@ -18,9 +18,8 @@ final class UtilFilter implements Filter {
 
     /**
      * Adds a LoggerLevel to be reported to this Log File!
-     * 
-     * @param lvl
-     *            What Level to add
+     *
+     * @param lvl What Level to add
      */
     public void addLogLevel(LoggerLevel lvl) {
         allowed.add(lvl);
@@ -46,9 +45,8 @@ final class UtilFilter implements Filter {
 
     /**
      * Will allow all Levels to be Logged to the log file
-     * 
-     * @param state
-     *            true to enable logging everything false to disable logging everything
+     *
+     * @param state true to enable logging everything false to disable logging everything
      */
     public void setLogAll(boolean state) {
         all = state;
@@ -56,9 +54,8 @@ final class UtilFilter implements Filter {
 
     /**
      * Disallows a Level from being able to log into the Log File
-     * 
-     * @param lvl
-     *            Level to stop logging
+     *
+     * @param lvl Level to stop logging
      */
     public void removeLogLevel(LoggerLevel lvl) {
         allowed.remove(lvl);

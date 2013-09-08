@@ -16,6 +16,7 @@ public class UtilConfigManager {
 
     /**
      * Gets the Config Manager
+     *
      * @return Config Manager
      */
     public static UtilConfigManager getConfig() {
@@ -29,7 +30,7 @@ public class UtilConfigManager {
 
     /**
      * Gets the Config for BungeeCord
-     * 
+     *
      * @return Config Manager for BungeeCord
      */
     public BungeeCordConfig getBungeeCordConfig() {
@@ -45,7 +46,7 @@ public class UtilConfigManager {
 
     /**
      * Gets the Config for the Logger
-     * 
+     *
      * @return Config Manager for Logger
      */
     public LoggerConfig getLoggerConfig() {

@@ -14,7 +14,7 @@ import net.visualillusionsent.utils.LocaleHelper;
 
 public class BaseCommand implements Command {
 
-    private final CommandData command = new CommandData(new String[]{ "canaryutil" }, new String[]{ "canary.super.canaryutil", "canary.command.super.canaryutil" }, "TODO", "TODO");
+    private final CommandData command = new CommandData(new String[] {"canaryutil"}, new String[] {"canary.super.canaryutil", "canary.command.super.canaryutil"}, "TODO", "TODO");
     private final LocaleHelper translator = Translator.getInstance();
     private final UtilCommands utilcommands;
     private boolean loaded = false;

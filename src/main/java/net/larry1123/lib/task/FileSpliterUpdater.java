@@ -24,7 +24,7 @@ public class FileSpliterUpdater extends ServerTask {
 
     /**
      * This is to be only used for internal uses
-     * 
+     *
      * @param plugin
      */
     public static void setPlugin(CanaryUtil plugin) {

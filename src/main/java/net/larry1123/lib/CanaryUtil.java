@@ -23,7 +23,7 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
 
     /**
      * Warning may return Null if the Util is not enabled yet!!!!
-     * 
+     *
      * @return CoustomPacket Manager
      */
     public static CoustomPacket coustomPacket() {

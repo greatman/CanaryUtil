@@ -24,9 +24,9 @@ public class CoustomPacket {
 
     /**
      * Gets the Currently running BungeeCord manager, may be the online or offline version
-     * 
+     * <p/>
      * Warning may return Null if the Util is not enabled yet!!!!
-     * 
+     *
      * @return Current BungeeCord Manager
      */
     public BungeeCord getBungeeCord() {

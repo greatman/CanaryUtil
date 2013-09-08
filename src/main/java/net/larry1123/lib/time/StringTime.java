@@ -3,7 +3,6 @@ package net.larry1123.lib.time;
 import org.apache.commons.lang3.time.DateUtils;
 
 
-
 public class StringTime {
 
     public static enum Part {

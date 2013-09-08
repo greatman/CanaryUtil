@@ -17,7 +17,7 @@ import net.visualillusionsent.utils.LocaleHelper;
 
 public class BungeeCordReloadCommand implements Command {
 
-    private final CommandData command = new CommandData(new String[]{ "reload" }, new String[]{ "canary.super.canaryutil.bungeecord.reload", "canary.command.super.canaryutil.bungeecord.reload" }, "TODO reload", "TODO reload");
+    private final CommandData command = new CommandData(new String[] {"reload"}, new String[] {"canary.super.canaryutil.bungeecord.reload", "canary.command.super.canaryutil.bungeecord.reload"}, "TODO reload", "TODO reload");
     private final LocaleHelper translator = Translator.getInstance();
     private final UtilCommands utilcommands;
     private boolean loaded = false;

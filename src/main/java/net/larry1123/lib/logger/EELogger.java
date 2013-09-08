@@ -30,7 +30,7 @@ public class EELogger extends Logman {
 
     /**
      * Gets the Path for Log files
-     * 
+     *
      * @return
      */
     public static String getLogpath() {
@@ -56,9 +56,8 @@ public class EELogger extends Logman {
 
     /**
      * Gets the EELogger for the given name
-     * 
-     * @param name
-     *            Name of the Logger
+     *
+     * @param name Name of the Logger
      * @return
      */
     public static EELogger getLogger(String name) {
@@ -71,7 +70,7 @@ public class EELogger extends Logman {
 
     /**
      * Gets the EELogger for the given name as a sub of the given parent
-     * 
+     *
      * @param name
      * @param parent
      * @return
@@ -111,7 +110,7 @@ public class EELogger extends Logman {
     /**
      * Creates a LoggerLevel for this Logger
      * Makes the Log look like this: [{LoggerName}] [{LevelName}] {Message}
-     * 
+     *
      * @param levelName
      * @return
      */
@@ -122,7 +121,7 @@ public class EELogger extends Logman {
     /**
      * Creates a LoggerLevel for this Logger with a prefix
      * Makes the Log look like this: [{LoggerName}] [{LevelName}] [{Prefix}] {Message}
-     * 
+     *
      * @param levelName
      * @param prefix
      * @return
@@ -134,7 +133,7 @@ public class EELogger extends Logman {
     /**
      * Creates a LoggerLevel for this Logger and saves it to a Log file
      * Makes the Log look like this: [{LoggerName}] [{LevelName}] {Message}
-     * 
+     *
      * @param levelName
      * @return
      */
@@ -148,7 +147,7 @@ public class EELogger extends Logman {
     /**
      * Creates a LoggerLevel for this Logger with a prefix and saves it to a Log file
      * Makes the Log look like this: [{LoggerName}] [{LevelName}] [{Prefix}] {Message}
-     * 
+     *
      * @param levelName
      * @param prefix
      * @return
@@ -162,7 +161,7 @@ public class EELogger extends Logman {
 
     /**
      * Get the LoggerLevel for the given name.
-     * 
+     *
      * @param name
      * @return
      */
@@ -189,11 +188,9 @@ public class EELogger extends Logman {
 
     /**
      * Used to Log a Custom Logger Level
-     * 
-     * @param lvl
-     *            The LoggerLevel object to use
-     * @param msg
-     *            Message to be Logged with Level
+     *
+     * @param lvl The LoggerLevel object to use
+     * @param msg Message to be Logged with Level
      */
     public void logCustom(LoggerLevel lvl, String msg) {
         log(lvl, msg);
@@ -201,13 +198,10 @@ public class EELogger extends Logman {
 
     /**
      * Used to Log a Custom Logger Level with a StackTrace
-     * 
-     * @param lvl
-     *            The LoggerLevel object to use
-     * @param msg
-     *            Message to be Logged with Level
-     * @param thrown
-     *            The Throwable Error
+     *
+     * @param lvl    The LoggerLevel object to use
+     * @param msg    Message to be Logged with Level
+     * @param thrown The Throwable Error
      */
     public void logCustom(LoggerLevel lvl, String msg, Throwable thrown) {
         log(lvl, msg, thrown);
@@ -215,11 +209,9 @@ public class EELogger extends Logman {
 
     /**
      * Used to Log a Custom Logger Level
-     * 
-     * @param lvl
-     *            The name of the LoggerLevel to use
-     * @param msg
-     *            Message to be Logged with Level
+     *
+     * @param lvl The name of the LoggerLevel to use
+     * @param msg Message to be Logged with Level
      */
     public void logCustom(String lvl, String msg) {
         log(LoggerLevels.getLoggerLevel(lvl), msg);
@@ -227,13 +219,10 @@ public class EELogger extends Logman {
 
     /**
      * Used to Log a Custom Logger Level with a StackTrace
-     * 
-     * @param lvl
-     *            The name of the LoggerLevel to use
-     * @param msg
-     *            Message to be Logged with Level
-     * @param thrown
-     *            The Throwable Error
+     *
+     * @param lvl    The name of the LoggerLevel to use
+     * @param msg    Message to be Logged with Level
+     * @param thrown The Throwable Error
      */
     public void logCustom(String lvl, String msg, Throwable thrown) {
         log(LoggerLevels.getLoggerLevel(lvl), msg, thrown);
@@ -241,9 +230,8 @@ public class EELogger extends Logman {
 
     /**
      * Remove a LoggerLevel
-     * 
-     * @param name
-     *            LoggerLevel's name
+     *
+     * @param name LoggerLevel's name
      */
     public void removeLoggerLevel(String name) {
         removeLoggerLevel(getLoggerLevel(name));
@@ -251,9 +239,8 @@ public class EELogger extends Logman {
 
     /**
      * Remove a LoggerLevel
-     * 
-     * @param lvl
-     *            LoggerLevel's name
+     *
+     * @param lvl LoggerLevel's name
      */
     public void removeLoggerLevel(LoggerLevel lvl) {
         FileManager.removeLoggerLevel(lvl);
@@ -264,11 +251,9 @@ public class EELogger extends Logman {
      * Will Log a StackTrace and Post it on to http://paste.larry1123.net/
      * Will return true if it was able to post and false if it was not able to post
      * Throws with the Level Warning
-     * 
-     * @param message
-     *            Message to be Logged
-     * @param thrown
-     *            Throwable Error To be logged
+     *
+     * @param message Message to be Logged
+     * @param thrown  Throwable Error To be logged
      * @return True if paste was made of stacktrace false if it failed for any reason
      */
     public boolean logStacktraceToPasteBin(String message, Throwable thrown) {
@@ -279,13 +264,10 @@ public class EELogger extends Logman {
      * Will Log a StackTrace and Post it on to http://paste.larry1123.net/
      * Will return true if it was able to post and false if it was not able to post
      * Throws with the LoggerLevel Given
-     * 
-     * @param lvl
-     *            String of the LoggerLevel's name to throw with
-     * @param message
-     *            Message to be Logged
-     * @param thrown
-     *            Throwable Error To be logged
+     *
+     * @param lvl     String of the LoggerLevel's name to throw with
+     * @param message Message to be Logged
+     * @param thrown  Throwable Error To be logged
      * @return True if paste was made of stacktrace false if it failed for any reason
      */
     public boolean logStacktraceToPasteBin(String lvl, String message, Throwable thrown) {
@@ -296,13 +278,10 @@ public class EELogger extends Logman {
      * Will Log a StackTrace and Post it on to http://paste.larry1123.net/
      * Will return true if it was able to post and false if it was not able to post
      * Throws with the LoggerLevel Given
-     * 
-     * @param lvl
-     *            Object of the LoggerLevel to throw with
-     * @param message
-     *            Message to be Logged
-     * @param thrown
-     *            Throwable Error To be logged
+     *
+     * @param lvl     Object of the LoggerLevel to throw with
+     * @param message Message to be Logged
+     * @param thrown  Throwable Error To be logged
      * @return True if paste was made of stacktrace false if it failed for any reason
      */
     public boolean logStacktraceToPasteBin(LoggerLevel lvl, String message, Throwable thrown) {
@@ -316,13 +295,10 @@ public class EELogger extends Logman {
      * Will Log a StackTrace and Post it on to http://paste.larry1123.net/
      * Will return true if it was able to post and false if it was not able to post
      * Throws with the Level given
-     * 
-     * @param lvl
-     *            The Level to be thrown with
-     * @param message
-     *            Message to be Logged
-     * @param thrown
-     *            Throwable Error To be logged
+     *
+     * @param lvl     The Level to be thrown with
+     * @param message Message to be Logged
+     * @param thrown  Throwable Error To be logged
      * @return True if paste was made of stacktrace false if it failed for any reason
      */
     public boolean logStacktraceToPasteBin(Level lvl, String message, Throwable thrown) {

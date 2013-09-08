@@ -33,7 +33,7 @@ public class LoggerLevel extends Level {
 
     /**
      * Get the Prefix of the Level
-     * 
+     *
      * @return
      */
     public String getPrefix() {
@@ -42,7 +42,7 @@ public class LoggerLevel extends Level {
 
     /**
      * Gets the ID that is given to this LoggerLevel so the Manager can retrieve the right Level later
-     * 
+     *
      * @return This Level's ID
      */
     public String getID() {

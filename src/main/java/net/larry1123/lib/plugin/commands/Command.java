@@ -12,7 +12,7 @@ public interface Command extends CommandExecute {
 
     /**
      * The Command's info pack
-     * 
+     *
      * @return The CommandData holding the commands data
      */
     public CommandData getCommandData();
@@ -24,19 +24,21 @@ public interface Command extends CommandExecute {
 
     /**
      * Tells if this Command will override a command that is registered
-     * 
+     *
      * @return If this Command will override an other command
      */
     public boolean isForced();
 
     /**
      * If the Command has been registered or not
+     *
      * @return true if command is registered, false otherwise
      */
     public boolean isloaded();
 
     /**
      * Sets if the command is registered or not
+     *
      * @param loadedness
      */
     public void setloadded(boolean loadedness);

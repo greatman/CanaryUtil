@@ -18,6 +18,7 @@ public abstract class UtilPlugin extends Plugin {
 
     /**
      * Retrieves a SubLogger
+     *
      * @param name
      * @return
      */
@@ -34,9 +35,8 @@ public abstract class UtilPlugin extends Plugin {
 
     /**
      * Logs that this Plugin failed to start and why
-     * 
-     * @param reason
-     *            The Reason that the plugin failed to start
+     *
+     * @param reason The Reason that the plugin failed to start
      */
     public void enableFailed(String reason) {
         getLogger().logSevere("Plugin Could not be Enabled, because" + reason);
@@ -44,7 +44,7 @@ public abstract class UtilPlugin extends Plugin {
 
     /**
      * Gets the EELogger of the current Plugin
-     * 
+     *
      * @return This Plugins EELogger
      */
     public EELogger getLogger() {
@@ -53,7 +53,7 @@ public abstract class UtilPlugin extends Plugin {
 
     /**
      * {@inheritDoc}
-     * 
+     * <p/>
      * The Logman returned is a casted EELogger
      */
     @Override

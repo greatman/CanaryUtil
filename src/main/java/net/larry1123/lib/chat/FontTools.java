@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * Adds a few things I felt missing. Hope to add more soon.
- * 
+ *
  * @author Larry1123
  */
 public class FontTools extends TextFormat {
@@ -72,7 +72,7 @@ public class FontTools extends TextFormat {
 
     /**
      * Adds a random Color to each Char in a string.
-     * 
+     *
      * @param string
      * @return Randomly Colored String
      */
@@ -87,7 +87,7 @@ public class FontTools extends TextFormat {
 
     /**
      * Gets a RandomColor Code
-     * 
+     *
      * @return
      */
     public static String RandomColor() {

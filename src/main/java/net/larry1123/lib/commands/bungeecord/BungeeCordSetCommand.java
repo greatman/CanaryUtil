@@ -18,7 +18,7 @@ public class BungeeCordSetCommand implements Command {
 
     private static final UtilConfigManager config = UtilConfigManager.getConfig();
 
-    private final CommandData command = new CommandData(new String[]{ "bungeecord", "cord" }, new String[]{ "canary.super.canaryutil.bungeecord.set", "canary.command.super.canaryutil.bungeecord.set" }, "TODO set", "TODO set");
+    private final CommandData command = new CommandData(new String[] {"bungeecord", "cord"}, new String[] {"canary.super.canaryutil.bungeecord.set", "canary.command.super.canaryutil.bungeecord.set"}, "TODO set", "TODO set");
     private final LocaleHelper translator = Translator.getInstance();
     private final UtilCommands utilcommands;
     private boolean loaded = false;

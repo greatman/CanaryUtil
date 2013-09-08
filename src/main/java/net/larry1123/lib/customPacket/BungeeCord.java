@@ -42,13 +42,10 @@ public class BungeeCord {
 
     /**
      * For use from the Listener only
-     * 
-     * @param player
-     *            String of the Player's Name
-     * @param Ip
-     *            Current IP of a Player
-     * @param liss
-     *            The Object of the Listener
+     *
+     * @param player String of the Player's Name
+     * @param Ip     Current IP of a Player
+     * @param liss   The Object of the Listener
      */
     static void setPlayerIp(Player player, String Ip, BungeeCordListener liss) {
         if (lis == liss) {
@@ -63,9 +60,8 @@ public class BungeeCord {
      * Gets the Real IP of a Player
      * This will work with both BungeeCord Enabled or disabled
      * This will also work if the Player is not connected to the BungeeCord Server
-     * 
-     * @param player
-     *            Player Class
+     *
+     * @param player Player Class
      * @return The IP of the Player
      */
     public String getRealPlayerIp(Player player) {
@@ -78,11 +74,9 @@ public class BungeeCord {
 
     /**
      * For use from the Listener only
-     * 
-     * @param player
-     *            String of the Player's Name
-     * @param liss
-     *            The Object of the Listener
+     *
+     * @param player String of the Player's Name
+     * @param liss   The Object of the Listener
      */
     static void removePlayerIp(Player player, BungeeCordListener liss) {
         if (lis == liss) {
@@ -92,13 +86,10 @@ public class BungeeCord {
 
     /**
      * For use from the Listener only
-     * 
-     * @param server
-     *            Server to update
-     * @param players
-     *            Number of Players
-     * @param liss
-     *            The Object of the Listener
+     *
+     * @param server  Server to update
+     * @param players Number of Players
+     * @param liss    The Object of the Listener
      */
     static void setPlayerCountForServer(String server, int players, BungeeCordListener liss) {
         if (lis == liss) {
@@ -109,9 +100,8 @@ public class BungeeCord {
     /**
      * Gets the last known amount of players on the given Server
      * Will return -1 if the server is Offline
-     * 
-     * @param server
-     *            What Server to check
+     *
+     * @param server What Server to check
      * @return Player Count for given Server
      */
     public int getServerPlayerCount(String server) {
@@ -126,13 +116,10 @@ public class BungeeCord {
     /**
      * For use from the Listener only
      * This Method handles the server name ALL, when ALL is handled it will remove from all other Server list missing players
-     * 
-     * @param server
-     *            Server to update
-     * @param players
-     *            List of Players on Given Server
-     * @param liss
-     *            The Object of the Listener
+     *
+     * @param server  Server to update
+     * @param players List of Players on Given Server
+     * @param liss    The Object of the Listener
      */
     static void setPlayerList(String server, LinkedList<String> players, BungeeCordListener liss) {
         if (lis == liss) {
@@ -177,9 +164,8 @@ public class BungeeCord {
 
     /**
      * Gets a OfflinePlayer LinkedList of Players for the given Server or a empty List
-     * 
-     * @param server
-     *            What Server to check
+     *
+     * @param server What Server to check
      * @return LinkedList of OfflinePlayers for the given Server
      */
     public LinkedList<OfflinePlayer> getServerPlayerList(String server) {
@@ -192,11 +178,9 @@ public class BungeeCord {
 
     /**
      * For use from the Listener only
-     * 
-     * @param servers
-     *            String LinkedList of Server Names
-     * @param liss
-     *            The Object of the Listener
+     *
+     * @param servers String LinkedList of Server Names
+     * @param liss    The Object of the Listener
      */
     static void setServerList(LinkedList<String> servers, BungeeCordListener liss) {
         if (lis == liss) {
@@ -211,7 +195,7 @@ public class BungeeCord {
 
     /**
      * Gets a LinkedList<String> of the last known list of currently Online Servers
-     * 
+     *
      * @return List of Online Servers
      */
     public LinkedList<String> getServerList() {
@@ -220,11 +204,9 @@ public class BungeeCord {
 
     /**
      * For use from the Listener only
-     * 
-     * @param server
-     *            Server to update
-     * @param liss
-     *            The Object of the Listener
+     *
+     * @param server Server to update
+     * @param liss   The Object of the Listener
      */
     static void setCurrentServerName(String server, BungeeCordListener liss) {
         if (lis == liss) {
@@ -237,7 +219,7 @@ public class BungeeCord {
 
     /**
      * Gets the name for this server
-     * 
+     *
      * @return The Name for this Server
      */
     public String getCurrentServerName() {
@@ -249,11 +231,9 @@ public class BungeeCord {
      * Will return true if the packet was sent false if we know that the server is not online at this time.
      * Will also return false if you are trying to send to the current server;
      * Will return false if no players are online or if no players that are online are connected to the BungeeCord Server
-     * 
-     * @param player
-     *            Player Object of who to send to a new server
-     * @param server
-     *            What server to send to
+     *
+     * @param player Player Object of who to send to a new server
+     * @param server What server to send to
      * @return true if the packet was sent, false if the packet was not sent
      */
     public boolean sendPlayertoServer(Player player, String server) {
@@ -280,13 +260,10 @@ public class BungeeCord {
      * Will return true if the packet was sent false if we know that the server is not online at this time.
      * Will also return false if you are trying to send to the current server;
      * Will return false if no players are online or if no players that are online are connected to the BungeeCord Server
-     * 
-     * @param server
-     *            What server to send to.
-     * @param subCnannel
-     *            What channel to send over
-     * @param data
-     *            What data to pass
+     *
+     * @param server     What server to send to.
+     * @param subCnannel What channel to send over
+     * @param data       What data to pass
      * @return true if the packet was sent, false if the packet was not sent
      */
     public boolean sendMessageToServer(String server, String subCnannel, String data) {
@@ -319,7 +296,7 @@ public class BungeeCord {
      * Will return true if any packet was sent, false if we know that the server is not online at this time.
      * Will also return false if you are trying to send to the current server;
      * Will return false if no players are online or if no players that are online are connected to the BungeeCord Server
-     * 
+     *
      * @param server
      * @param subCnannel
      * @param data
@@ -355,7 +332,7 @@ public class BungeeCord {
      * Will return true if the packet was sent, false if we know that the server is not online at this time.
      * Will also return false if you are trying to send to the current server;
      * Will return false if the player is not connected to the BungeeCord Server
-     * 
+     *
      * @param server
      * @param subCnannel
      * @param data

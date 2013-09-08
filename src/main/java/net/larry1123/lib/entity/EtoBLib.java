@@ -1,6 +1,6 @@
 /**
  * Testing By Spenk
- * 
+ *
  * @author ElecEntertainment
  * @team Larry1123, Joshtmathews, Sinzo, Xalbec
  * @lastedit Jun 17, 2013 3:24:05 AM
@@ -18,7 +18,7 @@ public class EtoBLib {
 
     /**
      * One Block Back
-     * 
+     *
      * @param eLocation
      * @return
      */
@@ -37,7 +37,7 @@ public class EtoBLib {
 
     /**
      * One Block in front
-     * 
+     *
      * @param eLocation
      * @return
      */

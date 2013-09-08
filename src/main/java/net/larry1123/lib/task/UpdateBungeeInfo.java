@@ -36,7 +36,7 @@ public class UpdateBungeeInfo extends ServerTask {
 
     /**
      * This is to be only used for internal uses
-     * 
+     *
      * @param plugin
      */
     public static void setPlugin(CanaryUtil plugin) {
@@ -104,7 +104,7 @@ public class UpdateBungeeInfo extends ServerTask {
             // Update Server List
             updateServerList(player);
 
-            @SuppressWarnings("unchecked")
+            @SuppressWarnings ("unchecked")
             LinkedList<String> servers = (LinkedList<String>) CanaryUtil.coustomPacket().getBungeeCord().getServerList().clone();
             servers.add("ALL");
             for (String server : servers) {

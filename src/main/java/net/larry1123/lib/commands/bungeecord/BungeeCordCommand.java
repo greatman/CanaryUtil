@@ -15,7 +15,7 @@ import net.visualillusionsent.utils.LocaleHelper;
 
 public class BungeeCordCommand implements Command {
 
-    private final String[] aliases = new String[]{ "bungeecord", "cord" };
+    private final String[] aliases = new String[] {"bungeecord", "cord"};
 
     private final CommandData command;
     private final LocaleHelper translator = Translator.getInstance();
@@ -26,10 +26,10 @@ public class BungeeCordCommand implements Command {
         utilcommands = utilCommands;
         command = new CommandData(
                 aliases,
-                new String[]{ "canary.super.canaryutil.bungeecord", "canary.command.super.canaryutil.bungeecord" },
+                new String[] {"canary.super.canaryutil.bungeecord", "canary.command.super.canaryutil.bungeecord"},
                 "TODO",
                 "/" + utilcommands.baseCommand.getCommandData().getAliases()[0] + " " + aliases[0] + " <set|reload>"
-                );
+        );
         command.setParent(utilcommands.baseCommand.getCommandData());
         command.setMax(1);
     }

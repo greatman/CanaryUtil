@@ -21,7 +21,7 @@ public class LoggerLevels {
     /**
      * This will add a Logger Level and return the name of the Level with in LoggerLevels
      * To be used by the Logging System only
-     * 
+     *
      * @param levelName Name to give the level
      * @return String name of the Logger
      */
@@ -31,7 +31,7 @@ public class LoggerLevels {
 
     /**
      * This will add a Logger Level and return the name of the Level with in LoggerLevels
-     * 
+     *
      * @param levelName Name to give the level
      * @return String ID of the LoggerLevel
      */
@@ -41,9 +41,9 @@ public class LoggerLevels {
 
     /**
      * This will add a Logger Level and return the name of the Level with in LoggerLevels
-     * 
+     *
      * @param levelName Name to give the level
-     * @param prefix The Prefix to give Messages with said given LoggerLevel
+     * @param prefix    The Prefix to give Messages with said given LoggerLevel
      * @return String ID of the LoggerLevel
      */
     private static String addLoggerLevel(String levelName, String prefix) {
@@ -54,10 +54,10 @@ public class LoggerLevels {
 
     /**
      * This will add a Logger Level and return the name of the Level with in LoggerLevels
-     * 
+     *
      * @param levelName Name to give the level
-     * @param prefix The Prefix to give Messages with said given LoggerLevel
-     * @param logger Logger to have Level Tied to
+     * @param prefix    The Prefix to give Messages with said given LoggerLevel
+     * @param logger    Logger to have Level Tied to
      * @return ID of the LoggerLevel
      */
     private static String addLoggerLevel(String levelName, String prefix, EELogger logger) {
@@ -74,7 +74,7 @@ public class LoggerLevels {
 
     /**
      * Returns the Logger Level if there is one by this name or makes one
-     * 
+     *
      * @param name Name of LoggerLevel to get
      * @return LoggerLevel The LoggerLevel that as been Gotten
      */
@@ -88,9 +88,9 @@ public class LoggerLevels {
 
     /**
      * Makes or returns a LoggerLevel
-     * 
+     *
      * @param levelName Name to give the level
-     * @param prefix The Prefix to give Messages with said given LoggerLevel
+     * @param prefix    The Prefix to give Messages with said given LoggerLevel
      * @return The LoggerLevel that as been Gotten
      */
     public static LoggerLevel getLoggerLevel(String levelName, String prefix) {
@@ -104,9 +104,9 @@ public class LoggerLevels {
 
     /**
      * Makes or returns a LoggerLevel
-     * 
+     *
      * @param levelName Name to give the level
-     * @param logger Logger to have Level Tied to
+     * @param logger    Logger to have Level Tied to
      * @return The LoggerLevel that as been Gotten
      */
     public static LoggerLevel getLoggerLevel(String levelName, EELogger logger) {
@@ -115,10 +115,10 @@ public class LoggerLevels {
 
     /**
      * Makes or returns a LoggerLevel
-     * 
+     *
      * @param levelName Name to give the level
-     * @param prefix The Prefix to give Messages with said given LoggerLevel
-     * @param logger Logger to have Level Tied to
+     * @param prefix    The Prefix to give Messages with said given LoggerLevel
+     * @param logger    Logger to have Level Tied to
      * @return The LoggerLevel that as been Gotten
      */
     public static LoggerLevel getLoggerLevel(String levelName, String prefix, EELogger logger) {
@@ -137,7 +137,7 @@ public class LoggerLevels {
 
     /**
      * This will Remove a LoggerLevel from being able to be tracked and returned by this Level Manager
-     * 
+     *
      * @param name ID of the Logger to remove
      */
     public static void removeLoggerLevel(String name) {
@@ -146,7 +146,7 @@ public class LoggerLevels {
 
     /**
      * This will Remove a LoggerLevel from being able to be tracked and returned by this Level Manager
-     * 
+     *
      * @param lvl Logger to remove
      */
     public static void removeLoggerLevel(LoggerLevel lvl) {

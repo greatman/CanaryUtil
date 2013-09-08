@@ -27,7 +27,7 @@ public class FileManager {
 
     /**
      * Returns the TimeDate that should be used for files at this time
-     * 
+     *
      * @return
      */
     public static String dateTime() {
@@ -86,11 +86,9 @@ public class FileManager {
 
     /**
      * Sets up the file for a Logger to use
-     * 
-     * @param logger
-     *            What Logger needs setup
-     * @param logpathPath
-     *            Where to Log to
+     *
+     * @param logger      What Logger needs setup
+     * @param logpathPath Where to Log to
      * @return
      */
     public static FileHandler setUpFile(EELogger logger, String logpathPath) {
@@ -110,13 +108,10 @@ public class FileManager {
 
     /**
      * Sets up a file for a LoggerLevel to use Under a Logger
-     * 
-     * @param logger
-     *            What Logger owns the LoggerLevel
-     * @param lvl
-     *            What Level needs setup
-     * @param levelPath
-     *            Where To Log to
+     *
+     * @param logger    What Logger owns the LoggerLevel
+     * @param lvl       What Level needs setup
+     * @param levelPath Where To Log to
      * @return
      */
     public static FileHandler setUpFile(EELogger logger, LoggerLevel lvl, String levelPath) {
@@ -132,7 +127,7 @@ public class FileManager {
 
     /**
      * TODO
-     * 
+     *
      * @param logger
      * @param lvl
      * @param pathName
@@ -141,7 +136,7 @@ public class FileManager {
      * @throws IOException
      */
     public static FileHandler gethandler(EELogger logger, LoggerLevel lvl, String pathName) throws SecurityException,
-    IOException {
+            IOException {
 
         FileHandler handler = null;
 
@@ -178,7 +173,7 @@ public class FileManager {
 
     /**
      * TODO
-     * 
+     *
      * @param logger
      * @param pathName
      * @return
@@ -186,7 +181,7 @@ public class FileManager {
      * @throws IOException
      */
     public static FileHandler gethandler(EELogger logger, String pathName) throws SecurityException,
-    IOException {
+            IOException {
 
         FileHandler handler = null;
 
@@ -220,7 +215,7 @@ public class FileManager {
 
     /**
      * Removes A Level from the file filter that it is linked to
-     * 
+     *
      * @param lvl
      */
     public static void removeLoggerLevel(LoggerLevel lvl) {
