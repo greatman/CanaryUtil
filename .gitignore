@@ -14,4 +14,8 @@
 /target/
 *.prefs
 *.sw?
+/bin
+/docs
+/.idea/
+*.iml
 dependency-reduced-pom.xml
