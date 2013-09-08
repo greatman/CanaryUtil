@@ -6,12 +6,13 @@
 
 package net.larry1123.lib.customPacket;
 
-import java.util.LinkedList;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.canarymod.channels.ChannelListener;
 import net.canarymod.hook.HookHandler;
 import net.canarymod.hook.player.DisconnectionHook;
 import net.canarymod.plugin.PluginListener;
+
+import java.util.LinkedList;
 
 public final class BungeeCordListener extends ChannelListener implements PluginListener {
 

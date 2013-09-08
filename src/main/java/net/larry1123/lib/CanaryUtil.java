@@ -19,7 +19,7 @@ import net.larry1123.lib.task.UpdateBungeeInfo;
 public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
 
     private static CoustomPacket coustompacket;
-    private static Commands commands = new Commands();
+    private static final Commands commands = new Commands();
 
     /**
      * Warning may return Null if the Util is not enabled yet!!!!

@@ -12,7 +12,7 @@ import net.larry1123.lib.logger.EELogger;
 
 public abstract class UtilPlugin extends Plugin {
 
-    private EELogger logger = EELogger.getLogger(getName());
+    private final EELogger logger = EELogger.getLogger(getName());
 
     protected final String defultLoggerPath = logger.path;
 

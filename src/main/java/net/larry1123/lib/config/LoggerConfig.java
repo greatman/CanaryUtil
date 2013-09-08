@@ -39,7 +39,7 @@ public class LoggerConfig implements ConfigBase {
 
     }
 
-    private ConfigFile configManager;
+    private final ConfigFile configManager;
 
     @ConfigFeild(name = "Logger-Path", comments = "This defines where the log files will be placed.")
     private String logger_Path = "pluginlogs/";

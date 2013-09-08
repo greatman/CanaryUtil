@@ -14,7 +14,7 @@ public class BungeeCordConfig implements ConfigBase {
     private final long pollTimeDefult = 1000;
     private final String serverNameDefult = "Server";
 
-    private ConfigFile configManager;
+    private final ConfigFile configManager;
 
     @ConfigFeild( comments = { "This sets if the Util will try to talk to a BungeeCord server or not", "Test" } )
     private boolean BungeeCord_enabled = enableDefult;

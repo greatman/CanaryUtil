@@ -6,11 +6,11 @@
 
 package net.larry1123.lib.logger;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import net.canarymod.logger.Logman;
+import net.larry1123.lib.config.LoggerConfig;
+import net.larry1123.lib.config.UtilConfigManager;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,9 +18,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-import net.canarymod.logger.Logman;
-import net.larry1123.lib.config.LoggerConfig;
-import net.larry1123.lib.config.UtilConfigManager;
 
 public class EELogger extends Logman {
 
@@ -255,7 +252,7 @@ public class EELogger extends Logman {
     /**
      * Remove a LoggerLevel
      * 
-     * @param name
+     * @param lvl
      *            LoggerLevel's name
      */
     public void removeLoggerLevel(LoggerLevel lvl) {
@@ -291,8 +288,8 @@ public class EELogger extends Logman {
      *            Throwable Error To be logged
      * @return True if paste was made of stacktrace false if it failed for any reason
      */
-    public void logStacktraceToPasteBin(String lvl, String message, Throwable thrown) {
-        logStacktraceToPasteBin(LoggerLevels.getLoggerLevel(lvl), message, thrown);
+    public boolean logStacktraceToPasteBin(String lvl, String message, Throwable thrown) {
+        return logStacktraceToPasteBin(LoggerLevels.getLoggerLevel(lvl), message, thrown);
     }
 
     /**
@@ -312,7 +309,7 @@ public class EELogger extends Logman {
         if (!lvl.getPrefix().isEmpty()) {
             message = "[" + lvl.getPrefix() + "] " + message;
         }
-        return logStacktraceToPasteBin(lvl, message, thrown);
+        return logStacktraceToPasteBin((Level) lvl, message, thrown);
     }
 
     /**
@@ -373,11 +370,7 @@ public class EELogger extends Logman {
                 }
                 in.close();
 
-                if (responseCode == 200) {
-                    return response.toString().contains("<id>");
-                } else {
-                    return false;
-                }
+                return responseCode == 200 && response.toString().contains("<id>");
 
             } catch (MalformedURLException e) {
                 log.log(Level.SEVERE, "Failed to send: Malformed", e);

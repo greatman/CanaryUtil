@@ -6,10 +6,6 @@
 
 package net.larry1123.lib.task;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.LinkedList;
 import net.canarymod.Canary;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.canarymod.tasks.ServerTask;
@@ -18,12 +14,17 @@ import net.canarymod.tasks.TaskOwner;
 import net.larry1123.lib.CanaryUtil;
 import net.larry1123.lib.config.UtilConfigManager;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.LinkedList;
+
 public class UpdateBungeeInfo extends ServerTask {
 
     /**
      * ConfigManager
      */
-    private static UtilConfigManager config = UtilConfigManager.getConfig();
+    private static final UtilConfigManager config = UtilConfigManager.getConfig();
     /**
      * Current Updater
      */
@@ -148,6 +149,7 @@ public class UpdateBungeeInfo extends ServerTask {
         } catch (IOException e) {
             // Can't happen man
         }
+        Canary.channels().sendCustomPayloadToPlayer("BungeeCord", b.toByteArray(), player);
     }
 
     private void updatePlayerList(Player player, String server) {

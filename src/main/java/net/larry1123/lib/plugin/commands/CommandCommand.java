@@ -6,8 +6,9 @@
 
 package net.larry1123.lib.plugin.commands;
 
-import java.lang.annotation.Annotation;
 import net.canarymod.commandsys.Command;
+
+import java.lang.annotation.Annotation;
 
 public class CommandCommand implements Command {
 
@@ -28,7 +29,6 @@ public class CommandCommand implements Command {
             aliases[index++] = alias;
         }
         aliases[index] = "" + data.getCommandUID();
-        index = 0;
         this.aliases = aliases;
         this.permissions = data.getPermissions();
         this.description = data.getDescription();

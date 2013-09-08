@@ -1,13 +1,14 @@
 package net.larry1123.lib.config;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.util.Arrays;
 import net.canarymod.api.world.World;
 import net.larry1123.lib.logger.EELogger;
 import net.visualillusionsent.utils.PropertiesFile;
 import org.apache.commons.lang3.ArrayUtils;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.Arrays;
 
 public class ConfigFile {
 
@@ -71,9 +72,9 @@ public class ConfigFile {
                 field.setAccessible(true);
                 return field.getGenericType();
             } catch (SecurityException e) {
-                ;
+                //
             } catch (NoSuchFieldException e) {
-                ;
+                //
             }
 
             return null;
@@ -81,8 +82,8 @@ public class ConfigFile {
 
     }
 
-    private PropertiesFile propertiesfile;
-    private ConfigBase config;
+    private final PropertiesFile propertiesfile;
+    private final ConfigBase config;
 
     public ConfigFile(ConfigBase config, PropertiesFile propertiesfile) {
         this.config = config;
@@ -386,7 +387,6 @@ public class ConfigFile {
                         break;
 
                     default:
-                        result = null;
                         EELogger.getLogger("UtilConfigSetUp").warning("Unable to Prosses Type:" + fieldtype.toString());
                         break;
                 }
@@ -417,11 +417,7 @@ public class ConfigFile {
                     hasvalue = false;
                 }
                 finally {
-                    if (defaultValue == null) {
-                        hasvalue = false;
-                    } else {
-                        hasvalue = true;
-                    }
+                    hasvalue = defaultValue != null;
                 }
 
                 String fieldName;

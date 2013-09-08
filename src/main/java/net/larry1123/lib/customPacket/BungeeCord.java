@@ -6,25 +6,26 @@
 
 package net.larry1123.lib.customPacket;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
 import net.canarymod.Canary;
 import net.canarymod.api.OfflinePlayer;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.larry1123.lib.config.UtilConfigManager;
 import net.larry1123.lib.plugin.UtilPlugin;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
+
 public class BungeeCord {
 
-    private static BungeeCordListener lis = new BungeeCordListener();
+    private static final BungeeCordListener lis = new BungeeCordListener();
 
-    private static HashMap<String, String> IPs = new HashMap<String, String>();
-    private static HashMap<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
+    private static final HashMap<String, String> IPs = new HashMap<String, String>();
+    private static final HashMap<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
     private static LinkedList<String> serverList = new LinkedList<String>();
-    private static HashMap<String, LinkedList<OfflinePlayer>> playerList = new HashMap<String, LinkedList<OfflinePlayer>>();
+    private static final HashMap<String, LinkedList<OfflinePlayer>> playerList = new HashMap<String, LinkedList<OfflinePlayer>>();
     private static String currentServer = UtilConfigManager.getConfig().getBungeeCordConfig().getServerName();
 
     private final UtilPlugin plugin;

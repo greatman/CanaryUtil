@@ -16,7 +16,7 @@ import net.visualillusionsent.utils.LocaleHelper;
 
 public class BungeeCordSetCommand implements Command {
 
-    private static UtilConfigManager config = UtilConfigManager.getConfig();
+    private static final UtilConfigManager config = UtilConfigManager.getConfig();
 
     private final CommandData command = new CommandData(new String[]{ "bungeecord", "cord" }, new String[]{ "canary.super.canaryutil.bungeecord.set", "canary.command.super.canaryutil.bungeecord.set" }, "TODO set", "TODO set");
     private final LocaleHelper translator = Translator.getInstance();

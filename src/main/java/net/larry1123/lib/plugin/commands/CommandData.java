@@ -46,7 +46,7 @@ public class CommandData {
      *            CommandData to set as parent
      */
     public void setParent(CommandData parent) {
-        if (parent.getParent() == "") {
+        if (parent.getParent().equals("")) {
             setParent("" + parent.getCommandUID());
         } else {
             setParent(parent.getParent() + "." + parent.getCommandUID());

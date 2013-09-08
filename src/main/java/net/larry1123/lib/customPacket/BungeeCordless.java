@@ -6,12 +6,13 @@
 
 package net.larry1123.lib.customPacket;
 
-import java.util.LinkedList;
 import net.canarymod.Canary;
 import net.canarymod.api.OfflinePlayer;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.larry1123.lib.config.UtilConfigManager;
 import net.larry1123.lib.plugin.UtilPlugin;
+
+import java.util.LinkedList;
 
 public class BungeeCordless extends BungeeCord {
 

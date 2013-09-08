@@ -73,11 +73,11 @@ public class FileSpliterUpdater extends ServerTask {
         return !(config.getCurrentSplit().equals(null) || config.getCurrentSplit().equals(""));
     }
 
-    private static boolean isCurrent() {
+    private static boolean isNotCurrent() {
         if (hasCurrentSplit()) {
-            return config.getCurrentSplit().equals(FileManager.dateTime());
+            return !config.getCurrentSplit().equals(FileManager.dateTime());
         } else {
-            return false;
+            return !false;
         }
     }
 
@@ -92,7 +92,7 @@ public class FileSpliterUpdater extends ServerTask {
     @Override
     public void run() {
         if (isSplitng()) {
-            if (!isCurrent()) {
+            if (isNotCurrent()) {
                 FileManager.updateFileHandlers();
             }
         } else {

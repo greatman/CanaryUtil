@@ -15,12 +15,12 @@ public class CoustomPacket {
     /**
      * Config Manager
      */
-    private static UtilConfigManager config = UtilConfigManager.getConfig();
+    private static final UtilConfigManager config = UtilConfigManager.getConfig();
     /**
      * The currently running BungeeCord manager
      */
     private BungeeCord bungeecord;
-    private CanaryUtil plugin;
+    private final CanaryUtil plugin;
 
     /**
      * Gets the Currently running BungeeCord manager, may be the online or offline version

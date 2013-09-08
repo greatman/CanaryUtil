@@ -8,11 +8,11 @@ package net.larry1123.lib.config;
 
 public class UtilConfigManager {
 
-    private static UtilConfigManager config = new UtilConfigManager();
+    private static final UtilConfigManager config = new UtilConfigManager();
 
-    private String pluginName = "CanaryUtil";
-    private BungeeCordConfig bungeecordConfig;
-    private LoggerConfig loggerConfig;
+    private final String pluginName = "CanaryUtil";
+    private final BungeeCordConfig bungeecordConfig;
+    private final LoggerConfig loggerConfig;
 
     /**
      * Gets the Config Manager

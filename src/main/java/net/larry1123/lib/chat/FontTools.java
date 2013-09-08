@@ -5,9 +5,10 @@
  */
 package net.larry1123.lib.chat;
 
+import net.canarymod.chat.TextFormat;
+
 import java.util.ArrayList;
 import java.util.Random;
-import net.canarymod.chat.TextFormat;
 
 /**
  * Adds a few things I felt missing. Hope to add more soon.
@@ -16,8 +17,8 @@ import net.canarymod.chat.TextFormat;
  */
 public class FontTools extends TextFormat {
 
-    private static ArrayList<String> colorList = new ArrayList<String>();
-    private static ArrayList<String> fontList = new ArrayList<String>();
+    private static final ArrayList<String> colorList = new ArrayList<String>();
+    private static final ArrayList<String> fontList = new ArrayList<String>();
 
     private static final String Black = BLACK;
     private static final String Navy = DARK_BLUE;

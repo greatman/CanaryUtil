@@ -1,5 +1,11 @@
 package net.larry1123.lib.logger;
 
+import net.larry1123.lib.config.LoggerConfig;
+import net.larry1123.lib.config.LoggerConfig.Splits;
+import net.larry1123.lib.config.UtilConfigManager;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -9,11 +15,6 @@ import java.util.HashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
-import net.larry1123.lib.config.LoggerConfig;
-import net.larry1123.lib.config.LoggerConfig.Splits;
-import net.larry1123.lib.config.UtilConfigManager;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 
 public class FileManager {
 
@@ -244,8 +245,6 @@ public class FileManager {
                         handler = setUpFile(logger, logger.logpath);
                         handler.setFilter(filter);
                     }
-                } else {
-                    continue;
                 }
             }
         }

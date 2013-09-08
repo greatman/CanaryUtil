@@ -29,17 +29,17 @@ final class UtilsLogFormat extends SimpleFormatter {
         String msg = rec.getMessage();
 
         StringBuilder message = new StringBuilder();
-        message.append(dateform.format(rec.getMillis()) + " ");
+        message.append(dateform.format(rec.getMillis())).append(" ");
 
         if (level instanceof LoggerLevel) {
             LoggerLevel handle = (LoggerLevel) level;
             if (!handle.getPrefix().equals("")) {
-                message.append("[" + handle.getPrefix() + "] " + msg);
+                message.append("[").append(handle.getPrefix()).append("] ").append(msg);
             } else {
                 message.append(msg);
             }
         } else {
-            message.append("[" + level.getName() + "] " + rec.getMessage());
+            message.append("[").append(level.getName()).append("] ").append(rec.getMessage());
         }
 
         message.append(linesep);
