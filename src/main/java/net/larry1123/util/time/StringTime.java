@@ -52,8 +52,8 @@ public class StringTime {
                     switch (Part.getFromString(time)) {
                         case DAYS:
                             try {
-                            Long days = Long.parseLong(part.substring(0,-1));
-                            ret += days * DateUtils.MILLIS_PER_DAY;
+                                Long days = Long.parseLong(part.substring(0, -1));
+                                ret += days * DateUtils.MILLIS_PER_DAY;
                             } catch (NumberFormatException error) {
                                 // DO nothing right now
                             }

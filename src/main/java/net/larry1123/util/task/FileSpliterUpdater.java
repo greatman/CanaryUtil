@@ -5,9 +5,9 @@ import net.canarymod.tasks.ServerTaskManager;
 import net.canarymod.tasks.TaskOwner;
 import net.larry1123.util.CanaryUtil;
 import net.larry1123.util.config.LoggerConfig;
-import net.larry1123.util.config.LoggerConfig.Splits;
 import net.larry1123.util.config.UtilConfigManager;
 import net.larry1123.util.logger.FileManager;
+import net.larry1123.util.logger.FileSplits;
 import org.apache.commons.lang3.time.DateUtils;
 
 public class FileSpliterUpdater extends ServerTask {
@@ -66,7 +66,7 @@ public class FileSpliterUpdater extends ServerTask {
     }
 
     private static boolean isSplitng() {
-        return !config.getSplit().getValue().toLowerCase().equals(Splits.NONE.getValue().toLowerCase());
+        return !config.getSplit().getValue().toLowerCase().equals(FileSplits.NONE.getValue().toLowerCase());
     }
 
     private static boolean hasCurrentSplit() {
