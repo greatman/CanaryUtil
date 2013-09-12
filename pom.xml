@@ -60,7 +60,7 @@
                         <filter>
                             <artifact>*:*</artifact>
                             <includes>
-                                <include>net.larry1123.util</include>
+                                <include>net.larry1123:EEUtils</include>
                             </includes>
                             <excludes>
                                 <exclude>META-INF/*.SF</exclude>
