@@ -48,20 +48,18 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>shaded</shadedClassifierName>
-                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
                     <finalName>${project.artifactId}-${project.version}</finalName>
+                    <artifactSet>
+                        <includes>
+                            <include>net.larry1123:EEUtils</include>
+                        </includes>
+                    </artifactSet>
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>
-                            <includes>
-                                <include>net.larry1123:EEUtils</include>
-                            </includes>
                             <excludes>
                                 <exclude>META-INF/*.SF</exclude>
                                 <exclude>META-INF/*.DSA</exclude>
