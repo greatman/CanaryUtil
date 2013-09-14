@@ -8,6 +8,7 @@
         <EEutil.groupID>net.larry1123</EEutil.groupID>
         <EEutil.name>EEUtils</EEutil.name>
         <EEutil.version>1.1.1-SNAPSHOT</EEutil.version>
+        <canary.lib.version>1.0-RC-2-SNAPSHOT</canary.lib.version>
     </properties>
     <build>
         <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
@@ -78,6 +79,22 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>2.9.1</version>
+                <configuration>
+                    <javaApiLinks>
+                        <property>
+                            <name>api_1.7</name>
+                            <value>http://download.java.net/jdk7/docs/api/</value>
+                        </property>
+                    </javaApiLinks>
+                    <additionalDependencies>
+                        <additionalDependency>
+                            <groupId>${EEutil.groupID}</groupId>
+                            <artifactId>${EEutil.name}</artifactId>
+                            <version>${EEutil.version}</version>
+                        </additionalDependency>
+                    </additionalDependencies>
+                    <dependencySourceIncludes>net.larry1123.util.*</dependencySourceIncludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -115,7 +132,7 @@
             <dependency>
                 <groupId>net.canarymod</groupId>
                 <artifactId>CanaryLib</artifactId>
-                <version>1.0-RC-2-SNAPSHOT</version>
+                <version>${canary.lib.version}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
@@ -132,22 +149,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
-                <configuration>
-                    <additionalDependencies>
-                        <additionalDependency>
-                            <groupId>${EEutil.groupID}</groupId>
-                            <artifactId>${EEutil.name}</artifactId>
-                            <version>${EEutil.version}</version>
-                        </additionalDependency>
-                    </additionalDependencies>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>
