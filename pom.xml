@@ -93,7 +93,9 @@
                             <version>${EEutil.version}</version>
                         </additionalDependency>
                     </additionalDependencies>
-                    <dependencySourceIncludes>net.larry1123.util.*</dependencySourceIncludes>
+                    <dependencySourceIncludes>
+                        <dependencySourceInclude>net.larry1123.util.*</dependencySourceInclude>
+                    </dependencySourceIncludes>
                 </configuration>
             </plugin>
         </plugins>
