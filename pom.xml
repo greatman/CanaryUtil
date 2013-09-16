@@ -86,16 +86,33 @@
                             <value>http://download.java.net/jdk7/docs/api/</value>
                         </property>
                     </javaApiLinks>
-                    <additionalDependencies>
-                        <additionalDependency>
-                            <groupId>${EEutil.groupID}</groupId>
-                            <artifactId>${EEutil.name}</artifactId>
-                            <version>${EEutil.version}</version>
-                        </additionalDependency>
-                    </additionalDependencies>
-                    <dependencySourceIncludes>
-                        <dependencySourceInclude>net.larry1123.util.*</dependencySourceInclude>
-                    </dependencySourceIncludes>
+                    <links>
+                        <link>https://docs.larry1123.net/canarylib/</link>
+                        <link>http://docs.visualillusionsent.net/VIUtils/</link>
+                    </links>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.2</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <file>/${basedir}/target/classes/Canary.inf</file>
+                    <replacements>
+                        <replacement>
+                            <token>[version]</token>
+                            <value>${project.version}</value>
+                        </replacement>
+                    </replacements>
+                    <regex>false</regex>
                 </configuration>
             </plugin>
         </plugins>

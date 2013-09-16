@@ -1,5 +1,4 @@
-main-class = net.larry1123.util.CanaryUtil
-name = CanaryUtil
-isLibrary = false
-author = Larry1123
-version = 0.1.5-SNAPSHOT
+main-class=net.larry1123.util.CanaryUtil
+name=CanaryUtil
+author=Larry1123
+version=[version]
