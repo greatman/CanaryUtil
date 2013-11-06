@@ -8,9 +8,10 @@
         <EEutil.groupID>net.larry1123</EEutil.groupID>
         <EEutil.name>EEUtils</EEutil.name>
         <EEutil.version>1.1.1-SNAPSHOT</EEutil.version>
-        <canary.lib.version>1.0-RC-2-SNAPSHOT</canary.lib.version>
+        <canary.lib.version>1.0-RC-4-SNAPSHOT</canary.lib.version>
     </properties>
     <build>
+        <defaultGoal>clean install</defaultGoal>
         <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
         <resources>
             <resource>
