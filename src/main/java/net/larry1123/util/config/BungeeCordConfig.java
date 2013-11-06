@@ -16,13 +16,13 @@ public class BungeeCordConfig implements ConfigBase {
 
     private final ConfigFile configManager;
 
-    @ConfigFeild (comments = {"This sets if the Util will try to talk to a BungeeCord server or not", "Test"})
+    @ConfigField(comments = {"This sets if the Util will try to talk to a BungeeCord server or not", "Test"})
     private boolean BungeeCord_enabled = enableDefult;
 
-    @ConfigFeild (comments = "This sets how many ticks between when the Util will send packets to BungeeCord")
+    @ConfigField(comments = "This sets how many ticks between when the Util will send packets to BungeeCord")
     private long BungeeCord_pollTime = pollTimeDefult;
 
-    @ConfigFeild (comments = "This is only used if BungeeCord is disabled, and as a defult if no players have yet connected")
+    @ConfigField(comments = "This is only used if BungeeCord is disabled, and as a defult if no players have yet connected")
     private String BungeeCord_ServerName = serverNameDefult;
 
     BungeeCordConfig(String plugin) {

@@ -13,22 +13,22 @@ public class LoggerConfig implements ConfigBase {
 
     private final ConfigFile configManager;
 
-    @ConfigFeild (name = "Logger-Path", comments = "This defines where the log files will be placed.")
+    @ConfigField(name = "Logger-Path", comments = "This defines where the log files will be placed.")
     private String logger_Path = "pluginlogs/";
 
-    @ConfigFeild (name = "Logger-Split", comments = {"If left blank it will default no spliting", "None|Hour|Day|Week|Month"})
+    @ConfigField(name = "Logger-Split", comments = {"If left blank it will default no spliting", "None|Hour|Day|Week|Month"})
     private String logsplit = "None";
 
-    @ConfigFeild (name = "Logger-FileType", comments = "The FileType with out the leading '.'")
+    @ConfigField(name = "Logger-FileType", comments = "The FileType with out the leading '.'")
     private String logFileType = "log";
 
-    @ConfigFeild (name = "Logger-CurrentSplit", comments = "Do not change this, used to keep track of splits over reloads and restarts")
+    @ConfigField(name = "Logger-CurrentSplit", comments = "Do not change this, used to keep track of splits over reloads and restarts")
     private String currentsplit = "";
 
-    @ConfigFeild (name = "Paste-Enabled", comments = "Allows plugins to post errors to https://paste.larry1123.net/")
+    @ConfigField(name = "Paste-Enabled", comments = "Allows plugins to post errors to https://paste.larry1123.net/")
     private boolean pasteSend = true;
 
-    @ConfigFeild (name = "Paste-UserName", comments = "Set the Name to post Paste as if enabled.")
+    @ConfigField(name = "Paste-UserName", comments = "Set the Name to post Paste as if enabled.")
     private String pasteUserName = "";
 
     LoggerConfig(String plugin) {
