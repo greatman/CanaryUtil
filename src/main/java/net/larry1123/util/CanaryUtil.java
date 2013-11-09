@@ -16,6 +16,11 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
     private static CustomPacket customPacket;
     private static final Commands commands = new Commands();
 
+    static {
+        // Maybe this will do the trick?
+        EEUtils.setLoggerSettings(UtilConfigManager.getConfig().getLoggerConfig());
+    }
+
     private UtilCommands commandsManager;
 
     /**
@@ -38,12 +43,8 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
         return commands;
     }
 
-    /**
-     * I hope that this will work...
-     */
     public CanaryUtil() {
         plugin = this;
-        EEUtils.setLoggerSettings(UtilConfigManager.getConfig().getLoggerConfig());
     }
 
     /**

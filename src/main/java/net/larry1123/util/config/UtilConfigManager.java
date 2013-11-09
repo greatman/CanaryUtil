@@ -18,10 +18,8 @@ public class UtilConfigManager {
     }
 
     private UtilConfigManager() {
-        // bungeecordConfig = new BungeeCordConfig(pluginName);
-        // loggerConfig = new LoggerConfig(pluginName);
-        bungeecordConfig = new BungeeCordConfig();
-        loggerConfig = new LoggerConfig();
+        loggerConfig = new LoggerConfig(pluginName);
+        bungeecordConfig = new BungeeCordConfig(pluginName);
     }
 
     /**

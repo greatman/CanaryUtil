@@ -2,8 +2,6 @@ package net.larry1123.util.config;
 
 import net.larry1123.util.CanaryUtil;
 
-import static net.larry1123.util.CanaryUtil.getPlugin;
-
 public class BungeeCordConfig implements ConfigBase {
 
     private final boolean enableDefult = false;
@@ -23,10 +21,6 @@ public class BungeeCordConfig implements ConfigBase {
 
     BungeeCordConfig(String plugin) {
         configManager = new ConfigFile(this, plugin, "BungeeCord");
-    }
-
-    BungeeCordConfig() {
-        configManager = new ConfigFile(this, getPlugin(), "BungeeCord");
     }
 
     /**

@@ -4,8 +4,6 @@ import net.larry1123.util.logger.FileSplits;
 import net.larry1123.util.logger.LoggerSettings;
 import net.larry1123.util.task.FileSpliterUpdater;
 
-import static net.larry1123.util.CanaryUtil.getPlugin;
-
 public class LoggerConfig implements ConfigBase, LoggerSettings {
 
     private final ConfigFile configManager;
@@ -30,10 +28,6 @@ public class LoggerConfig implements ConfigBase, LoggerSettings {
 
     public LoggerConfig(String plugin) {
         configManager = new ConfigFile(this, plugin, "Logger");
-    }
-
-    LoggerConfig() {
-        configManager = new ConfigFile(this, getPlugin(), "Logger");
     }
 
     /**
@@ -64,7 +58,8 @@ public class LoggerConfig implements ConfigBase, LoggerSettings {
      * {@inheritDoc}
      */
     @Override
-    public void setUserName(String name) {}
+    public void setUserName(String name) {
+    }
 
     /**
      * {@inheritDoc}
@@ -87,7 +82,8 @@ public class LoggerConfig implements ConfigBase, LoggerSettings {
      * {@inheritDoc}
      */
     @Override
-    public void setPastingAllowed(boolean state) {}
+    public void setPastingAllowed(boolean state) {
+    }
 
     /**
      * {@inheritDoc}
