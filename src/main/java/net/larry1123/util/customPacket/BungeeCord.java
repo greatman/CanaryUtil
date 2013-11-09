@@ -1,22 +1,17 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:56:43 AM
- */
-
 package net.larry1123.util.customPacket;
 
 import net.canarymod.Canary;
 import net.canarymod.api.OfflinePlayer;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.larry1123.util.config.UtilConfigManager;
-import net.larry1123.util.plugin.UtilPlugin;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
+
+import static net.larry1123.util.CanaryUtil.getPlugin;
 
 public class BungeeCord {
 
@@ -28,16 +23,13 @@ public class BungeeCord {
     private static final HashMap<String, LinkedList<OfflinePlayer>> playerList = new HashMap<String, LinkedList<OfflinePlayer>>();
     private static String currentServer = UtilConfigManager.getConfig().getBungeeCordConfig().getServerName();
 
-    private final UtilPlugin plugin;
-
-    public BungeeCord(UtilPlugin utilplugin) {
-        this.plugin = utilplugin;
-        Canary.channels().registerListener(plugin, "BungeeCord", lis);
-        Canary.hooks().registerListener(lis, plugin);
+    public BungeeCord() {
+        Canary.channels().registerListener(getPlugin(), "BungeeCord", lis);
+        Canary.hooks().registerListener(lis, getPlugin());
     }
 
     public void unregChannelListener() {
-        Canary.channels().unregisterListeners(plugin);
+        Canary.channels().unregisterListeners(getPlugin());
     }
 
     /**

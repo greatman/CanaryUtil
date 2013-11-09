@@ -1,20 +1,16 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:54:52 AM
- */
-
 package net.larry1123.util.commands;
 
 import net.canarymod.Translator;
 import net.canarymod.chat.MessageReceiver;
-import net.larry1123.util.plugin.commands.Command;
-import net.larry1123.util.plugin.commands.CommandData;
+import net.larry1123.util.api.plugin.commands.Command;
+import net.larry1123.util.api.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
+
+import static net.larry1123.util.CanaryUtil.getPlugin;
 
 public class BaseCommand implements Command {
 
-    private final CommandData command = new CommandData(new String[] {"canaryutil"}, new String[] {"canary.super.canaryutil", "canary.command.super.canaryutil"}, "TODO", "TODO");
+    private final CommandData command = new CommandData(new String[]{"canaryutil"}, new String[]{"canary.super.canaryutil", "canary.command.super.canaryutil"}, "TODO", "TODO");
     private final LocaleHelper translator = Translator.getInstance();
     private final UtilCommands utilcommands;
     private boolean loaded = false;
@@ -53,7 +49,7 @@ public class BaseCommand implements Command {
      */
     @Override
     public void execute(MessageReceiver caller, String[] parameters) {
-        caller.message(utilcommands.getOwner().getName() + " By: " + utilcommands.getOwner().getAuthor());
+        caller.message(getPlugin().getName() + " By: " + getPlugin().getAuthor());
     }
 
     /**

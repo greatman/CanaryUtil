@@ -1,9 +1,3 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:59:11 AM
- */
-
 package net.larry1123.util.task;
 
 import net.canarymod.Canary;
@@ -19,6 +13,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import static net.larry1123.util.CanaryUtil.getPlugin;
+
 public class UpdateBungeeInfo extends ServerTask {
 
     /**
@@ -28,29 +24,16 @@ public class UpdateBungeeInfo extends ServerTask {
     /**
      * Current Updater
      */
-    private static UpdateBungeeInfo ticksystem;
-    /**
-     * The plugin that will own the updater
-     */
-    private static TaskOwner plugin;
-
-    /**
-     * This is to be only used for internal uses
-     *
-     * @param plugin
-     */
-    public static void setPlugin(CanaryUtil plugin) {
-        UpdateBungeeInfo.plugin = plugin;
-    }
+    private static UpdateBungeeInfo tickSystem;
 
     /**
      * Starts the updater polling if the config will allow
      */
     public static void startUpdater() {
-        if (config.getBungeeCordConfig().isEnabled()) {
-            if (ticksystem == null) {
-                ticksystem = new UpdateBungeeInfo(plugin, config.getBungeeCordConfig().getPollTime());
-                ServerTaskManager.addTask(ticksystem);
+        if (config.getBungeeCordConfig().isEnabled() && getPlugin() != null) {
+            if (tickSystem == null) {
+                tickSystem = new UpdateBungeeInfo(getPlugin(), config.getBungeeCordConfig().getPollTime());
+                ServerTaskManager.addTask(tickSystem);
             }
         }
     }
@@ -59,9 +42,9 @@ public class UpdateBungeeInfo extends ServerTask {
      * Stops the updater polling
      */
     public static void endUpdater() {
-        if (ticksystem != null) {
-            ServerTaskManager.removeTask(ticksystem);
-            ticksystem = null;
+        if (tickSystem != null) {
+            ServerTaskManager.removeTask(tickSystem);
+            tickSystem = null;
         }
     }
 
@@ -70,14 +53,14 @@ public class UpdateBungeeInfo extends ServerTask {
      */
     public static void reloadUpdater() {
         if (config.getBungeeCordConfig().isEnabled()) {
-            if (ticksystem != null) {
-                ServerTaskManager.removeTask(ticksystem);
+            if (tickSystem != null) {
+                ServerTaskManager.removeTask(tickSystem);
             }
             startUpdater();
         } else {
-            if (ticksystem != null) {
-                ServerTaskManager.removeTask(ticksystem);
-                ticksystem = null;
+            if (tickSystem != null) {
+                ServerTaskManager.removeTask(tickSystem);
+                tickSystem = null;
             }
         }
     }
@@ -104,8 +87,8 @@ public class UpdateBungeeInfo extends ServerTask {
             // Update Server List
             updateServerList(player);
 
-            @SuppressWarnings ("unchecked")
-            LinkedList<String> servers = (LinkedList<String>) CanaryUtil.coustomPacket().getBungeeCord().getServerList().clone();
+            @SuppressWarnings("unchecked")
+            LinkedList<String> servers = (LinkedList<String>) CanaryUtil.getCustomPacket().getBungeeCord().getServerList().clone();
             servers.add("ALL");
             for (String server : servers) {
                 // Update playerList for each server

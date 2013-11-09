@@ -3,12 +3,13 @@ package net.larry1123.util.task;
 import net.canarymod.tasks.ServerTask;
 import net.canarymod.tasks.ServerTaskManager;
 import net.canarymod.tasks.TaskOwner;
-import net.larry1123.util.CanaryUtil;
 import net.larry1123.util.config.LoggerConfig;
 import net.larry1123.util.config.UtilConfigManager;
 import net.larry1123.util.logger.FileManager;
 import net.larry1123.util.logger.FileSplits;
 import org.apache.commons.lang3.time.DateUtils;
+
+import static net.larry1123.util.CanaryUtil.getPlugin;
 
 public class FileSpliterUpdater extends ServerTask {
 
@@ -17,27 +18,14 @@ public class FileSpliterUpdater extends ServerTask {
      * Current Updater
      */
     private static FileSpliterUpdater ticksystem = null;
-    /**
-     * The plugin that will own the updater
-     */
-    private static TaskOwner plugin = null;
-
-    /**
-     * This is to be only used for internal uses
-     *
-     * @param plugin
-     */
-    public static void setPlugin(CanaryUtil plugin) {
-        FileSpliterUpdater.plugin = plugin;
-    }
 
     /**
      * Starts the updater polling if the config will allow
      */
     public static void startUpdater() {
-        if (isSplitng() && (plugin != null)) {
+        if (isSplitng() && (getPlugin() != null)) {
             if (ticksystem == null) {
-                ticksystem = new FileSpliterUpdater(plugin, DateUtils.MILLIS_PER_HOUR);
+                ticksystem = new FileSpliterUpdater(getPlugin(), DateUtils.MILLIS_PER_HOUR);
                 ServerTaskManager.addTask(ticksystem);
             }
         }

@@ -1,9 +1,3 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:56:30 AM
- */
-
 package net.larry1123.util.config;
 
 public class UtilConfigManager {
@@ -24,8 +18,10 @@ public class UtilConfigManager {
     }
 
     private UtilConfigManager() {
-        bungeecordConfig = new BungeeCordConfig(pluginName);
-        loggerConfig = new LoggerConfig(pluginName);
+        // bungeecordConfig = new BungeeCordConfig(pluginName);
+        // loggerConfig = new LoggerConfig(pluginName);
+        bungeecordConfig = new BungeeCordConfig();
+        loggerConfig = new LoggerConfig();
     }
 
     /**

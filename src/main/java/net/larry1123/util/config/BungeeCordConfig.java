@@ -1,12 +1,8 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:56:09 AM
- */
-
 package net.larry1123.util.config;
 
 import net.larry1123.util.CanaryUtil;
+
+import static net.larry1123.util.CanaryUtil.getPlugin;
 
 public class BungeeCordConfig implements ConfigBase {
 
@@ -29,12 +25,16 @@ public class BungeeCordConfig implements ConfigBase {
         configManager = new ConfigFile(this, plugin, "BungeeCord");
     }
 
+    BungeeCordConfig() {
+        configManager = new ConfigFile(this, getPlugin(), "BungeeCord");
+    }
+
     /**
      * Will update everything with any changes in Config file
      */
     void reload() {
         configManager.reload();
-        CanaryUtil.coustomPacket().reloadBungeeCord();
+        CanaryUtil.getCustomPacket().reloadBungeeCord();
     }
 
     /**
@@ -72,7 +72,7 @@ public class BungeeCordConfig implements ConfigBase {
     public void setIsEnabled(boolean state) {
         BungeeCord_enabled = state;
         configManager.save(); // Time to Save
-        CanaryUtil.coustomPacket().reloadBungeeCord();
+        CanaryUtil.getCustomPacket().reloadBungeeCord();
     }
 
     /**
@@ -83,7 +83,7 @@ public class BungeeCordConfig implements ConfigBase {
     public void setPollTime(long time) {
         BungeeCord_pollTime = time;
         configManager.save(); // Time to Save
-        CanaryUtil.coustomPacket().reloadBungeeCord();
+        CanaryUtil.getCustomPacket().reloadBungeeCord();
     }
 
     /**
@@ -95,7 +95,7 @@ public class BungeeCordConfig implements ConfigBase {
     public void setServerName(String name) {
         BungeeCord_ServerName = name;
         configManager.save(); // Time to Save
-        CanaryUtil.coustomPacket().reloadBungeeCord();
+        CanaryUtil.getCustomPacket().reloadBungeeCord();
     }
 
 }

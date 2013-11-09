@@ -1,10 +1,4 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 8:00:44 AM
- */
-
-package net.larry1123.util.plugin.commands;
+package net.larry1123.util.api.plugin.commands;
 
 import net.canarymod.commandsys.Command;
 

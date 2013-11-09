@@ -1,9 +1,4 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:54:26 AM
- */
-package net.larry1123.util.chat;
+package net.larry1123.util.api.chat;
 
 import net.canarymod.chat.TextFormat;
 

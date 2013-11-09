@@ -1,4 +1,4 @@
-package net.larry1123.util.plugin.hooks.time;
+package net.larry1123.util.api.plugin.hooks.time;
 
 import net.canarymod.hook.Hook;
 

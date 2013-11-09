@@ -1,9 +1,3 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:23:19 AM
- */
-
 package net.larry1123.util.customPacket;
 
 import net.canarymod.api.entity.living.humanoid.Player;

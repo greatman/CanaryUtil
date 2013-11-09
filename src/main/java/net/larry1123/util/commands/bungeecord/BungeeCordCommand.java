@@ -1,21 +1,15 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:55:18 AM
- */
-
 package net.larry1123.util.commands.bungeecord;
 
 import net.canarymod.Translator;
 import net.canarymod.chat.MessageReceiver;
+import net.larry1123.util.api.plugin.commands.Command;
+import net.larry1123.util.api.plugin.commands.CommandData;
 import net.larry1123.util.commands.UtilCommands;
-import net.larry1123.util.plugin.commands.Command;
-import net.larry1123.util.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
 
 public class BungeeCordCommand implements Command {
 
-    private final String[] aliases = new String[] {"bungeecord", "cord"};
+    private final String[] aliases = new String[]{"bungeecord", "cord"};
 
     private final CommandData command;
     private final LocaleHelper translator = Translator.getInstance();
@@ -26,7 +20,7 @@ public class BungeeCordCommand implements Command {
         utilcommands = utilCommands;
         command = new CommandData(
                 aliases,
-                new String[] {"canary.super.canaryutil.bungeecord", "canary.command.super.canaryutil.bungeecord"},
+                new String[]{"canary.super.canaryutil.bungeecord", "canary.command.super.canaryutil.bungeecord"},
                 "TODO",
                 "/" + utilcommands.baseCommand.getCommandData().getAliases()[0] + " " + aliases[0] + " <set|reload>"
         );

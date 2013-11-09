@@ -1,23 +1,17 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:55:29 AM
- */
-
 package net.larry1123.util.commands.bungeecord;
 
 import net.canarymod.Translator;
 import net.canarymod.chat.MessageReceiver;
-import net.larry1123.util.chat.FontTools;
+import net.larry1123.util.api.chat.FontTools;
+import net.larry1123.util.api.plugin.commands.Command;
+import net.larry1123.util.api.plugin.commands.CommandData;
 import net.larry1123.util.commands.UtilCommands;
 import net.larry1123.util.config.UtilConfigManager;
-import net.larry1123.util.plugin.commands.Command;
-import net.larry1123.util.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
 
 public class BungeeCordReloadCommand implements Command {
 
-    private final CommandData command = new CommandData(new String[] {"reload"}, new String[] {"canary.super.canaryutil.bungeecord.reload", "canary.command.super.canaryutil.bungeecord.reload"}, "TODO reload", "TODO reload");
+    private final CommandData command = new CommandData(new String[]{"reload"}, new String[]{"canary.super.canaryutil.bungeecord.reload", "canary.command.super.canaryutil.bungeecord.reload"}, "TODO reload", "TODO reload");
     private final LocaleHelper translator = Translator.getInstance();
     private final UtilCommands utilcommands;
     private boolean loaded = false;

@@ -1,19 +1,14 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:20:32 AM
- */
-
 package net.larry1123.util.commands;
 
 import net.canarymod.commandsys.CommandDependencyException;
 import net.larry1123.util.CanaryUtil;
+import net.larry1123.util.api.plugin.commands.Command;
 import net.larry1123.util.commands.bungeecord.BungeeCordCommand;
 import net.larry1123.util.commands.bungeecord.BungeeCordReloadCommand;
 import net.larry1123.util.commands.bungeecord.BungeeCordSetCommand;
 import net.larry1123.util.logger.EELogger;
-import net.larry1123.util.plugin.UtilPlugin;
-import net.larry1123.util.plugin.commands.Command;
+
+import static net.larry1123.util.CanaryUtil.getPlugin;
 
 public class UtilCommands {
 
@@ -23,10 +18,7 @@ public class UtilCommands {
     public final Command bungeecordReloadCommand;
     public final Command bungeecordSetCommand;
 
-    private final UtilPlugin owner;
-
-    public UtilCommands(UtilPlugin owner) {
-        this.owner = owner;
+    public UtilCommands() {
         {
             baseCommand = new BaseCommand(this);
             { // SubCommands BaseCommand
@@ -45,13 +37,9 @@ public class UtilCommands {
         regCommand(bungeecordSetCommand);
     }
 
-    public UtilPlugin getOwner() {
-        return owner;
-    }
-
     private void regCommand(Command command) {
         try {
-            CanaryUtil.commands().registerCommand(command, getOwner());
+            CanaryUtil.commands().registerCommand(command, getPlugin());
             command.setloadded(true);
         } catch (CommandDependencyException e) {
             EELogger.getLogger("CanaryUtil").logCustom("Commands", "Failed to add command: " + command.getCommandData().getAliases()[0], e);

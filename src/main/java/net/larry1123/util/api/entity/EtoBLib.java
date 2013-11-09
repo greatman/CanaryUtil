@@ -1,12 +1,4 @@
-/**
- * Testing By Spenk
- *
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 17, 2013 3:24:05 AM
- */
-
-package net.larry1123.util.entity;
+package net.larry1123.util.api.entity;
 
 import net.canarymod.ToolBox;
 import net.canarymod.api.world.blocks.Block;
@@ -14,6 +6,9 @@ import net.canarymod.api.world.blocks.BlockFace;
 import net.canarymod.api.world.blocks.BlockType;
 import net.canarymod.api.world.position.Location;
 
+/**
+ * TODO need to remake this class kind of derp
+ */
 public class EtoBLib {
 
     /**

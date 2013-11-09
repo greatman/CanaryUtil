@@ -1,4 +1,4 @@
-package net.larry1123.util.time;
+package net.larry1123.util.api.time;
 
 import org.apache.commons.lang3.time.DateUtils;
 

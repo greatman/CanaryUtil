@@ -1,4 +1,4 @@
-package net.larry1123.util.database;
+package net.larry1123.util.api.database;
 
 import net.canarymod.database.DataAccess;
 import net.canarymod.database.Database;

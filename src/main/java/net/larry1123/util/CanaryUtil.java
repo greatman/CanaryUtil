@@ -1,33 +1,34 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:54:14 AM
- */
-
 package net.larry1123.util;
 
 import net.canarymod.commandsys.CommandOwner;
 import net.canarymod.tasks.ServerTaskManager;
 import net.canarymod.tasks.TaskOwner;
+import net.larry1123.util.api.plugin.UtilPlugin;
+import net.larry1123.util.api.plugin.commands.Commands;
 import net.larry1123.util.commands.UtilCommands;
-import net.larry1123.util.customPacket.CoustomPacket;
-import net.larry1123.util.plugin.UtilPlugin;
-import net.larry1123.util.plugin.commands.Commands;
+import net.larry1123.util.config.UtilConfigManager;
+import net.larry1123.util.customPacket.CustomPacket;
 import net.larry1123.util.task.FileSpliterUpdater;
-import net.larry1123.util.task.UpdateBungeeInfo;
 
 public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
 
-    private static CoustomPacket coustompacket;
+    private static CanaryUtil plugin;
+    private static CustomPacket customPacket;
     private static final Commands commands = new Commands();
+
+    private UtilCommands commandsManager;
 
     /**
      * Warning may return Null if the Util is not enabled yet!!!!
      *
-     * @return CoustomPacket Manager
+     * @return CustomPacket Manager
      */
-    public static CoustomPacket coustomPacket() {
-        return coustompacket;
+    public static CustomPacket getCustomPacket() {
+        return customPacket;
+    }
+
+    public static CanaryUtil getPlugin() {
+        return plugin;
     }
 
     /**
@@ -38,11 +39,21 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
     }
 
     /**
+     * I hope that this will work...
+     */
+    public CanaryUtil() {
+        plugin = this;
+        EEUtils.setLoggerSettings(UtilConfigManager.getConfig().getLoggerConfig());
+    }
+
+    /**
      * Plugin Disable Method
      */
     @Override
     public void disable() {
+        // Stop Tasks!
         ServerTaskManager.removeTasksForPlugin(this);
+        // Log that the plugin was Disabled
         getLogger().info("Plugin Disabled");
     }
 
@@ -51,12 +62,15 @@ public class CanaryUtil extends UtilPlugin implements TaskOwner, CommandOwner {
      */
     @Override
     public boolean enable() {
-        UpdateBungeeInfo.setPlugin(this);
-        FileSpliterUpdater.setPlugin(this);
+        // Start checker for splitting logging files
         FileSpliterUpdater.startUpdater();
-        coustompacket = new CoustomPacket(this);
-        new UtilCommands(this);
+        // Make the custom packet manager object
+        customPacket = new CustomPacket();
+        // Start up the Command manager
+        commandsManager = new UtilCommands();
+        // Log that the Plugin was Enabled
         getLogger().info("Plugin Enabled");
+        // Hey everything worked lets return true so Canary knows that too
         return true;
     }
 

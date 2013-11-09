@@ -1,20 +1,16 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:55:04 AM
- */
-
 package net.larry1123.util.commands;
 
 import net.canarymod.Translator;
 import net.canarymod.chat.MessageReceiver;
-import net.larry1123.util.plugin.commands.Command;
-import net.larry1123.util.plugin.commands.CommandData;
+import net.larry1123.util.api.plugin.commands.Command;
+import net.larry1123.util.api.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
+
+import static net.larry1123.util.CanaryUtil.getPlugin;
 
 public class VersionCommand implements Command {
 
-    private final CommandData command = new CommandData(new String[] {"help"}, new String[] {"canary.super.canaryutil.help", "canary.command.super.canaryutil.help"}, "TODO", "TODO");
+    private final CommandData command = new CommandData(new String[]{"help"}, new String[]{"canary.super.canaryutil.help", "canary.command.super.canaryutil.help"}, "TODO", "TODO");
     private final LocaleHelper translator = Translator.getInstance();
     private final UtilCommands utilcommands;
     private boolean loaded = false;
@@ -29,7 +25,7 @@ public class VersionCommand implements Command {
      */
     @Override
     public void execute(MessageReceiver caller, String[] parameters) {
-        caller.message(utilcommands.getOwner().getName() + " Version: " + utilcommands.getOwner().getVersion());
+        caller.message(getPlugin().getName() + " Version: " + getPlugin().getVersion());
     }
 
     /**

@@ -1,23 +1,16 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 7:56:53 AM
- */
-
 package net.larry1123.util.customPacket;
 
 import net.canarymod.Canary;
 import net.canarymod.api.OfflinePlayer;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.larry1123.util.config.UtilConfigManager;
-import net.larry1123.util.plugin.UtilPlugin;
 
 import java.util.LinkedList;
 
 public class BungeeCordless extends BungeeCord {
 
-    public BungeeCordless(UtilPlugin utilplugin) {
-        super(utilplugin);
+    public BungeeCordless() {
+        super();
     }
 
     /**

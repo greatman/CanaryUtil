@@ -1,26 +1,22 @@
-/**
- * @author ElecEntertainment
- * @team Larry1123, Joshtmathews, Sinzo, Xalbec
- * @lastedit Jun 24, 2013 8:00:21 AM
- */
-
-package net.larry1123.util.plugin;
+package net.larry1123.util.api.plugin;
 
 import net.canarymod.logger.Logman;
 import net.canarymod.plugin.Plugin;
 import net.larry1123.util.logger.EELogger;
+import net.larry1123.util.logger.EELogman;
 
 public abstract class UtilPlugin extends Plugin {
 
     private final EELogger logger = EELogger.getLogger(getName());
+    private final EELogman loggerWrap = new EELogman(logger);
 
-    protected final String defultLoggerPath = logger.path;
+    protected final String defultLoggerPath = getLogger().path;
 
     /**
      * Retrieves a SubLogger
      *
-     * @param name
-     * @return
+     * @param name Name to name the subLogger
+     * @return The SubLogger
      */
     public EELogger getSubLogger(String name) {
         return EELogger.getSubLogger(name, getLogger());
@@ -54,11 +50,11 @@ public abstract class UtilPlugin extends Plugin {
     /**
      * {@inheritDoc}
      * <p/>
-     * The Logman returned is a casted EELogger
+     * The Logman returned is a wrapper of EELogger
      */
     @Override
     public Logman getLogman() {
-        return getLogger();
+        return loggerWrap;
     }
 
 }
