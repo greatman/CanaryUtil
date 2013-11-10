@@ -99,10 +99,9 @@
                                 <link>http://docs.visualillusionsent.net/VIUtils/1.2.1/</link>
                             </links>
                             <includeDependencySources>true</includeDependencySources>
-                            <dependencySourceExcludes>
-                                <dependencySourceExclude>org.apache.commons:*</dependencySourceExclude>
-                                <dependencySourceExclude>net.canarymod:*</dependencySourceExclude>
-                            </dependencySourceExcludes>
+                            <dependencySourceIncludes>
+                                <dependencySourceInclude>${EEutil.groupID}:${EEutil.name}</dependencySourceInclude>
+                            </dependencySourceIncludes>
                         </configuration>
                     </execution>
                 </executions>
