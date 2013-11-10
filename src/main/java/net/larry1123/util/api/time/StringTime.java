@@ -48,7 +48,7 @@ public class StringTime {
         } catch (NumberFormatException e) {
             for (String part : string.split(" ")) {
                 if (part.length() >= 2) {
-                    String time = part.substring(-1);
+                    String time = part.substring(part.length()-1);
                     switch (Part.getFromString(time)) {
                         case DAYS:
                             try {
