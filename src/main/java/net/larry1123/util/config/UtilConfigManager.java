@@ -15,8 +15,8 @@ public class UtilConfigManager {
     private static HashMap<ConfigBase, HashMap<String, PropertiesFile>> plugin_cfg_cache = new HashMap<ConfigBase, HashMap<String, PropertiesFile>>();
 
     private final String pluginName = "CanaryUtil";
-    private final BungeeCordConfig bungeecordConfig;
-    private final LoggerConfig loggerConfig;
+    private BungeeCordConfig bungeecordConfig;
+    private LoggerConfig loggerConfig;
 
     /**
      * Gets the Config Manager
@@ -27,10 +27,7 @@ public class UtilConfigManager {
         return config;
     }
 
-    private UtilConfigManager() {
-        loggerConfig = new LoggerConfig(pluginName);
-        bungeecordConfig = new BungeeCordConfig(pluginName);
-    }
+    private UtilConfigManager() {}
 
     /**
      * Gets the Config for BungeeCord
@@ -38,6 +35,7 @@ public class UtilConfigManager {
      * @return Config Manager for BungeeCord
      */
     public BungeeCordConfig getBungeeCordConfig() {
+        if (bungeecordConfig == null) bungeecordConfig = new BungeeCordConfig(pluginName);
         return bungeecordConfig;
     }
 
@@ -45,7 +43,7 @@ public class UtilConfigManager {
      * Reloads the Config of the BungeeCord Config Manager
      */
     public void reloadBungeeCordConfig() {
-        bungeecordConfig.reload();
+        getBungeeCordConfig().reload();
     }
 
     /**
@@ -54,6 +52,7 @@ public class UtilConfigManager {
      * @return Config Manager for Logger
      */
     public LoggerConfig getLoggerConfig() {
+        if (loggerConfig == null) loggerConfig = new LoggerConfig(pluginName);
         return loggerConfig;
     }
 
@@ -61,7 +60,7 @@ public class UtilConfigManager {
      * Reloads the Config of the Logger Config Manager
      */
     public void reloadLoggerConfig() {
-        loggerConfig.reload();
+        getLoggerConfig().reload();
     }
 
     /**
