@@ -1,6 +1,7 @@
-package net.larry1123.util.logger;
+package net.larry1123.util.api.plugin;
 
 import net.canarymod.logger.Logman;
+import net.larry1123.util.logger.EELogger;
 
 import java.util.logging.LogRecord;
 

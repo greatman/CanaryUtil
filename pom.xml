@@ -80,18 +80,28 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.9.1</version>
-                <configuration>
-                    <javaApiLinks>
-                        <property>
-                            <name>api_1.7</name>
-                            <value>http://download.java.net/jdk7/docs/api/</value>
-                        </property>
-                    </javaApiLinks>
-                    <links>
-                        <link>https://docs.larry1123.net/canarylib/</link>
-                        <link>http://docs.visualillusionsent.net/VIUtils/</link>
-                    </links>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>javadoc-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <javaApiLinks>
+                                <property>
+                                    <name>api_1.7</name>
+                                    <value>http://download.java.net/jdk7/docs/api/</value>
+                                </property>
+                            </javaApiLinks>
+                            <links>
+                                <link>https://docs.larry1123.net/canarylib/</link>
+                                <link>http://docs.visualillusionsent.net/VIUtils/1.2.1/</link>
+                            </links>
+                            <includeDependencySources>true</includeDependencySources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
