@@ -48,11 +48,11 @@ public class StringTime {
         } catch (NumberFormatException e) {
             for (String part : string.split(" ")) {
                 if (part.length() >= 2) {
-                    String time = part.substring(part.length()-2);
+                    String time = part.substring(part.length()-1);
                     switch (Part.getFromString(time)) {
                         case DAYS:
                             try {
-                                Long days = Long.parseLong(part.substring(0, part.length()-2));
+                                Long days = Long.parseLong(part.substring(0, part.length()-1));
                                 ret += days * DateUtils.MILLIS_PER_DAY;
                             } catch (NumberFormatException error) {
                                 // DO nothing right now
@@ -60,7 +60,7 @@ public class StringTime {
                             break;
                         case HOUR:
                             try {
-                                Long hours = Long.parseLong(part.substring(0, part.length()-2));
+                                Long hours = Long.parseLong(part.substring(0, part.length()-1));
                                 ret += hours * DateUtils.MILLIS_PER_HOUR;
                             } catch (NumberFormatException error) {
                                 // DO nothing right now
@@ -68,7 +68,7 @@ public class StringTime {
                             break;
                         case MINUTES:
                             try {
-                                Long minutes = Long.parseLong(part.substring(0, part.length()-2));
+                                Long minutes = Long.parseLong(part.substring(0, part.length()-1));
                                 ret += minutes * DateUtils.MILLIS_PER_MINUTE;
                             } catch (NumberFormatException error) {
                                 // DO nothing right now
@@ -76,7 +76,7 @@ public class StringTime {
                             break;
                         case SECONDS:
                             try {
-                                Long seconds = Long.parseLong(part.substring(0, part.length()-2));
+                                Long seconds = Long.parseLong(part.substring(0, part.length()-1));
                                 ret += seconds * DateUtils.MILLIS_PER_SECOND;
                             } catch (NumberFormatException error) {
                                 // DO nothing right now
