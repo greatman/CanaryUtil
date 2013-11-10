@@ -27,7 +27,7 @@ public class LoggerConfig implements ConfigBase, LoggerSettings {
     private String pasteUserName = "";
 
     public LoggerConfig(String plugin) {
-        configManager = new ConfigFile(this, plugin, "Logger");
+        configManager = UtilConfigManager.getConfig().getPluginConfig(this, plugin, "Logger");
     }
 
     /**

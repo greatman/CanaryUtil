@@ -20,7 +20,7 @@ public class BungeeCordConfig implements ConfigBase {
     private String BungeeCord_ServerName = serverNameDefult;
 
     BungeeCordConfig(String plugin) {
-        configManager = new ConfigFile(this, plugin, "BungeeCord");
+        configManager = UtilConfigManager.getConfig().getPluginConfig(this, plugin, "BungeeCord");
     }
 
     /**

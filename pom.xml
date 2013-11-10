@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.larry1123</groupId>
     <artifactId>CanaryUtil</artifactId>
-    <version>0.2.2-SNAPSHOT</version>
+    <version>0.2.3-SNAPSHOT</version>
     <properties>
         <EEutil.groupID>net.larry1123</EEutil.groupID>
         <EEutil.name>EEUtils</EEutil.name>

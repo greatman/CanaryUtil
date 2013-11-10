@@ -2,7 +2,6 @@ package net.larry1123.util.api.time;
 
 import org.apache.commons.lang3.time.DateUtils;
 
-
 public class StringTime {
 
     public static enum Part {
@@ -37,10 +36,11 @@ public class StringTime {
      * The letters can be upper or lower case
      * 15h 50m 5s
      *
-     * @param string
-     * @return
+     * @param string Whole String to decode into parts
+     * @return the amount of time in milliseconds that the time string Decodes to
      */
     public static long millisecondsFromString(String string) {
+        if (string == null) throw new NullPointerException("String can not be null");
         string = string.trim();
         long ret = 0;
         try {
@@ -91,22 +91,43 @@ public class StringTime {
         return ret;
     }
 
-    public static long millisecondsFromString(String string, String string2) {
-        String send = string + " " + string2;
-        return millisecondsFromString(send);
-    }
-
-    public static long millisecondsFromString(String string, String string2, String string3) {
-        String send = string + " " + string2 + " " + string3;
-        return millisecondsFromString(send);
-    }
-
+    /**
+     * Takes just a number or a set of numbers with a D, H, M or, S fallowing it
+     * The letters can be upper or lower case
+     * 15h 50m 5s
+     *
+     * @param strings
+     * @return the amount of time in milliseconds that the time string(s) Decodes to
+     */
     public static long millisecondsFromString(String[] strings) {
+        if (strings == null) throw new NullPointerException("String Array can not be null");
         String send = "";
         for (String parts : strings) {
             send += parts + " ";
         }
         return millisecondsFromString(send);
+    }
+
+    /**
+     * Decodes the given string(s) and looks to check if that amount of time has passed
+     *
+     * @param lastTime Time to compare current time in milliseconds
+     * @param string Whole String to decode
+     * @return true if that amount of time has passed
+     */
+    public static boolean hasPassed(long lastTime, String string) {
+        return ((lastTime + millisecondsFromString(string)) > System.currentTimeMillis());
+    }
+
+    /**
+     * Decodes the given string(s) and looks to check if that amount of time has passed
+     *
+     * @param lastTime Time to compare current time in milliseconds
+     * @param strings Array of Strings to be decoded
+     * @return true if that amount of time has passed
+     */
+    public static boolean hasPassed(long lastTime, String[] strings) {
+        return ((lastTime + millisecondsFromString(strings)) > System.currentTimeMillis());
     }
 
 }
