@@ -92,7 +92,6 @@ public class UtilConfigManager {
     @Deprecated
     public ConfigFile getPluginConfig(ConfigBase config, String plugin) {
         PropertiesFile propertiesFile = getPluginCachedConfig(config, "config" + File.separatorChar + plugin + File.separatorChar + plugin + ".cfg");
-        propertiesFile.reload();
         return new ConfigFile(config, propertiesFile);
     }
 
@@ -116,7 +115,6 @@ public class UtilConfigManager {
     @Deprecated
     public ConfigFile getPluginConfig(ConfigBase config, String plugin, String module) {
         PropertiesFile propertiesFile = getPluginCachedConfig(config, "config" + File.separatorChar + plugin + File.separatorChar + plugin + "." + module + ".cfg");
-        propertiesFile.reload();
         return new ConfigFile(config, propertiesFile);
     }
 
@@ -141,7 +139,6 @@ public class UtilConfigManager {
     @Deprecated
     public ConfigFile getPluginConfig(ConfigBase config, String plugin, World world) {
         PropertiesFile propertiesFile = getPluginCachedConfig(config, "config" + File.separatorChar + plugin + File.separatorChar + "worlds" + File.separatorChar + world.getFqName() + File.separatorChar + plugin + ".cfg");
-        propertiesFile.reload();
         return new ConfigFile(config, propertiesFile);
     }
 
@@ -168,7 +165,6 @@ public class UtilConfigManager {
     @Deprecated
     public ConfigFile getPluginConfig(ConfigBase config, String plugin, String module, World world) {
         PropertiesFile propertiesFile = getPluginCachedConfig(config, "config" + File.separatorChar + plugin + File.separatorChar + "worlds" + File.separatorChar + world.getFqName() + File.separatorChar + plugin + "." + module + ".cfg");
-        propertiesFile.reload();
         return new ConfigFile(config, propertiesFile);
     }
 
