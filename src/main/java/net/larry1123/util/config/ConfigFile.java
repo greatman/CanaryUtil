@@ -24,34 +24,34 @@ public class ConfigFile {
     /**
      * Holds a list of usable Fields
      */
-    private Field[] configFields;
+    private Field[] configFields = new Field[0];
 
     /**
      * Creates a ConfigFile controller for a given PropertiesFile
      * Will load data from file to ConfigBase
      *
      * @param config         ConfigBase to use
-     * @param propertiesfile PropertiesFile to be controlled
+     * @param propertiesFile PropertiesFile to be controlled
      */
-    public ConfigFile(ConfigBase config, PropertiesFile propertiesfile) {
+    public ConfigFile(ConfigBase config, PropertiesFile propertiesFile) {
         // Just got to make sure this stuff is not null
-        if (propertiesfile == null) throw new NullPointerException("PropertiesFile can not be null");
+        if (propertiesFile == null) throw new NullPointerException("PropertiesFile can not be null");
         if (config == null) throw new NullPointerException("ConfigBase can not be null");
         this.config = config;
-        this.propertiesfile = propertiesfile;
+        this.propertiesfile = propertiesFile;
         for (Field field : config.getClass().getDeclaredFields()) {
             if (field.isAnnotationPresent(ConfigField.class)) {
-                ArrayUtils.add(configFields, field);
+                configFields = ArrayUtils.add(configFields, field);
             }
         }
         for (Field field : config.getClass().getFields()) {
             if (field.isAnnotationPresent(ConfigField.class)) {
                 if (!ArrayUtils.contains(configFields, field)) {
-                    ArrayUtils.add(configFields, field);
+                    configFields = ArrayUtils.add(configFields, field);
                 }
             }
         }
-        ConfigLogic.load(propertiesfile, config, configFields);
+        ConfigLogic.load(propertiesFile, config, configFields);
     }
 
     /**
