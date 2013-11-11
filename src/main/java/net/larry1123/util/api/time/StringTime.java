@@ -9,7 +9,8 @@ public class StringTime {
         DAYS("D"),
         HOUR("H"),
         MINUTES("M"),
-        SECONDS("S");
+        SECONDS("S"),
+        NONE(" ");
 
         private final String ths;
 
@@ -27,7 +28,7 @@ public class StringTime {
                     return t;
                 }
             }
-            return HOUR;
+            return NONE;
         }
     }
 
@@ -83,6 +84,25 @@ public class StringTime {
                             }
                             break;
                         default:
+                            // Something is malformed just let it fly by and keep going
+                            break;
+                    }
+                } else if (part.length() == 1) {
+                    switch (Part.getFromString("" + part.charAt(1))) {
+                        case DAYS:
+                                ret += DateUtils.MILLIS_PER_DAY;
+                            break;
+                        case HOUR:
+                                ret += DateUtils.MILLIS_PER_HOUR;
+                            break;
+                        case MINUTES:
+                                ret += DateUtils.MILLIS_PER_MINUTE;
+                            break;
+                        case SECONDS:
+                                ret += DateUtils.MILLIS_PER_SECOND;
+                            break;
+                        default:
+                            // Something is malformed just let it fly by and keep going
                             break;
                     }
                 }
