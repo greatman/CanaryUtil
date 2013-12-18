@@ -3,6 +3,7 @@ package net.larry1123.util.customPacket;
 import net.canarymod.api.entity.living.humanoid.Player;
 import net.canarymod.channels.ChannelListener;
 import net.canarymod.hook.HookHandler;
+import net.canarymod.hook.player.BanHook;
 import net.canarymod.hook.player.DisconnectionHook;
 import net.canarymod.plugin.PluginListener;
 
@@ -17,6 +18,13 @@ public final class BungeeCordListener extends ChannelListener implements PluginL
     @HookHandler
     public void onPlayerDisconnect(DisconnectionHook hook) {
         BungeeCord.removePlayerIp(hook.getPlayer(), this);
+    }
+
+    @HookHandler
+    public void onIpBan(BanHook hook) {
+        if (hook.isIpBan()) {
+            // TODO Will have to look in to this
+        }
     }
 
     @Override

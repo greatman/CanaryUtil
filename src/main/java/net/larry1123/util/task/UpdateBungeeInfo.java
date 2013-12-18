@@ -6,6 +6,7 @@ import net.canarymod.tasks.ServerTask;
 import net.canarymod.tasks.ServerTaskManager;
 import net.canarymod.tasks.TaskOwner;
 import net.larry1123.util.CanaryUtil;
+import net.larry1123.util.api.plugin.hooks.BungeeCordPollHook;
 import net.larry1123.util.config.UtilConfigManager;
 import net.larry1123.util.customPacket.RemoteServer;
 
@@ -103,6 +104,8 @@ public class UpdateBungeeInfo extends ServerTask {
             // Update Current Server's name
             updateCurrentServer(player);
 
+            // Call BungeeCordPollHook
+            new BungeeCordPollHook(player).call();
         }
     }
 

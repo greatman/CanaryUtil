@@ -18,7 +18,7 @@ public class BungeeCord {
     private static final BungeeCordListener lis = new BungeeCordListener();
     private static final RemoteServer all = RemoteServer.getALLServerObject();
 
-    private static final HashMap<String, String> IPs = new HashMap<String, String>();
+    private static final HashMap<OfflinePlayer, String> IPs = new HashMap<OfflinePlayer, String>();
     private static final HashMap<RemoteServer, Integer> serverPlayerCount = new HashMap<RemoteServer, Integer>();
     private static LinkedList<RemoteServer> serverList = new LinkedList<RemoteServer>();
     private static final HashMap<RemoteServer, LinkedList<OfflinePlayer>> playerList = new HashMap<RemoteServer, LinkedList<OfflinePlayer>>();
@@ -43,7 +43,7 @@ public class BungeeCord {
     static void setPlayerIp(Player player, String Ip, BungeeCordListener liss) {
         if (lis == liss) {
             if (Ip != null) {
-                IPs.put(player.getName(), Ip);
+                IPs.put(Canary.getServer().getOfflinePlayer(player.getName()), Ip);
                 player.message(Ip);
             }
         }
@@ -58,8 +58,8 @@ public class BungeeCord {
      * @return The IP of the Player
      */
     public String getRealPlayerIp(Player player) {
-        if (IPs.get(player.getName()) != null) {
-            return IPs.get(player.getName());
+        if (IPs.get(Canary.getServer().getOfflinePlayer(player.getName())) != null) {
+            return IPs.get(Canary.getServer().getOfflinePlayer(player.getName()));
         } else {
             return player.getIP();
         }
@@ -73,7 +73,7 @@ public class BungeeCord {
      */
     static void removePlayerIp(Player player, BungeeCordListener liss) {
         if (lis == liss) {
-            IPs.remove(player.getName());
+            IPs.remove(Canary.getServer().getOfflinePlayer(player.getName()));
         }
     }
 
@@ -131,8 +131,8 @@ public class BungeeCord {
 
             if (server == all) {
                 // Removes players that for some reason are still there when they should not be
-                for (String player : IPs.keySet()) {
-                    if (!playerList.get(all).contains(Canary.getServer().getOfflinePlayer(player))) {
+                for (OfflinePlayer player : IPs.keySet()) {
+                    if (!playerList.get(all).contains(player)) {
                         IPs.remove(player);
                     }
                 }
@@ -244,15 +244,14 @@ public class BungeeCord {
         DataOutputStream out = new DataOutputStream(b);
         try {
             out.writeUTF("Connect");
-            // May add check of if this server is known to be there before trying to send packet
+            // May add check of if this server is known to be online before trying to send packet
             out.writeUTF(server.getServerName());
         } catch (IOException e) {
             return false;
             // Can't happen man
             // But lets return just in case it does
         }
-        Canary.channels().sendCustomPayloadToPlayer("BungeeCord", b.toByteArray(), player);
-        return true;
+        return Canary.channels().sendCustomPayloadToPlayer("BungeeCord", b.toByteArray(), player);
     }
 
     /**
@@ -303,7 +302,10 @@ public class BungeeCord {
      * @return
      */
     public boolean sendMessageToServerAsAllPlayers(RemoteServer server, String subCnannel, String data) {
-        if (!serverList.contains(server) || currentServer.equals(server)) {
+        if (!serverList.contains(server) || currentServer == server) {
+            return false;
+        }
+        if (Canary.getServer().getNumPlayersOnline() == 0) {
             return false;
         }
         ByteArrayOutputStream b = new ByteArrayOutputStream();
