@@ -25,7 +25,7 @@ public class BungeeCordless extends BungeeCord {
      * {@inheritDoc}
      */
     @Override
-    public int getServerPlayerCount(String server) {
+    public int getServerPlayerCount(RemoteServer server) {
         // TODO not sure about this one yet
         return Canary.getServer().getNumPlayersOnline();
     }
@@ -34,7 +34,7 @@ public class BungeeCordless extends BungeeCord {
      * {@inheritDoc}
      */
     @Override
-    public LinkedList<OfflinePlayer> getServerPlayerList(String server) {
+    public LinkedList<OfflinePlayer> getServerPlayerList(RemoteServer server) {
         return new LinkedList<OfflinePlayer>();
     }
 
@@ -42,23 +42,23 @@ public class BungeeCordless extends BungeeCord {
      * {@inheritDoc}
      */
     @Override
-    public LinkedList<String> getServerList() {
-        return new LinkedList<String>();
+    public LinkedList<RemoteServer> getServerList() {
+        return new LinkedList<RemoteServer>();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String getCurrentServerName() {
-        return UtilConfigManager.getConfig().getBungeeCordConfig().getServerName();
+    public RemoteServer getCurrentServerName() {
+        return RemoteServer.getServer(UtilConfigManager.getConfig().getBungeeCordConfig().getServerName());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean sendPlayertoServer(Player player, String server) {
+    public boolean sendPlayertoServer(Player player, RemoteServer server) {
         return false;
     }
 
@@ -66,7 +66,7 @@ public class BungeeCordless extends BungeeCord {
      * {@inheritDoc}
      */
     @Override
-    public boolean sendMessageToServer(String server, String subCnannel, String data) {
+    public boolean sendMessageToServer(RemoteServer server, String subCnannel, String data) {
         return false;
     }
 
@@ -74,7 +74,7 @@ public class BungeeCordless extends BungeeCord {
      * {@inheritDoc}
      */
     @Override
-    public boolean sendMessageToServerAsAllPlayers(String server, String subCnannel, String data) {
+    public boolean sendMessageToServerAsAllPlayers(RemoteServer server, String subCnannel, String data) {
         return false;
     }
 
@@ -82,7 +82,7 @@ public class BungeeCordless extends BungeeCord {
      * {@inheritDoc}
      */
     @Override
-    public boolean sendMessageToServerAsPlayer(String server, String subCnannel, String data, Player player) {
+    public boolean sendMessageToServerAsPlayer(RemoteServer server, String subCnannel, String data, Player player) {
         return false;
     }
 
