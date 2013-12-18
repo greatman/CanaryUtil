@@ -16,7 +16,7 @@ import static net.larry1123.util.CanaryUtil.getPlugin;
 public class BungeeCord {
 
     private static final BungeeCordListener lis = new BungeeCordListener();
-    private static final RemoteServer all = RemoteServer.getServer("ALL");
+    private static final RemoteServer all = RemoteServer.getALLServerObject();
 
     private static final HashMap<String, String> IPs = new HashMap<String, String>();
     private static final HashMap<RemoteServer, Integer> serverPlayerCount = new HashMap<RemoteServer, Integer>();

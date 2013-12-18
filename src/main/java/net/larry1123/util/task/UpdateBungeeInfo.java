@@ -7,6 +7,7 @@ import net.canarymod.tasks.ServerTaskManager;
 import net.canarymod.tasks.TaskOwner;
 import net.larry1123.util.CanaryUtil;
 import net.larry1123.util.config.UtilConfigManager;
+import net.larry1123.util.customPacket.RemoteServer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -88,9 +89,9 @@ public class UpdateBungeeInfo extends ServerTask {
             updateServerList(player);
 
             @SuppressWarnings("unchecked")
-            LinkedList<String> servers = (LinkedList<String>) CanaryUtil.getCustomPacket().getBungeeCord().getServerList().clone();
-            servers.add("ALL");
-            for (String server : servers) {
+            LinkedList<RemoteServer> servers = (LinkedList<RemoteServer>) CanaryUtil.getCustomPacket().getBungeeCord().getServerList().clone();
+            servers.add(RemoteServer.getALLServerObject());
+            for (RemoteServer server : servers) {
                 // Update playerList for each server
                 updatePlayerList(player, server);
 
@@ -135,7 +136,7 @@ public class UpdateBungeeInfo extends ServerTask {
         Canary.channels().sendCustomPayloadToPlayer("BungeeCord", b.toByteArray(), player);
     }
 
-    private void updatePlayerList(Player player, String server) {
+    private void updatePlayerList(Player player, RemoteServer server) {
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(b);
 
@@ -143,14 +144,14 @@ public class UpdateBungeeInfo extends ServerTask {
         out = new DataOutputStream(b);
         try {
             out.writeUTF("PlayerList");
-            out.writeUTF(server);
+            out.writeUTF(server.getServerName());
         } catch (IOException e) {
             // Can't happen man
         }
         Canary.channels().sendCustomPayloadToPlayer("BungeeCord", b.toByteArray(), player);
     }
 
-    private void updatePlayerCount(Player player, String server) {
+    private void updatePlayerCount(Player player, RemoteServer server) {
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(b);
 
@@ -158,7 +159,7 @@ public class UpdateBungeeInfo extends ServerTask {
         out = new DataOutputStream(b);
         try {
             out.writeUTF("PlayerCount");
-            out.writeUTF(server);
+            out.writeUTF(server.getServerName());
         } catch (IOException e) {
             // Can't happen man
         }

@@ -27,4 +27,8 @@ public class RemoteServer {
         return ret;
     }
 
+    public static RemoteServer getALLServerObject() {
+        return getServer("ALL");
+    }
+
 }
