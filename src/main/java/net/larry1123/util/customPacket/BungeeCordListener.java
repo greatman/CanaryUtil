@@ -22,43 +22,43 @@ public final class BungeeCordListener extends ChannelListener implements PluginL
     @Override
     public void onChannelInput(String channel, Player player, byte[] byteStream) {
         try {
-        DataInput input = new DataInputStream(new ByteArrayInputStream(byteStream));
-        String subChannel = input.readUTF();
+            DataInput input = new DataInputStream(new ByteArrayInputStream(byteStream));
+            String subChannel = input.readUTF();
 
-        if (subChannel.startsWith("IP")) {
-            BungeeCord.setPlayerIp(player, input.readUTF(), this);
-        }
-        if (subChannel.startsWith("PlayerCount")) {
-            String server = input.readUTF();
-            int playerCount = input.readInt();
-            BungeeCord.setPlayerCountForServer(server, playerCount, this);
-        }
-        if (subChannel.startsWith("PlayerList")) {
-            String server = input.readUTF();
-            LinkedList<String> players = new LinkedList<String>();
-            try {
-                String rawplayers = input.readUTF();
-                for (String playerr : rawplayers.split(",")) {
-                    players.add(playerr);
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                // No one on this server
+            if (subChannel.startsWith("IP")) {
+                BungeeCord.setPlayerIp(player, input.readUTF(), this);
             }
-            BungeeCord.setPlayerList(server, players, this);
-        }
-        if (subChannel.startsWith("GetServer")) {
-            if (subChannel.startsWith("GetServers")) {
-                String rawservers = input.readUTF();
-                LinkedList<String> servers = new LinkedList<String>();
-                for (String server : rawservers.split(",")) {
-                    servers.add(server);
-                }
-                BungeeCord.setServerList(servers, this);
-            } else {
+            if (subChannel.startsWith("PlayerCount")) {
                 String server = input.readUTF();
-                BungeeCord.setCurrentServerName(server, this);
+                int playerCount = input.readInt();
+                BungeeCord.setPlayerCountForServer(RemoteServer.getServer(server), playerCount, this);
             }
-        }
+            if (subChannel.startsWith("PlayerList")) {
+                String server = input.readUTF();
+                LinkedList<String> players = new LinkedList<String>();
+                try {
+                    String rawplayers = input.readUTF();
+                    for (String playerr : rawplayers.split(",")) {
+                        players.add(playerr);
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    // No one on this server
+                }
+                BungeeCord.setPlayerList(RemoteServer.getServer(server), players, this);
+            }
+            if (subChannel.startsWith("GetServer")) {
+                if (subChannel.startsWith("GetServers")) {
+                    String rawservers = input.readUTF();
+                    LinkedList<RemoteServer> servers = new LinkedList<RemoteServer>();
+                    for (String server : rawservers.split(",")) {
+                        servers.add(RemoteServer.getServer(server));
+                    }
+                    BungeeCord.setServerList(servers, this);
+                } else {
+                    String server = input.readUTF();
+                    BungeeCord.setCurrentServerName(RemoteServer.getServer(server), this);
+                }
+            }
         } catch (IOException error) {
             // No clue what should be done if this happens.
         }

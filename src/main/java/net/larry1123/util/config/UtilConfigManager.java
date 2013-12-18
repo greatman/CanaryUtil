@@ -27,7 +27,8 @@ public class UtilConfigManager {
         return config;
     }
 
-    private UtilConfigManager() {}
+    private UtilConfigManager() {
+    }
 
     /**
      * Gets the Config for BungeeCord
@@ -67,7 +68,7 @@ public class UtilConfigManager {
      * Well lets at lest try our best at the Deprecated side of this
      *
      * @param configBase What ConfigBase is this PropFile for
-     * @param filePath Well the path to the file
+     * @param filePath   Well the path to the file
      * @return PropertiesFile you wanted
      */
     private static PropertiesFile getPluginCachedConfig(ConfigBase configBase, String filePath) {

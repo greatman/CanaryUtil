@@ -16,12 +16,13 @@ import static net.larry1123.util.CanaryUtil.getPlugin;
 public class BungeeCord {
 
     private static final BungeeCordListener lis = new BungeeCordListener();
+    private static final RemoteServer all = RemoteServer.getServer("ALL");
 
     private static final HashMap<String, String> IPs = new HashMap<String, String>();
-    private static final HashMap<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
-    private static LinkedList<String> serverList = new LinkedList<String>();
-    private static final HashMap<String, LinkedList<OfflinePlayer>> playerList = new HashMap<String, LinkedList<OfflinePlayer>>();
-    private static String currentServer = UtilConfigManager.getConfig().getBungeeCordConfig().getServerName();
+    private static final HashMap<RemoteServer, Integer> serverPlayerCount = new HashMap<RemoteServer, Integer>();
+    private static LinkedList<RemoteServer> serverList = new LinkedList<RemoteServer>();
+    private static final HashMap<RemoteServer, LinkedList<OfflinePlayer>> playerList = new HashMap<RemoteServer, LinkedList<OfflinePlayer>>();
+    private static RemoteServer currentServer = RemoteServer.getServer(UtilConfigManager.getConfig().getBungeeCordConfig().getServerName());
 
     public BungeeCord() {
         Canary.channels().registerListener(getPlugin(), "BungeeCord", lis);
@@ -83,8 +84,11 @@ public class BungeeCord {
      * @param players Number of Players
      * @param liss    The Object of the Listener
      */
-    static void setPlayerCountForServer(String server, int players, BungeeCordListener liss) {
+    static void setPlayerCountForServer(RemoteServer server, int players, BungeeCordListener liss) {
         if (lis == liss) {
+            if (currentServer == server) {
+                return;
+            }
             serverPlayerCount.put(server, players);
         }
     }
@@ -96,12 +100,16 @@ public class BungeeCord {
      * @param server What Server to check
      * @return Player Count for given Server
      */
-    public int getServerPlayerCount(String server) {
-        Integer count = serverPlayerCount.get(server);
-        if (count != null) {
-            return count;
+    public int getServerPlayerCount(RemoteServer server) {
+        if (currentServer != server) {
+            Integer count = serverPlayerCount.get(server);
+            if (count != null) {
+                return count;
+            } else {
+                return -1;
+            }
         } else {
-            return -1;
+            return Canary.getServer().getNumPlayersOnline();
         }
     }
 
@@ -113,7 +121,7 @@ public class BungeeCord {
      * @param players List of Players on Given Server
      * @param liss    The Object of the Listener
      */
-    static void setPlayerList(String server, LinkedList<String> players, BungeeCordListener liss) {
+    static void setPlayerList(RemoteServer server, LinkedList<String> players, BungeeCordListener liss) {
         if (lis == liss) {
             LinkedList<OfflinePlayer> serverplayers = new LinkedList<OfflinePlayer>();
             for (String playerr : players) {
@@ -121,19 +129,19 @@ public class BungeeCord {
             }
             playerList.put(server, serverplayers);
 
-            if (server.equals("ALL")) {
+            if (server == all) {
                 // Removes players that for some reason are still there when they should not be
                 for (String player : IPs.keySet()) {
-                    if (!playerList.get("ALL").contains(Canary.getServer().getOfflinePlayer(player))) {
+                    if (!playerList.get(all).contains(Canary.getServer().getOfflinePlayer(player))) {
                         IPs.remove(player);
                     }
                 }
 
                 // Removes players from the list for an other server if they are not in the list for all
-                for (String key : playerList.keySet()) {
-                    if (!key.equals("ALL")) {
+                for (RemoteServer key : playerList.keySet()) {
+                    if (key != all) {
                         for (OfflinePlayer player : playerList.get(key)) {
-                            if (!playerList.get("ALL").contains(player)) {
+                            if (!playerList.get(all).contains(player)) {
                                 playerList.get(key).remove(player);
                             }
                         }
@@ -144,9 +152,9 @@ public class BungeeCord {
 
                 // Adds players that are known to be on other servers to the all list!
                 for (OfflinePlayer player : playerList.get(server)) {
-                    if (playerList.get("ALL") != null) {
-                        if (!playerList.get("ALL").contains(player)) {
-                            playerList.get("ALL").add(player);
+                    if (playerList.get(all) != null) {
+                        if (!playerList.get(all).contains(player)) {
+                            playerList.get(all).add(player);
                         }
                     }
                 }
@@ -160,7 +168,7 @@ public class BungeeCord {
      * @param server What Server to check
      * @return LinkedList of OfflinePlayers for the given Server
      */
-    public LinkedList<OfflinePlayer> getServerPlayerList(String server) {
+    public LinkedList<OfflinePlayer> getServerPlayerList(RemoteServer server) {
         LinkedList<OfflinePlayer> ren = new LinkedList<OfflinePlayer>();
         if (playerList.get(server) != null) {
             ren = playerList.get(server);
@@ -174,10 +182,10 @@ public class BungeeCord {
      * @param servers String LinkedList of Server Names
      * @param liss    The Object of the Listener
      */
-    static void setServerList(LinkedList<String> servers, BungeeCordListener liss) {
+    static void setServerList(LinkedList<RemoteServer> servers, BungeeCordListener liss) {
         if (lis == liss) {
             serverList = servers;
-            for (String server : serverList) {
+            for (RemoteServer server : serverList) {
                 if (!serverPlayerCount.containsKey(server)) {
                     serverPlayerCount.remove(server);
                 }
@@ -190,7 +198,7 @@ public class BungeeCord {
      *
      * @return List of Online Servers
      */
-    public LinkedList<String> getServerList() {
+    public LinkedList<RemoteServer> getServerList() {
         return serverList;
     }
 
@@ -200,11 +208,11 @@ public class BungeeCord {
      * @param server Server to update
      * @param liss   The Object of the Listener
      */
-    static void setCurrentServerName(String server, BungeeCordListener liss) {
+    static void setCurrentServerName(RemoteServer server, BungeeCordListener liss) {
         if (lis == liss) {
             // Only update if changed!
             if (!currentServer.equals(server)) {
-                UtilConfigManager.getConfig().getBungeeCordConfig().setServerName(currentServer = server);
+                UtilConfigManager.getConfig().getBungeeCordConfig().setServerName((currentServer = server).getServerName());
             }
         }
     }
@@ -214,7 +222,7 @@ public class BungeeCord {
      *
      * @return The Name for this Server
      */
-    public String getCurrentServerName() {
+    public RemoteServer getCurrentServerName() {
         return currentServer;
     }
 
@@ -228,8 +236,8 @@ public class BungeeCord {
      * @param server What server to send to
      * @return true if the packet was sent, false if the packet was not sent
      */
-    public boolean sendPlayertoServer(Player player, String server) {
-        if (!serverList.contains(server) || currentServer.equals(server)) {
+    public boolean sendPlayertoServer(Player player, RemoteServer server) {
+        if (!serverList.contains(server) || currentServer == server || server == all) {
             return false;
         }
         ByteArrayOutputStream b = new ByteArrayOutputStream();
@@ -237,7 +245,7 @@ public class BungeeCord {
         try {
             out.writeUTF("Connect");
             // May add check of if this server is known to be there before trying to send packet
-            out.writeUTF(server);
+            out.writeUTF(server.getServerName());
         } catch (IOException e) {
             return false;
             // Can't happen man
@@ -258,7 +266,7 @@ public class BungeeCord {
      * @param data       What data to pass
      * @return true if the packet was sent, false if the packet was not sent
      */
-    public boolean sendMessageToServer(String server, String subCnannel, String data) {
+    public boolean sendMessageToServer(RemoteServer server, String subCnannel, String data) {
         if (!serverList.contains(server) || currentServer.equals(server)) {
             return false;
         }
@@ -266,7 +274,7 @@ public class BungeeCord {
         DataOutputStream out = new DataOutputStream(b);
         try {
             out.writeUTF("Forward");
-            out.writeUTF(server);
+            out.writeUTF(server.getServerName());
             out.writeShort(data.length());
             out.writeUTF(data);
         } catch (IOException e) {
@@ -294,7 +302,7 @@ public class BungeeCord {
      * @param data
      * @return
      */
-    public boolean sendMessageToServerAsAllPlayers(String server, String subCnannel, String data) {
+    public boolean sendMessageToServerAsAllPlayers(RemoteServer server, String subCnannel, String data) {
         if (!serverList.contains(server) || currentServer.equals(server)) {
             return false;
         }
@@ -303,7 +311,7 @@ public class BungeeCord {
         try {
             out.writeUTF("Forward");
             // May add check of if this server is known to be there before trying to send packet
-            out.writeUTF(server);
+            out.writeUTF(server.getServerName());
             out.writeShort(data.length());
             out.writeUTF(data);
         } catch (IOException e) {
@@ -331,7 +339,7 @@ public class BungeeCord {
      * @param player
      * @return
      */
-    public boolean sendMessageToServerAsPlayer(String server, String subCnannel, String data, Player player) {
+    public boolean sendMessageToServerAsPlayer(RemoteServer server, String subCnannel, String data, Player player) {
         if (!serverList.contains(server) || currentServer.equals(server)) {
             return false;
         }
@@ -340,7 +348,7 @@ public class BungeeCord {
         try {
             out.writeUTF("Forward");
             // May add check of if this server is known to be there before trying to send packet
-            out.writeUTF(server);
+            out.writeUTF(server.getServerName());
             out.writeShort(data.length());
             out.writeUTF(data);
         } catch (IOException e) {

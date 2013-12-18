@@ -16,7 +16,7 @@ public class BungeeCordConfig implements ConfigBase {
     @ConfigField(comments = "This sets how many ticks between when the Util will send packets to BungeeCord")
     private long BungeeCord_pollTime = pollTimeDefult;
 
-    @ConfigField(comments = "This is only used if BungeeCord is disabled, and as a defult if no players have yet connected")
+    @ConfigField(comments = "This is only used if BungeeCord is disabled, and as a default if no players have yet connected")
     private String BungeeCord_ServerName = serverNameDefult;
 
     BungeeCordConfig(String plugin) {
