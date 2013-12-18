@@ -12,7 +12,7 @@ public class BungeeCordSetCommand implements Command {
 
     private static final UtilConfigManager config = UtilConfigManager.getConfig();
 
-    private final CommandData command = new CommandData(new String[]{"bungeecord", "cord"}, new String[]{"canary.super.canaryutil.bungeecord.set", "canary.command.super.canaryutil.bungeecord.set"}, "TODO set", "TODO set");
+    private final CommandData command = new CommandData(new String[]{"set"}, new String[]{"canary.super.canaryutil.bungeecord.set", "canary.command.super.canaryutil.bungeecord.set"}, "TODO set", "TODO set");
     private final LocaleHelper translator = Translator.getInstance();
     private final UtilCommands utilcommands;
     private boolean loaded = false;
@@ -32,22 +32,22 @@ public class BungeeCordSetCommand implements Command {
             if (parameters.length > 2) {
                 config.getBungeeCordConfig().setIsEnabled(Boolean.parseBoolean(parameters[3]));
             } else {
-                config.getBungeeCordConfig().setIsEnabled(!config.getBungeeCordConfig().isEnabled());
+                caller.message(getCommandPath() + "enabled <true:false>");
             }
-        }
-        if (parameters[2].toLowerCase().equals("time") || parameters[2].toLowerCase().equals("polltime")) {
+        } else if (parameters[2].toLowerCase().equals("time") || parameters[2].toLowerCase().equals("polltime")) {
             if (parameters.length > 2) {
                 config.getBungeeCordConfig().setPollTime(Integer.parseInt(parameters[3]));
             } else {
-                caller.message("");
+                caller.message(getCommandPath() + "");
             }
-        }
-        if (parameters[2].toLowerCase().equals("server")) {
+        } else if (parameters[2].toLowerCase().equals("server")) {
             if (parameters.length > 2) {
                 config.getBungeeCordConfig().setServerName(parameters[3]);
             } else {
                 caller.message("");
             }
+        } else {
+            caller.message(getCommandPath() + "<enabled:polltime:server>");
         }
     }
 
@@ -89,6 +89,12 @@ public class BungeeCordSetCommand implements Command {
     @Override
     public void setloadded(boolean loadedness) {
         loaded = loadedness;
+    }
+
+    private String getCommandPath() {
+        return "/" + utilcommands.baseCommand.getCommandData().getAliases()[0] + " "
+                + utilcommands.bungeecordCommand.getCommandData().getAliases()[0] +
+                command.getAliases()[0];
     }
 
 }

@@ -20,12 +20,17 @@ public class UtilCommands {
 
     public UtilCommands() {
         {
+            // canaryutil
             baseCommand = new BaseCommand(this);
             { // SubCommands BaseCommand
+                // canaryutil help
                 versionCommand = new VersionCommand(this);
+                // canaryutil bungeecord
                 bungeecordCommand = new BungeeCordCommand(this);
                 { // SubCommands of BungeeCordCommand
+                    // canaryutil bungeecord reload
                     bungeecordReloadCommand = new BungeeCordReloadCommand(this);
+                    // canaryutil bungeecord set
                     bungeecordSetCommand = new BungeeCordSetCommand(this);
                 }
             }

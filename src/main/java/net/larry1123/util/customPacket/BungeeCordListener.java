@@ -6,6 +6,10 @@ import net.canarymod.hook.HookHandler;
 import net.canarymod.hook.player.DisconnectionHook;
 import net.canarymod.plugin.PluginListener;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.LinkedList;
 
 public final class BungeeCordListener extends ChannelListener implements PluginListener {
@@ -17,34 +21,25 @@ public final class BungeeCordListener extends ChannelListener implements PluginL
 
     @Override
     public void onChannelInput(String channel, Player player, byte[] byteStream) {
-        String[] data = new String(byteStream).split("\u0000");
-        String subChannel = data[1].substring(1);
+        try {
+        DataInput input = new DataInputStream(new ByteArrayInputStream(byteStream));
+        String subChannel = input.readUTF();
 
         if (subChannel.startsWith("IP")) {
-            BungeeCord.setPlayerIp(player, data[2].substring(1), this);
+            BungeeCord.setPlayerIp(player, input.readUTF(), this);
         }
         if (subChannel.startsWith("PlayerCount")) {
-            String tempcount = "";
-            String server = data[2].substring(1);
-            int playercount;
-            try {
-                for (char car : data[5].toCharArray()) {
-                    tempcount = tempcount + (int) car;
-                }
-                playercount = Integer.parseInt(tempcount);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                // There is no one on the server so it is 0
-                playercount = 0;
-            }
-            BungeeCord.setPlayerCountForServer(server, playercount, this);
+            String server = input.readUTF();
+            int playerCount = input.readInt();
+            BungeeCord.setPlayerCountForServer(server, playerCount, this);
         }
         if (subChannel.startsWith("PlayerList")) {
-            String server = data[2].substring(1);
+            String server = input.readUTF();
             LinkedList<String> players = new LinkedList<String>();
             try {
-                String rawplayers = data[3];
+                String rawplayers = input.readUTF();
                 for (String playerr : rawplayers.split(",")) {
-                    players.add(playerr.substring(1));
+                    players.add(playerr);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 // No one on this server
@@ -53,16 +48,19 @@ public final class BungeeCordListener extends ChannelListener implements PluginL
         }
         if (subChannel.startsWith("GetServer")) {
             if (subChannel.startsWith("GetServers")) {
-                String rawservers = data[2];
+                String rawservers = input.readUTF();
                 LinkedList<String> servers = new LinkedList<String>();
                 for (String server : rawservers.split(",")) {
-                    servers.add(server.substring(1));
+                    servers.add(server);
                 }
                 BungeeCord.setServerList(servers, this);
             } else {
-                String server = data[2].substring(1);
+                String server = input.readUTF();
                 BungeeCord.setCurrentServerName(server, this);
             }
+        }
+        } catch (IOException error) {
+            // No clue what should be done if this happens.
         }
     }
 
