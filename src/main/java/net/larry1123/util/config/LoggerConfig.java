@@ -23,9 +23,6 @@ public class LoggerConfig implements ConfigBase, LoggerSettings {
     @ConfigField(name = "Paste-Enabled", comments = "Allows plugins to post errors to https://paste.larry1123.net/")
     private boolean pasteSend = true;
 
-    @ConfigField(name = "Paste-UserName", comments = "Set the Name to post Paste as if enabled.")
-    private String pasteUserName = "";
-
     public LoggerConfig(String plugin) {
         configManager = UtilConfigManager.getConfig().getPluginConfig(this, plugin, "Logger");
     }
@@ -44,21 +41,6 @@ public class LoggerConfig implements ConfigBase, LoggerSettings {
     @Override
     public String getLoggerPath() {
         return logger_Path;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getUserName() {
-        return pasteUserName;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setUserName(String name) {
     }
 
     /**
@@ -142,7 +124,7 @@ public class LoggerConfig implements ConfigBase, LoggerSettings {
      */
     @Override
     public String getParentLogger() {
-        return "Minecraft-Server";
+        return null;
     }
 
 }

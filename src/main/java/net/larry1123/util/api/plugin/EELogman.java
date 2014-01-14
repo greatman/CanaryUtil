@@ -6,7 +6,7 @@ import net.larry1123.util.logger.EELogger;
 import java.util.logging.LogRecord;
 
 /**
- * Created with IntelliJ IDEA.
+ * To be Refactored to work with log4j and still use the EELogger
  *
  * @author Larry1123
  * @since 11/8/13 - 2:26 AM
@@ -33,14 +33,6 @@ public class EELogman extends Logman {
     public EELogman(EELogger logger) {
         super(logger.getName());
         this.logger = logger;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void log(LogRecord logRecord) {
-        getLogger().log(logRecord);
     }
 
     /**
