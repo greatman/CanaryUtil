@@ -6,6 +6,7 @@ import net.canarymod.database.exceptions.DatabaseReadException;
 import net.canarymod.database.exceptions.DatabaseWriteException;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public abstract class Data extends DataAccess {
 
@@ -17,26 +18,26 @@ public abstract class Data extends DataAccess {
         super(tableName, tableSuffix);
     }
 
-    protected void load(String[] column, Object[] searchTerms) throws DatabaseReadException {
-        Database.get().load(this, column, searchTerms);
+    protected void load(Map<String, Object> filter) throws DatabaseReadException {
+        Database.get().load(this, filter);
     }
 
-    protected void update(String[] column, Object[] searchTerms) throws DatabaseWriteException {
-        Database.get().update(this, column, searchTerms);
+    protected void update(Map<String, Object> filter) throws DatabaseWriteException {
+        Database.get().update(this, filter);
     }
 
     protected void insert() throws DatabaseWriteException {
         Database.get().insert(this);
     }
 
-    protected ArrayList<DataAccess> loadAll(String[] column, Object[] searchTerms) throws DatabaseReadException {
+    protected ArrayList<DataAccess> loadAll(Map<String, Object> filter) throws DatabaseReadException {
         ArrayList<DataAccess> ret = new ArrayList<DataAccess>();
-        Database.get().loadAll(this, ret, column, searchTerms);
+        Database.get().loadAll(this, ret, filter);
         return ret;
     }
 
-    protected void remove(String[] column, Object[] searchTerms) throws DatabaseWriteException {
-        Database.get().remove(this.getName(), column, searchTerms);
+    protected void remove(Map<String, Object> filter) throws DatabaseWriteException {
+        Database.get().remove(this, filter);
     }
 
     protected void updateSchema() throws DatabaseWriteException {
