@@ -1,23 +1,75 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>net.larry1123</groupId>
     <artifactId>CanaryUtil</artifactId>
     <version>0.3.2-SNAPSHOT</version>
+
     <properties>
+        <build.number></build.number>
         <EEutil.groupID>net.larry1123</EEutil.groupID>
         <EEutil.name>EEUtils</EEutil.name>
         <EEutil.version>1.2.5</EEutil.version>
         <canary.lib.version>1.0-RC-4-SNAPSHOT</canary.lib.version>
     </properties>
+
+    <organization>
+        <name>ElecEntertainment</name>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>1123</id>
+            <name>Larry1123</name>
+            <email>larry1123@larry1123.net</email>
+            <url>https://larry1123.net</url>
+            <organization>ElecEntertainment</organization>
+        </developer>
+    </developers>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://ci.larry1123.net</url>
+    </ciManagement>
+
+    <licenses>
+        <license>
+            <name>Apache v2 License</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/Larry1123/CanaryUtil.git</connection>
+        <developerConnection>scm:git:https://github.com/Larry1123/CanaryUtil.git</developerConnection>
+        <url>https://github.com/Larry1123/CanaryUtil</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/Larry1123/CanaryUtil/issues</url>
+    </issueManagement>
+
     <build>
         <defaultGoal>clean install</defaultGoal>
+
         <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
         <resources>
             <resource>
                 <directory>${basedir}/src/main/resources</directory>
             </resource>
         </resources>
+
+        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+        <testResources>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+            </testResource>
+        </testResources>
+
+        <finalName>${project.name}-${project.version}${build.number}</finalName>
+
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -27,6 +79,8 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+
+            <!-- JAR creation plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -39,12 +93,28 @@
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>
+                            <Implementation-Title>EEUtils</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Implementation-Vendor>Larry1123</Implementation-Vendor>
+                            <Implementation-Vendor-Id>net.larry1123</Implementation-Vendor-Id>
+                            <Specification-Title>EEUtils</Specification-Title>
+                            <Specification-Vendor>Larry1123</Specification-Vendor>
+                            <Specification-Vendor-Id>net.larry1123</Specification-Vendor-Id>
                             <Sealed>true</Sealed>
-                            <Build-By>${user.name}</Build-By>
                         </manifestEntries>
+                        <manifestSections>
+                            <manifestSection>
+                                <name>net/larry1123/</name>
+                                <manifestEntries>
+                                    <Sealed>true</Sealed>
+                                </manifestEntries>
+                            </manifestSection>
+                        </manifestSections>
                     </archive>
                 </configuration>
             </plugin>
+
+            <!--  Dependency inclusion plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -76,6 +146,8 @@
                     </filters>
                 </configuration>
             </plugin>
+
+            <!--  JavaDoc Creation plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -106,6 +178,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Replacement plugin -->
             <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>replacer</artifactId>
@@ -131,11 +205,23 @@
             </plugin>
         </plugins>
     </build>
-    <scm>
-        <url>https://github.com/Larry1123/CanaryUtil</url>
-        <connection>git://github.com/Larry1123/CanaryUtil.git</connection>
-        <developerConnection>https://github.com/Larry1123</developerConnection>
-    </scm>
+
+    <profiles>
+
+        <!-- Add Build number to a Jenkins build -->
+        <profile>
+            <id>jenkins</id>
+            <activation>
+                <property>
+                    <name>BUILD_NUMBER</name>
+                </property>
+            </activation>
+            <properties>
+                <build.number>-${BUILD_NUMBER}</build.number>
+            </properties>
+        </profile>
+    </profiles>
+
     <repositories>
         <repository>
             <id>Repo1123</id>
@@ -143,6 +229,7 @@
             <url>http://ci.larry1123.net/plugin/repository/everything</url>
         </repository>
     </repositories>
+
     <dependencies>
         <dependency>
             <groupId>net.canarymod</groupId>
@@ -165,6 +252,7 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -193,4 +281,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
 </project>
