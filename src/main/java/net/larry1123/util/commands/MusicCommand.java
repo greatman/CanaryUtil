@@ -6,6 +6,8 @@ import net.larry1123.util.api.plugin.commands.Command;
 import net.larry1123.util.api.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
 
+import java.util.List;
+
 public class MusicCommand implements Command {
 
     private final CommandData command = new CommandData(new String[]{"music"}, new String[]{"canaryutil.music"}, "TODO", "TODO");
@@ -45,5 +47,10 @@ public class MusicCommand implements Command {
     @Override
     public void execute(MessageReceiver caller, String[] parameters) {
         //
+    }
+
+    @Override
+    public List<String> tabComplete(MessageReceiver messageReceiver, String[] args) {
+        return null;
     }
 }
