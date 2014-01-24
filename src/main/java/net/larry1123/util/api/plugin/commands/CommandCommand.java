@@ -114,4 +114,9 @@ public class CommandCommand implements Command {
         return this.max;
     }
 
+    @Override
+    public String tabCompleteMethod() {
+        return null;
+    }
+
 }

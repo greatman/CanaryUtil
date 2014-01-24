@@ -6,6 +6,8 @@ import net.larry1123.util.api.plugin.commands.Command;
 import net.larry1123.util.api.plugin.commands.CommandData;
 import net.visualillusionsent.utils.LocaleHelper;
 
+import java.util.List;
+
 import static net.larry1123.util.CanaryUtil.getPlugin;
 
 public class VersionCommand implements Command {
@@ -26,6 +28,11 @@ public class VersionCommand implements Command {
     @Override
     public void execute(MessageReceiver caller, String[] parameters) {
         caller.message(getPlugin().getName() + " Version: " + getPlugin().getVersion());
+    }
+
+    @Override
+    public List<String> tabComplete(MessageReceiver messageReceiver, String[] args) {
+        return null;
     }
 
     /**

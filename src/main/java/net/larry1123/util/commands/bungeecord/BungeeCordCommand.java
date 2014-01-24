@@ -7,6 +7,8 @@ import net.larry1123.util.api.plugin.commands.CommandData;
 import net.larry1123.util.commands.UtilCommands;
 import net.visualillusionsent.utils.LocaleHelper;
 
+import java.util.List;
+
 public class BungeeCordCommand implements Command {
 
     private final String[] aliases = new String[]{"bungeecord", "cord"};
@@ -34,6 +36,11 @@ public class BungeeCordCommand implements Command {
     @Override
     public void execute(MessageReceiver caller, String[] parameters) {
         caller.message("/" + utilcommands.baseCommand.getCommandData().getAliases()[0] + " " + aliases[0] + " <set|reload>");
+    }
+
+    @Override
+    public List<String> tabComplete(MessageReceiver messageReceiver, String[] args) {
+        return null;
     }
 
     /**

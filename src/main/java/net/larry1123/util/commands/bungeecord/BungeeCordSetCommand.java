@@ -8,6 +8,8 @@ import net.larry1123.util.commands.UtilCommands;
 import net.larry1123.util.config.UtilConfigManager;
 import net.visualillusionsent.utils.LocaleHelper;
 
+import java.util.List;
+
 public class BungeeCordSetCommand implements Command {
 
     private static final UtilConfigManager config = UtilConfigManager.getConfig();
@@ -49,6 +51,11 @@ public class BungeeCordSetCommand implements Command {
         } else {
             caller.message(getCommandPath() + "<enabled:polltime:server>");
         }
+    }
+
+    @Override
+    public List<String> tabComplete(MessageReceiver messageReceiver, String[] args) {
+        return null;
     }
 
     /**

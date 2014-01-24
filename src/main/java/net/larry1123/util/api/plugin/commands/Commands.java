@@ -7,6 +7,8 @@ import net.canarymod.commandsys.CommandDependencyException;
 import net.canarymod.commandsys.CommandOwner;
 import net.visualillusionsent.utils.LocaleHelper;
 
+import java.util.List;
+
 public class Commands {
 
     /**
@@ -25,6 +27,11 @@ public class Commands {
             @Override
             protected void execute(MessageReceiver caller, String[] parameters) {
                 execute.execute(caller, parameters);
+            }
+
+            @Override
+            protected List<String> tabComplete(MessageReceiver messageReceiver, String[] args) {
+                return execute.tabComplete(messageReceiver, args);
             }
 
         };

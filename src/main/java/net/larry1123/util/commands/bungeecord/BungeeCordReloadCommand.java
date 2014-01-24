@@ -9,6 +9,8 @@ import net.larry1123.util.commands.UtilCommands;
 import net.larry1123.util.config.UtilConfigManager;
 import net.visualillusionsent.utils.LocaleHelper;
 
+import java.util.List;
+
 public class BungeeCordReloadCommand implements Command {
 
     private final CommandData command = new CommandData(new String[]{"reload"}, new String[]{"canary.super.canaryutil.bungeecord.reload", "canary.command.super.canaryutil.bungeecord.reload"}, "TODO reload", "TODO reload");
@@ -28,6 +30,11 @@ public class BungeeCordReloadCommand implements Command {
     public void execute(MessageReceiver caller, String[] parameters) {
         UtilConfigManager.getConfig().reloadBungeeCordConfig();
         caller.message(FontTools.ORANGE + FontTools.UNDERLINED + "BungeeCord Settings Updated!");
+    }
+
+    @Override
+    public List<String> tabComplete(MessageReceiver messageReceiver, String[] args) {
+        return null;
     }
 
     /**

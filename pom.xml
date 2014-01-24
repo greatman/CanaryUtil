@@ -5,6 +5,7 @@
     <groupId>net.larry1123</groupId>
     <artifactId>CanaryUtil</artifactId>
     <version>0.3.2-SNAPSHOT</version>
+    <inceptionYear>2013</inceptionYear>
 
     <properties>
         <build.number></build.number>
@@ -16,6 +17,7 @@
 
     <organization>
         <name>ElecEntertainment</name>
+        <url>https://forums.elec.larry1123.net/</url>
     </organization>
 
     <developers>
@@ -25,6 +27,7 @@
             <email>larry1123@larry1123.net</email>
             <url>https://larry1123.net</url>
             <organization>ElecEntertainment</organization>
+            <organizationUrl>https://forums.elec.larry1123.net/</organizationUrl>
         </developer>
     </developers>
 
@@ -207,7 +210,6 @@
     </build>
 
     <profiles>
-
         <!-- Add Build number to a Jenkins build -->
         <profile>
             <id>jenkins</id>
@@ -224,6 +226,16 @@
 
     <repositories>
         <repository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
             <id>Repo1123</id>
             <name>Larry1123's Repo</name>
             <url>http://ci.larry1123.net/plugin/repository/everything</url>

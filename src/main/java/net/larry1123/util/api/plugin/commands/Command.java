@@ -1,6 +1,9 @@
 package net.larry1123.util.api.plugin.commands;
 
+import net.canarymod.chat.MessageReceiver;
 import net.visualillusionsent.utils.LocaleHelper;
+
+import java.util.List;
 
 public interface Command extends CommandExecute {
 
