@@ -226,19 +226,8 @@
 
     <repositories>
         <repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>ignore</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>ignore</checksumPolicy>
-            </snapshots>
             <id>Repo1123</id>
-            <name>Larry1123's Repo</name>
-            <url>http://ci.larry1123.net/plugin/repository/everything</url>
+            <url>http://repo.greatmancode.com/content/groups/public/</url>
         </repository>
         <repository>
                   <id>Canary repo</id>
