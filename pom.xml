@@ -240,6 +240,10 @@
             <name>Larry1123's Repo</name>
             <url>http://ci.larry1123.net/plugin/repository/everything</url>
         </repository>
+        <repository>
+                  <id>Canary repo</id>
+                 <url>http://repo2.visualillusionsent.net/repository/public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
